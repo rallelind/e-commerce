@@ -72,12 +72,20 @@ const Header: React.FC = () => {
             <ul>
                 <li>
                     <Link href="/profile">
-                        <Avatar src={session.user.image} size="xl" color="gradient" bordered />
+                        <a data-active={isActive('/profile')}>
+                            <Avatar src={session.user.image} size="xl" color="gradient" bordered />
+                        </a>
                     </Link>
                 </li>
             </ul>
         )
     }
+
+    if (isActive("/profile")) {
+        right = null
+    }
+
+
 
     return (
         <nav className={stylesHeader.nav}>

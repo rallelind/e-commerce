@@ -5,15 +5,15 @@ import { GetStaticProps } from "next"
 import prisma from "../lib/prisma"
 
 export const getStaticProps: GetStaticProps = async () => {
-    const feed = await prisma.post.findMany({
-        where: { published: true },
-        include: {
-            author: {
-                select: { name: true },
-            },
-        },
-    });
-    return { props: { feed } }
+  const feed = await prisma.post.findMany({
+    where: { published: true },
+    include: {
+      author: {
+        select: { name: true },
+      },
+    },
+  });
+  return { props: { feed } }
 }
 
 type Props = {
@@ -22,13 +22,13 @@ type Props = {
 
 
 const ShowProduct: React.FC<Props> = (props) => {
-    return (
-            <>
-                {props.feed.map((post) => (
-                    <ProductCard key={post.id} post={post} />
-                ))}
-            </>
-    )
+  return (
+    <Grid.Container gap={4}>
+      {props.feed.map((post) => (
+          <ProductCard key={post.id} post={post} />
+      ))}
+    </Grid.Container>
+  )
 }
 
 export default ShowProduct

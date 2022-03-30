@@ -16,8 +16,7 @@ export type PostProps = {
 const ProductCard: React.FC<{post: PostProps}> = ({ post }) => {
     const authorName = post.author ? post.author.name : "Unknown author"
     return (
-        <Grid.Container gap={2} justify="center">
-            <Grid xs={4}>
+            <Grid xs={12} sm={4}>
                 <Card cover>
                     <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                         <Col>
@@ -37,7 +36,6 @@ const ProductCard: React.FC<{post: PostProps}> = ({ post }) => {
                         />
                 </Card>
             </Grid>
-        </Grid.Container>
     )
 }
 
