@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/ProfileInfo.tsx"  ],
   "exclude": [
     "node_modules"
   ]
