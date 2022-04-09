@@ -5,7 +5,7 @@ import ProfileInfo from "../components/ProfileInfo";
 import UploadProduct from "../components/UploadProduct";
 import UserProducts from "../components/UserProducts";
 
-const profile: React.FC = () => {
+const Profile: React.FC = () => {
 
     const [showComponent, setShowComponent] = useState(<ProfileInfo />)
 
@@ -44,4 +44,4 @@ const profile: React.FC = () => {
     )
 }
 
-export default profile
+export default Profile
