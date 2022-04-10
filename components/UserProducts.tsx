@@ -18,8 +18,6 @@ const UserProducts: React.FC = (props) => {
         .then(data => setUserProduct(data))
     }, [])
 
-    console.log(userProduct)
-
     if(!session) {
         return (
             <h1>You need to be authenticated</h1>
