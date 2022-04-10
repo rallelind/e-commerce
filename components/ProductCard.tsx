@@ -5,6 +5,7 @@ import ImageSlider from './ImageSlider';
 export type PostProps = {
     id: number;
     title: string;
+    price: number;
     author: {
       name: string;
       email: string;
@@ -32,6 +33,18 @@ const ProductCard: React.FC<{post: PostProps, xs: any, sm: any}> = ({ post, xs, 
                     <Card.Body style={{ overflow: "hidden" }}>
                         <ImageSlider images={post.image}/>
                     </Card.Body>
+                    <Card.Footer
+                        blur
+                        css={{
+                            position: "absolute",
+                            bgBlur: "#ffffff",
+                            borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
+                            bottom: 0,
+                            zIndex: 1,
+                        }}
+                        >
+                        {post.price} DKK
+                    </Card.Footer>
                 </Card>
             </Grid>
     )

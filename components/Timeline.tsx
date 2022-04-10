@@ -2,7 +2,7 @@ import { Stepper, Text } from "@mantine/core"
 
 import { FcAddImage } from "react-icons/fc"
 import { MdSubtitles, MdDescription } from "react-icons/md"
-import { GiPriceTag } from "react-icons/gi"
+import { GiPriceTag, GiClothes } from "react-icons/gi"
 
 
 const UploadTimeline = (props) => {
@@ -19,6 +19,9 @@ const UploadTimeline = (props) => {
             />
             <Stepper.Step
                 icon={<FcAddImage />}
+            />
+            <Stepper.Step
+                icon={<GiClothes />}
             />
         </Stepper>
     )

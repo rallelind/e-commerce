@@ -22,4 +22,5 @@ a {
 
 .slick-dots {
   top: 90%;
+  z-index: 5;
 }

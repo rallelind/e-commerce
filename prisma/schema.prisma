@@ -15,6 +15,7 @@ model Post {
   title     String
   content   String?
   image     String[]
+  price     Int      @default(0)
   published Boolean  @default(true)
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  String?

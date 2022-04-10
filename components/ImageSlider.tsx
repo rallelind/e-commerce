@@ -51,7 +51,6 @@ const ImageSlider = (props) => {
                         src={image} 
                         alt="productImage" 
                         height={340}
-                        width="100%"
                     />
                 ))}
             </Slider>

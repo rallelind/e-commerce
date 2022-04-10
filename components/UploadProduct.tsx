@@ -1,9 +1,10 @@
-import React from "react"
+import React, { SyntheticEvent } from "react"
 import { useState } from "react"
 import { Textarea, Input, Grid, Spacer, Container } from "@nextui-org/react"
 import { Button } from '@mantine/core';
 import ImageDropzone from "./Dropzone";
 import PreviewImagesUploaded from "./ImageUploadedPreview";
+import PreviewProduct from "./PreviewProduct";
 
 import UploadTimeline from "./Timeline"
 
@@ -12,7 +13,7 @@ const UploadProduct: React.FC = () => {
     const [active, setActive] = useState(0)
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [price, setPrice] = useState("")
+    const [price, setPrice] = useState(0)
     const [images, setImages] = useState([])
     const [show, setShow] = useState("title")
 
@@ -38,6 +39,20 @@ const UploadProduct: React.FC = () => {
         } 
       };
 
+    const uploadProduct = async() => {
+        try {
+            let prices = Number(price)
+            const body = { title, prices, images, description }
+            await fetch(`api/product/upload-product`, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const goForwardButton = (e: React.SyntheticEvent) => {
         e.preventDefault()
         if(show === "title") {
@@ -53,10 +68,17 @@ const UploadProduct: React.FC = () => {
             }
         }
         if(show === "price") {
-            if(price.length > 0) {
+            if(price > 1) {
             setShow("images")
             setActive(3)
             }
+        }
+        if(show === "images") {
+            setShow("preview")
+            setActive(4)
+        }
+        if(show === "preview") {
+            uploadProduct()
         }
     }
 
@@ -73,16 +95,18 @@ const UploadProduct: React.FC = () => {
             setShow("price")
             setActive(2)
         }
+        if(show === "preview") {
+            setShow("images")
+            setActive(3)
+        }
     }
 
     return (
-        <Grid xs={6}>
-            <Container>
-                <UploadTimeline 
-                    active={active}
-                    
-                />
-            </Container>
+        <>
+            <UploadTimeline 
+                active={active}    
+            />
+        <Grid xs={5}>
             <Grid.Container gap={4}>
                 {show === "title" &&
                 <Container>
@@ -108,7 +132,8 @@ const UploadProduct: React.FC = () => {
                 <Container>
                     <Input 
                         label="Pick a price"
-                        onChange={(e) => setPrice(e.currentTarget.value)}
+                        type="number"
+                        onChange={(e: SyntheticEvent<any>) => setPrice(e.currentTarget.value)}
                         value={price}
                     />
                 </Container>
@@ -129,6 +154,14 @@ const UploadProduct: React.FC = () => {
                     </Grid.Container>
                 </Container>
                 }
+                {show === "preview" &&
+                        <PreviewProduct 
+                            images={images.map(e => e)}
+                            price={price}
+                            content={description}
+                            title={title}
+                        />
+                }
                 <Container>
                 {show === "title" ? <div></div> :
                     <Button 
@@ -144,11 +177,12 @@ const UploadProduct: React.FC = () => {
                         radius="lg"
                         onClick={goForwardButton}
                     >
-                        Next
+                        {show === "preview" ? <>Finish</> : <>Next</>}
                     </Button>
                 </Container>
             </Grid.Container>
         </Grid>
+        </>
     )
 }
 
