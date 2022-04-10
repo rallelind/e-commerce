@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from "react"
 import { useState } from "react"
 import { Textarea, Input, Grid, Spacer, Container } from "@nextui-org/react"
-import { Button } from '@mantine/core';
+import { Button, NumberInputStylesNames } from '@mantine/core';
 import ImageDropzone from "./Dropzone";
 import PreviewImagesUploaded from "./ImageUploadedPreview";
 import PreviewProduct from "./PreviewProduct";
@@ -13,7 +13,7 @@ const UploadProduct: React.FC = () => {
     const [active, setActive] = useState(0)
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [price, setPrice] = useState(0)
+    const [price, setPrice] = useState("")
     const [images, setImages] = useState([])
     const [show, setShow] = useState("title")
 
@@ -67,7 +67,7 @@ const UploadProduct: React.FC = () => {
             }
         }
         if(show === "price") {
-            if(price > 1) {
+            if(price.length > 1) {
             setShow("images")
             setActive(3)
             }
@@ -132,7 +132,7 @@ const UploadProduct: React.FC = () => {
                     <Input 
                         label="Pick a price"
                         type="number"
-                        onChange={(e: SyntheticEvent<any>) => setPrice(e.currentTarget.value)}
+                        onChange={(e) => setPrice(e.currentTarget.value)}
                         value={price}
                     />
                 </Container>
