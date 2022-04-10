@@ -41,8 +41,7 @@ const UploadProduct: React.FC = () => {
 
     const uploadProduct = async() => {
         try {
-            let prices = Number(price)
-            const body = { title, prices, images, description }
+            const body = { title, price, images, description }
             await fetch(`api/product/upload-product`, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
