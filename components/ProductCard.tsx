@@ -1,5 +1,6 @@
 import React from 'react'
 import { Grid, Card, Col, Text } from '@nextui-org/react'
+import ImageSlider from './ImageSlider';
 
 export type PostProps = {
     id: number;
@@ -28,12 +29,9 @@ const ProductCard: React.FC<{post: PostProps, xs: any, sm: any}> = ({ post, xs, 
                             </Text>
                         </Col>
                     </Card.Header>
-                    <Card.Image
-                        src={post.image[0]}
-                        height={340}
-                        width="100%"
-                        alt="Card image background"
-                        />
+                    <Card.Body style={{ overflow: "hidden" }}>
+                        <ImageSlider images={post.image}/>
+                    </Card.Body>
                 </Card>
             </Grid>
     )
