@@ -25,7 +25,12 @@ const ShowProduct: React.FC<Props> = (props) => {
   return (
     <Grid.Container gap={4}>
       {props.feed.map((post) => (
-          <ProductCard key={post.id} post={post} />
+          <ProductCard 
+            key={post.id} 
+            post={post} 
+            xs={12}
+            sm={4}
+            />
       ))}
     </Grid.Container>
   )

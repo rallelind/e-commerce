@@ -3,6 +3,7 @@ import { useState } from "react"
 import { Textarea, Input, Grid, Spacer, Container } from "@nextui-org/react"
 import { Button } from '@mantine/core';
 import ImageDropzone from "./Dropzone";
+import PreviewImagesUploaded from "./ImageUploadedPreview";
 
 import UploadTimeline from "./Timeline"
 
@@ -117,6 +118,15 @@ const UploadProduct: React.FC = () => {
                     <ImageDropzone 
                         onDrop={(files) => handleChange(files)}
                     />
+                    <Grid.Container gap={1}>
+                        {images.map((img, i) => (
+                            <PreviewImagesUploaded 
+                                key={i}
+                                src={img}
+                            />
+                        ))
+                    }
+                    </Grid.Container>
                 </Container>
                 }
                 <Container>

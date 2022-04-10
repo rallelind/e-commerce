@@ -13,10 +13,10 @@ export type PostProps = {
     published: boolean;
   };
 
-const ProductCard: React.FC<{post: PostProps}> = ({ post }) => {
+const ProductCard: React.FC<{post: PostProps, xs: any, sm: any}> = ({ post, xs, sm }) => {
     const authorName = post.author ? post.author.name : "Unknown author"
     return (
-            <Grid xs={12} sm={4}>
+            <Grid xs={xs} sm={sm}>
                 <Card cover>
                     <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                         <Col>

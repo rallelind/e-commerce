@@ -9,6 +9,17 @@ const Profile: React.FC = () => {
 
     const [showComponent, setShowComponent] = useState(<ProfileInfo />)
 
+    const { data: session } = useSession()
+
+
+    if (!session) {
+        return (
+            <div>
+                <p>You need to be signed in...</p>
+            </div>
+        )
+    }
+
     return (
         <div>
             <Spacer y={1} />

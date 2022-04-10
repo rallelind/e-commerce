@@ -18,11 +18,6 @@ const UserProducts: React.FC = (props) => {
         .then(data => setUserProduct(data))
     }, [])
 
-    if(!session) {
-        return (
-            <h1>You need to be authenticated</h1>
-        )
-    }
 
     return (
         <Grid xs={5}>
@@ -32,7 +27,7 @@ const UserProducts: React.FC = (props) => {
                 }
                   
                 {userProduct.map((post) => (
-                    <ProductCard key={post.id} post={post} />
+                    <ProductCard key={post.id} post={post} xs={12} sm={6} />
                 ))}
                 
             </Grid.Container>

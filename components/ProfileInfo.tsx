@@ -72,13 +72,6 @@ const ProfileInfo = () => {
         }
     }
 
-    if (!session) {
-        return (
-            <div>
-                <p>You need to be signed in...</p>
-            </div>
-        )
-    }
     return (
         <Grid xs={5}>
             <Container>
