@@ -10,8 +10,8 @@ export default async function handle(req, res) {
         data: {
             title: title,
             content: description,
-            image: images,
             price: prices,
+            image: images,
             author: { connect: { email: session?.user?.email } },
         },
     })
