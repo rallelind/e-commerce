@@ -28,8 +28,8 @@ const ShowProduct: React.FC<Props> = (props) => {
           <ProductCard 
             key={post.id} 
             post={post} 
-            xs={12}
-            sm={4}
+            xs={6}
+            sm={3}
             />
       ))}
     </Grid.Container>
