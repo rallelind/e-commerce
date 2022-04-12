@@ -5,7 +5,7 @@ import ImageSlider from './ImageSlider';
 export type PostProps = {
     id: number;
     title: string;
-    price: string;
+    price: number;
     author: {
       name: string;
       email: string;

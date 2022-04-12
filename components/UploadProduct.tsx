@@ -13,7 +13,7 @@ const UploadProduct: React.FC = () => {
     const [active, setActive] = useState(0)
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [price, setPrice] = useState("")
+    const [price, setPrice] = useState(null)
     const [images, setImages] = useState([])
     const [show, setShow] = useState("title")
 
@@ -40,8 +40,11 @@ const UploadProduct: React.FC = () => {
       };
 
     const uploadProduct = async() => {
+        
+        let prices = Number(price)
+
         try {
-            const body = { title, price, images, description }
+            const body = { title, prices, images, description }
             await fetch(`api/product/upload-product`, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
@@ -67,7 +70,7 @@ const UploadProduct: React.FC = () => {
             }
         }
         if(show === "price") {
-            if(price.length > 1) {
+            if(price > 0) {
             setShow("images")
             setActive(3)
             }
