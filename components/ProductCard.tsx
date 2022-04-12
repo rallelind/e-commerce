@@ -7,7 +7,7 @@ export type PostProps = {
     title: string;
     content: string;
     image: string[];
-    price: number | null;
+    price: number;
     published: boolean;
     author: {
       name: string;
