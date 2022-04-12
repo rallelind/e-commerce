@@ -13,7 +13,7 @@ export type PostProps = {
     image: string[];
     content: string;
     published: boolean;
-    [key: string]: string | number;
+    [key: string]: any;
   };
 
 const ProductCard: React.FC<{post: PostProps, xs: any, sm: any}> = ({ post, xs, sm }) => {
