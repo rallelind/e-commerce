@@ -2,7 +2,7 @@ import { Card, Col, Text } from "@nextui-org/react";
 import React from "react";
 import ImageSlider from "./ImageSlider";
 
-const PreviewProduct: React.FC<{ content: string, title: string, images: any, price: number }> = ({ content, title, images, price }) => {
+const PreviewProduct: React.FC<{ content: string, title: string, images: any, price: number | string }> = ({ content, title, images, price }) => {
     return (
         <Card cover>
             <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
