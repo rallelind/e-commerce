@@ -132,7 +132,8 @@ const UploadProduct: React.FC = () => {
                 }
                 {show === "price" && 
                 <Container>
-                    <input 
+                    <Input 
+                        label="Pick a price"
                         type="number"
                         onChange={(e) => setPrice(e.currentTarget.value)}
                         value={price}

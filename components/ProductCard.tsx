@@ -5,14 +5,14 @@ import ImageSlider from './ImageSlider';
 export type PostProps = {
     id: number;
     title: string;
+    content: string;
+    image: string[];
     price: number;
+    published: boolean;
     author: {
       name: string;
       email: string;
     } | null;
-    image: string[];
-    content: string;
-    published: boolean;
   };
 
 const ProductCard: React.FC<{post: PostProps, xs: any, sm: any}> = ({ post, xs, sm }) => {
