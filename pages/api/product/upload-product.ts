@@ -11,7 +11,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
             title: title,
             content: description,
             image: images,
-            price: prices,
+            price: 5,
             author: { connect: { email: session?.user?.email } },
         },
     })
