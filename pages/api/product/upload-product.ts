@@ -2,7 +2,7 @@ import { getSession } from "next-auth/react";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 
-export default async function handle(req, res) {
+export default async function handle(req: NextApiRequest, res: NextApiResponse) {
     const { title, description, images, prices } = req.body;
 
     const session = await getSession({ req })

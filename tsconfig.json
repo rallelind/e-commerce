@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/ProfileInfo.tsx", "pages/api/product/upload-product.js"  ],
+, "components/ProfileInfo.tsx", "pages/api/product/upload-product.ts"  ],
   "exclude": [
     "node_modules"
   ]
