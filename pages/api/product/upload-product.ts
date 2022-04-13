@@ -4,7 +4,7 @@ import prisma from "../../../lib/prisma";
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
     const { title, description, images, prices } = req.body;
-
+    //
     const session = await getSession({ req })
     const result = await prisma.post.create({
         data: {
