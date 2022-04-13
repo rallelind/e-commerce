@@ -10,8 +10,8 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
         data: {
             title: title,
             content: description,
-            price: prices,
             image: images,
+            price: prices,
             author: { connect: { email: session?.user?.email } },
         },
     })
