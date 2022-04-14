@@ -7,21 +7,21 @@ import { GiPriceTag, GiClothes } from "react-icons/gi"
 
 const UploadTimeline = (props) => {
     return (
-        <Stepper active={props.active} onStepClick={props.onStepClick} orientation="vertical" color="grape">
+        <Stepper style={{ width: "100%" }} iconSize={60} active={props.active} onStepClick={props.onStepClick} color="grape">
             <Stepper.Step
-                icon={<MdSubtitles />}
+                icon={<MdSubtitles size={40} />}
             />
             <Stepper.Step
-                icon={<MdDescription />}
+                icon={<MdDescription size={40} />}
             />
             <Stepper.Step
-                icon={<GiPriceTag />}
+                icon={<GiPriceTag size={40} />}
             />
             <Stepper.Step
-                icon={<FcAddImage />}
+                icon={<FcAddImage size={40} />}
             />
             <Stepper.Step
-                icon={<GiClothes />}
+                icon={<GiClothes size={40} />}
             />
         </Stepper>
     )

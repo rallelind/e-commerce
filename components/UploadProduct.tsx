@@ -108,7 +108,7 @@ const UploadProduct: React.FC = () => {
             <UploadTimeline 
                 active={active}    
             />
-        <Grid xs={5}>
+        <Grid xs={10}>
             <Grid.Container gap={4}>
                 {show === "title" &&
                 <Container>
@@ -165,22 +165,24 @@ const UploadProduct: React.FC = () => {
                         />
                 }
                 <Container>
-                {show === "title" ? <div></div> :
-                    <Button 
-                        variant="default" 
-                        radius="lg"
-                        onClick={goBackButton}
-                    >
-                        Previous
-                    </Button>
-                    }
-                    <Button 
-                        color="grape" 
-                        radius="lg"
-                        onClick={goForwardButton}
-                    >
-                        {show === "preview" ? <>Finish</> : <>Next</>}
-                    </Button>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginTop: "5%" }}>
+                    {show === "title" ? <div></div> :
+                        <Button 
+                            variant="default" 
+                            radius="lg"
+                            onClick={goBackButton}
+                        >
+                            Previous
+                        </Button>
+                        }
+                        <Button 
+                            color="grape" 
+                            radius="lg"
+                            onClick={goForwardButton}
+                        >
+                            {show === "preview" ? <>Finish</> : <>Next</>}
+                        </Button>
+                    </div>
                 </Container>
             </Grid.Container>
         </Grid>

@@ -3,6 +3,7 @@ import { Grid } from '@nextui-org/react'
 import ProductCard, { PostProps } from '../components/ProductCard'
 import { GetStaticProps } from "next"
 import prisma from "../lib/prisma"
+import Layout from '../components/Layout';
 
 export const getStaticProps: GetStaticProps = async () => {
   const feed = await prisma.post.findMany({
@@ -23,16 +24,18 @@ type Props = {
 
 const ShowProduct: React.FC<Props> = (props) => {
   return (
-    <Grid.Container gap={4}>
-      {props.feed.map((post) => (
-          <ProductCard 
-            key={post.id} 
-            post={post} 
-            xs={6}
-            sm={3}
-            />
-      ))}
-    </Grid.Container>
+    <Layout>
+      <Grid.Container gap={4}>
+        {props.feed.map((post) => (
+            <ProductCard 
+              key={post.id} 
+              post={post} 
+              xs={6}
+              sm={3}
+              />
+        ))}
+      </Grid.Container>
+    </Layout>
   )
 }
 

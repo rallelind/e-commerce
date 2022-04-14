@@ -20,18 +20,18 @@ const UserProducts: React.FC = (props) => {
 
 
     return (
-        <Grid xs={5}>
-            <Grid.Container gap={4} justify="center">
-                {userProduct.length === 0 &&
-                        <Loading size="xl" />
-                }
-                  
-                {userProduct.map((post) => (
-                    <ProductCard key={post.id} post={post} xs={12} sm={6} />
-                ))}
-                
-            </Grid.Container>
-        </Grid>
+            <Grid xs={12}>
+                <Grid.Container gap={4} justify="center">
+                    {userProduct.length === 0 &&
+                            <Loading size="xl" />
+                    }
+                    
+                    {userProduct.map((post) => (
+                        <ProductCard key={post.id} post={post} xs={12} sm={6} />
+                    ))}
+                    
+                </Grid.Container>
+            </Grid>
     )
 }
 

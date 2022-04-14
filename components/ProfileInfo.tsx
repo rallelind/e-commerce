@@ -130,7 +130,7 @@ const ProfileInfo = () => {
                                 newName === false ?
                                 <Avatar squared pointer icon={<AiFillEdit size={20} />} onClick={() => setNewName(true)} />
                                 :
-                                <Button onClick={updateUserName}>Change</Button>
+                                <Button auto onClick={updateUserName}>Change</Button>
                             }
                         </div>
                     </div>

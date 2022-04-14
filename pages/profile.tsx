@@ -4,6 +4,10 @@ import { Text, Avatar, Grid, Spacer, Button, Container } from "@nextui-org/react
 import ProfileInfo from "../components/ProfileInfo";
 import UploadProduct from "../components/UploadProduct";
 import UserProducts from "../components/UserProducts";
+import { AppShell, Navbar, Header, Footer } from '@mantine/core';
+import { CgProfile } from "react-icons/cg"
+import { FiUpload, FiLogOut } from "react-icons/fi"
+import { AiOutlineShop } from "react-icons/ai"
 
 const Profile: React.FC = () => {
 
@@ -21,11 +25,9 @@ const Profile: React.FC = () => {
     }
 
     return (
-        <div>
-            <Spacer y={1} />
-            <Grid.Container gap={3} justify="center">
-                {showComponent}
-                <Grid>
+        <AppShell
+            padding="md"
+            navbar={<Navbar fixed width={{ base: "15%" }} p="xs">
                     <Text
                         h3
                         css={{
@@ -34,24 +36,28 @@ const Profile: React.FC = () => {
                     >
                         Options</Text>
                     <Spacer y={1} />
-                    <Button flat onClick={() => setShowComponent(<ProfileInfo />)}>
+                    <Button icon={<CgProfile size={25}/>} rounded flat onClick={() => setShowComponent(<ProfileInfo />)}>
                         Profile
                     </Button>
                     <Spacer y={1} />
-                    <Button flat onClick={() => setShowComponent(<UploadProduct />)}>
+                    <Button icon={<FiUpload size={25}/>} rounded flat onClick={() => setShowComponent(<UploadProduct />)}>
                         Upload Product
                     </Button>
                     <Spacer y={1} />
-                    <Button flat onClick={() => setShowComponent(<UserProducts />)}>
-                        View Your Products
+                    <Button icon={<AiOutlineShop size={25}/>} rounded flat onClick={() => setShowComponent(<UserProducts />)}>
+                        View Products
                     </Button>
                     <Spacer y={1} />
-                    <Button flat color="error" onClick={() => signOut()}>
+                    <Button icon={<FiLogOut size={25}/>} rounded flat color="error" onClick={() => signOut()}>
                         Sign Out
                     </Button>
-                </Grid>
-            </Grid.Container>
-        </div>
+            </Navbar>}>
+            <div style={{ width: "85%", marginLeft: "15%" }}>
+                <Grid.Container>
+                    {showComponent}
+                </Grid.Container>
+            </div>
+        </AppShell>
     )
 }
 

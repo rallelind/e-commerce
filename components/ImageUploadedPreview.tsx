@@ -3,7 +3,7 @@ import { Card, Grid } from "@nextui-org/react"
 
 const PreviewImagesUploaded = (props) => {
     return (
-            <Grid xs={12} sm={6}>
+            <Grid xs={4}>
                 <Card 
                     cover 
                     hoverable
