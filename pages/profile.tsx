@@ -8,6 +8,7 @@ import { AppShell, Navbar, Header, Footer } from '@mantine/core';
 import { CgProfile } from "react-icons/cg"
 import { FiUpload, FiLogOut } from "react-icons/fi"
 import { AiOutlineShop } from "react-icons/ai"
+import Headers from "../components/Header";
 
 const Profile: React.FC = () => {
 
@@ -27,6 +28,7 @@ const Profile: React.FC = () => {
     return (
         <AppShell
             padding="md"
+            header={<Header height={60} fixed>{<Headers/>}</Header>}
             navbar={<Navbar fixed width={{ base: "15%" }} p="xs">
                     <Text
                         h3
@@ -52,11 +54,11 @@ const Profile: React.FC = () => {
                         Sign Out
                     </Button>
             </Navbar>}>
-            <div style={{ width: "85%", marginLeft: "15%" }}>
-                <Grid.Container>
-                    {showComponent}
-                </Grid.Container>
-            </div>
+                <div style={{ width: "85%", marginLeft: "15%", marginTop: "5%" }}>
+                    <Grid.Container>
+                        {showComponent}
+                    </Grid.Container>
+                </div>
         </AppShell>
     )
 }

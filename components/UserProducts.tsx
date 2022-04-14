@@ -27,7 +27,7 @@ const UserProducts: React.FC = (props) => {
                     }
                     
                     {userProduct.map((post) => (
-                        <ProductCard key={post.id} post={post} xs={12} sm={6} />
+                        <ProductCard key={post.id} post={post} xs={12} sm={4} />
                     ))}
                     
                 </Grid.Container>
