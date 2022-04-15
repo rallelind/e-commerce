@@ -4,16 +4,17 @@ import { Card, Grid } from "@nextui-org/react"
 const PreviewImagesUploaded = (props) => {
     return (
             <Grid xs={4}>
-                <Card 
-                    cover 
-                    hoverable
-                    onClick={props.onClick}
-                >
-                    <Card.Image 
-                        height={"100%"}
-                        src={props.src}
-                    />
-                </Card>
+                    <Card 
+                        style={{ marginTop: "7%" }}
+                        cover 
+                        hoverable
+                        onClick={props.onClick}
+                    >
+                        <Card.Image 
+                            height={"100%"}
+                            src={props.src}
+                        />
+                    </Card>
             </Grid>
     )
 }

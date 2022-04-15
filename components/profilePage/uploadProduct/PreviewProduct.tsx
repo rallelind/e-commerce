@@ -5,7 +5,7 @@ import ImageSlider from "../../utils/ImageSlider";
 const PreviewProduct: React.FC<{ content: string, title: string, images: any, price: number }> = ({ content, title, images, price }) => {
     return (
             <Card 
-                style={{ width: "50%" }}
+                style={{ width: "50%", left: "25%", marginTop: "5%" }}
                 cover
             >
                 <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>

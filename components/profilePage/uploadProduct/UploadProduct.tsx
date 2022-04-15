@@ -58,26 +58,14 @@ const UploadProduct: React.FC = () => {
     const goForwardButton = (e: React.SyntheticEvent) => {
         e.preventDefault()
         if(show === "title") {
-            if(title.length > 0) {
-                setShow("description")
+            if(title.length > 0 && description.length > 0 && price > 0) {
+                setShow("images")
                 setActive(1)
-            }
-        }
-        if(show === "description") {
-            if(description.length > 0) {
-                setShow("price")
-                setActive(2)
-            }
-        }
-        if(show === "price") {
-            if(price > 0) {
-            setShow("images")
-            setActive(3)
             }
         }
         if(show === "images") {
             setShow("preview")
-            setActive(4)
+            setActive(2)
         }
         if(show === "preview") {
             uploadProduct()
@@ -85,59 +73,52 @@ const UploadProduct: React.FC = () => {
     }
 
     const goBackButton = (e: React.SyntheticEvent) => {
-        if(show === "description") {
+        if(show === "images") {
             setShow("title")
             setActive(0)
         }
-        if(show === "price") {
-            setShow("description")
-            setActive(1)
-        }
-        if(show === "images") {
-            setShow("price")
-            setActive(2)
-        }
         if(show === "preview") {
             setShow("images")
-            setActive(3)
+            setActive(1)
         }
     }
 
     return (
-        <>
+            <Grid.Container gap={4}>
             <UploadTimeline 
                 active={active}    
             />
-        <Grid xs={10}>
-            <Grid.Container gap={4}>
                 {show === "title" &&
                 <Container>
-                    <Input 
-                        label="Product Titel"
-                        onChange={(e) => setTitle(e.currentTarget.value)}
-                        value={title}
-                    />
-                </Container>
-                }
-                {show === "description" &&
-                <Container>
-                    <Textarea 
-                        label="Product Description"
-                        placeholder="Pick a description for your product"
-                        onChange={(e) => setDescription(e.currentTarget.value)}
-                        value={description}
-                        rows={5}
-                    />
-                </Container>
-                }
-                {show === "price" && 
-                <Container>
-                    <Input 
-                        label="Pick a price"
-                        type="number"
-                        onChange={(e) => setPrice(e.currentTarget.value)}
-                        value={price}
-                    />
+                    <div style={{ marginTop: "5%", marginLeft: "33%" }}>
+                        <Input 
+                            clearable 
+                            width="50%"
+                            bordered
+                            label="Product Titel"
+                            onChange={(e) => setTitle(e.currentTarget.value)}
+                            value={title}
+                        />
+                        <Spacer y={1} />
+                        <Textarea 
+                            bordered
+                            width="50%"
+                            label="Product Description"
+                            placeholder="Pick a description for your product"
+                            onChange={(e) => setDescription(e.currentTarget.value)}
+                            value={description}
+                            rows={5}
+                        />
+                        <Spacer y={1} />
+                        <Input  
+                            bordered
+                            width="50%"
+                            label="Pick a price"
+                            type="number"
+                            onChange={(e) => setPrice(e.currentTarget.value)}
+                            value={price}
+                        />
+                    </div>
                 </Container>
                 }
                 {show === "images" &&
@@ -184,9 +165,7 @@ const UploadProduct: React.FC = () => {
                         </Button>
                     </div>
                 </Container>
-            </Grid.Container>
-        </Grid>
-        </>
+        </Grid.Container>
     )
 }
 

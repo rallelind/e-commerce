@@ -74,7 +74,7 @@ const ProfileInfo = () => {
 
     return (
         <Grid xs={5}>
-            <Container>
+            <Container style={{ width: "100%" }}>
                 <Text
                     h3
                     css={{
