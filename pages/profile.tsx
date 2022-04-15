@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactComponentElement, useState } from 'react';
 import {
   AppShell,
   Navbar,
@@ -33,7 +33,7 @@ export default function AppShellDemo() {
         )
     }
 
-    const handleClick = (component) => {
+    const handleClick = (component: ReactComponentElement<any>) => {
         setShowComponent(component)
         setOpened(false)
     }
