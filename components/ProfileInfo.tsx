@@ -86,7 +86,7 @@ const ProfileInfo = () => {
                 <Spacer y={1} />
                 <Avatar 
                     zoomed 
-                    style={{ height: "125px", width: "125px" }} 
+                    style={{ height: "125px", width: "125px", zIndex: "0" }} 
                     bordered 
                     color="gradient" 
                     src={session.user.image} 
@@ -128,7 +128,7 @@ const ProfileInfo = () => {
                         <div>
                             {
                                 newName === false ?
-                                <Avatar squared pointer icon={<AiFillEdit size={20} />} onClick={() => setNewName(true)} />
+                                <Avatar style={{ zIndex: "0" }} squared pointer icon={<AiFillEdit size={20} />} onClick={() => setNewName(true)} />
                                 :
                                 <Button auto onClick={updateUserName}>Change</Button>
                             }
