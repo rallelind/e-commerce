@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Loading, Container } from "@nextui-org/react";
-import ProductCard from './ProductCard'
+import ProductCard from '../../utils/ProductCard'
 import { useSession  } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 

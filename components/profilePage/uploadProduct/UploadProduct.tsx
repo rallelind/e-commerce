@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from "react"
 import { useState } from "react"
 import { Textarea, Input, Grid, Spacer, Container } from "@nextui-org/react"
 import { Button } from '@mantine/core';
-import ImageDropzone from "./Dropzone";
+import ImageDropzone from "../../utils/Dropzone";
 import PreviewImagesUploaded from "./ImageUploadedPreview";
 import PreviewProduct from "./PreviewProduct";
 

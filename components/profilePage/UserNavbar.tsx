@@ -1,5 +1,5 @@
 import React from 'react';
-import { UnstyledButton, Group, Avatar, Text, Box, useMantineTheme, AVATAR_SIZES } from '@mantine/core';
+import { Group, Avatar, Text, Box, useMantineTheme, AVATAR_SIZES } from '@mantine/core';
 
 interface user {
     avatar: string;

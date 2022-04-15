@@ -9,14 +9,14 @@ import {
 } from '@mantine/core';
 import { Text } from '@nextui-org/react';
 import { useSession, signOut } from 'next-auth/react';
-import ProfileInfo from "../components/ProfileInfo";
-import UploadProduct from "../components/UploadProduct";
-import UserProducts from "../components/UserProducts";
-import ProfileButton from '../components/ProfileButtons';
+import ProfileInfo from "../components/profilePage/profileInfo/ProfileInfo";
+import UploadProduct from "../components/profilePage/uploadProduct/UploadProduct";
+import UserProducts from "../components/profilePage/userProducts/UserProducts";
+import ProfileButton from '../components/profilePage/ProfileButtons';
 import { CgProfile } from "react-icons/cg"
 import { FiUpload, FiLogOut } from "react-icons/fi"
 import { AiOutlineShop } from "react-icons/ai"
-import { User } from '../components/UserNavbar';
+import { User } from '../components/profilePage/UserNavbar';
 import Link from "next/link"
 
 export default function AppShellDemo() {

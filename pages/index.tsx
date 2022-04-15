@@ -1,9 +1,9 @@
 import React from 'react'
 import { Grid } from '@nextui-org/react'
-import ProductCard, { PostProps } from '../components/ProductCard'
+import ProductCard, { PostProps } from '../components/utils/ProductCard'
 import { GetServerSideProps } from "next"
 import prisma from "../lib/prisma"
-import Layout from '../components/Layout';
+import Layout from '../components/utils/Layout';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const feed = await prisma.post.findMany({

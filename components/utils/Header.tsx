@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { signOut, useSession } from 'next-auth/react'
-import stylesHeader from "../styles/Header.module.css"
+import stylesHeader from "../../styles/Header.module.css"
 import { Text, Avatar, Button } from '@nextui-org/react'
 
 const Header: React.FC = () => {
