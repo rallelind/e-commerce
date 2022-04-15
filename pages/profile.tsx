@@ -1,18 +1,26 @@
-import React, { useState } from "react"
-import { useSession, signOut } from "next-auth/react"
-import { Text, Avatar, Grid, Spacer, Button, Container } from "@nextui-org/react";
+import React, { useState } from 'react';
+import {
+  AppShell,
+  Navbar,
+  Header,
+  MediaQuery,
+  Burger,
+  useMantineTheme,
+} from '@mantine/core';
+import { useSession, signOut } from 'next-auth/react';
 import ProfileInfo from "../components/ProfileInfo";
 import UploadProduct from "../components/UploadProduct";
 import UserProducts from "../components/UserProducts";
-import { AppShell, Navbar, Header, Footer } from '@mantine/core';
+import ProfileButton from '../components/ProfileButtons';
 import { CgProfile } from "react-icons/cg"
 import { FiUpload, FiLogOut } from "react-icons/fi"
 import { AiOutlineShop } from "react-icons/ai"
-import Headers from "../components/Header";
 
-const Profile: React.FC = () => {
+export default function AppShellDemo() {
 
     const [showComponent, setShowComponent] = useState(<ProfileInfo />)
+    const theme = useMantineTheme();
+    const [opened, setOpened] = useState(false);
 
     const { data: session } = useSession()
 
@@ -25,42 +33,66 @@ const Profile: React.FC = () => {
         )
     }
 
-    return (
-        <AppShell
-            padding="md"
-            header={<Header height={60} fixed>{<Headers/>}</Header>}
-            navbar={<Navbar fixed width={{ base: "15%" }} p="xs">
-                    <Text
-                        h3
-                        css={{
-                            textGradient: '45deg, $blue500 -20%, $pink500 50%'
-                        }}
-                    >
-                        Options</Text>
-                    <Spacer y={1} />
-                    <Button icon={<CgProfile size={25}/>} rounded flat onClick={() => setShowComponent(<ProfileInfo />)}>
-                        Profile
-                    </Button>
-                    <Spacer y={1} />
-                    <Button icon={<FiUpload size={25}/>} rounded flat onClick={() => setShowComponent(<UploadProduct />)}>
-                        Upload Product
-                    </Button>
-                    <Spacer y={1} />
-                    <Button icon={<AiOutlineShop size={25}/>} rounded flat onClick={() => setShowComponent(<UserProducts />)}>
-                        View Products
-                    </Button>
-                    <Spacer y={1} />
-                    <Button icon={<FiLogOut size={25}/>} rounded flat color="error" onClick={() => signOut()}>
-                        Sign Out
-                    </Button>
-            </Navbar>}>
-                <div style={{ width: "85%", marginLeft: "15%", marginTop: "5%" }}>
-                    <Grid.Container>
-                        {showComponent}
-                    </Grid.Container>
-                </div>
-        </AppShell>
-    )
-}
+    const handleClick = (component) => {
+        setShowComponent(component)
+        setOpened(false)
+    }
 
-export default Profile
+  return (
+    <AppShell
+      styles={{
+        main: {
+          background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
+        },
+      }}
+      navbarOffsetBreakpoint="sm"
+      asideOffsetBreakpoint="sm"
+      fixed
+      navbar={
+        <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
+          <ProfileButton 
+            icon={<CgProfile size={25} />}
+            label="View Profile"
+            color="grape"
+            onClick={() => handleClick(<ProfileInfo/>)}
+            />
+        <ProfileButton 
+            icon={<FiUpload size={25} />}
+            label="Upload Product"
+            color="green"
+            onClick={() => handleClick(<UploadProduct />)}
+            />
+        <ProfileButton 
+            icon={<AiOutlineShop size={25} />}
+            label="Your Products"
+            color="blue"
+            onClick={() => handleClick(<UserProducts />)}
+            />
+        <ProfileButton 
+            icon={<FiLogOut size={25} />}
+            label="Sign Out"
+            color="red"
+            onClick={() => signOut()}
+            />
+        </Navbar>
+      }
+      header={
+        <Header height={70} p="md">
+          <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+            <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+              <Burger
+                opened={opened}
+                onClick={() => setOpened((o) => !o)}
+                size="sm"
+                color={theme.colors.gray[6]}
+                mr="xl"
+              />
+            </MediaQuery>
+          </div>
+        </Header>
+      }
+    >
+        {showComponent}
+    </AppShell>
+  );
+}

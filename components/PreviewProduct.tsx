@@ -4,35 +4,38 @@ import ImageSlider from "./ImageSlider";
 
 const PreviewProduct: React.FC<{ content: string, title: string, images: any, price: number }> = ({ content, title, images, price }) => {
     return (
-        <Card cover>
-            <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
-                        <Col>
-                            <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
-                                {content}
-                            </Text>
-                            <Text h4 color="white">
-                                {title}
-                            </Text>
-                        </Col>
-            </Card.Header>
-            <Card.Body style={{ overflow: "hidden" }}>
-                <ImageSlider 
-                    images={images}
-                />
-            </Card.Body>
-            <Card.Footer
-                blur
-                css={{
-                    position: "absolute",
-                    bgBlur: "#ffffff",
-                    borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
-                    bottom: 0,
-                    zIndex: 1,
-                }}
-                >
-                {price} DKK
-            </Card.Footer>
-        </Card>
+            <Card 
+                style={{ width: "50%" }}
+                cover
+            >
+                <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
+                            <Col>
+                                <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
+                                    {content}
+                                </Text>
+                                <Text h4 color="white">
+                                    {title}
+                                </Text>
+                            </Col>
+                </Card.Header>
+                <Card.Body style={{ overflow: "hidden" }}>
+                    <ImageSlider 
+                        images={images}
+                    />
+                </Card.Body>
+                <Card.Footer
+                    blur
+                    css={{
+                        position: "absolute",
+                        bgBlur: "#ffffff",
+                        borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
+                        bottom: 0,
+                        zIndex: 1,
+                    }}
+                    >
+                    {price} DKK
+                </Card.Footer>
+            </Card>
     )
 }
 
