@@ -30,7 +30,7 @@ const ShowProduct: React.FC<Props> = (props) => {
             <ProductCard 
               key={post.id} 
               post={post} 
-              xs={6}
+              xs={12}
               sm={3}
               />
         ))}
