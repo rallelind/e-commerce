@@ -90,7 +90,7 @@ const UploadProduct: React.FC = () => {
             />
                 {show === "title" &&
                 <Container>
-                    <div style={{ marginTop: "5%", marginLeft: "33%" }}>
+                    <div style={{ marginTop: "5%" }}>
                         <Input 
                             clearable 
                             width="50%"
