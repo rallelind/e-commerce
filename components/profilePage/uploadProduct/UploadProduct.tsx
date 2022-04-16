@@ -5,6 +5,8 @@ import { Button } from '@mantine/core';
 import ImageDropzone from "../../utils/Dropzone";
 import PreviewImagesUploaded from "./ImageUploadedPreview";
 import PreviewProduct from "./PreviewProduct";
+import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/router';
 
 import UploadTimeline from "./Timeline"
 
@@ -17,6 +19,7 @@ const UploadProduct: React.FC = () => {
     const [images, setImages] = useState([])
     const [show, setShow] = useState("title")
 
+    const router = useRouter()
 
     const handleChange = async (files) => {
         const fileUploaded = files[0]
@@ -52,7 +55,7 @@ const UploadProduct: React.FC = () => {
             })
         } catch (error) {
             console.log(error)
-        }
+        } 
     }
 
     const goForwardButton = (e: React.SyntheticEvent) => {
@@ -61,14 +64,27 @@ const UploadProduct: React.FC = () => {
             if(title.length > 0 && description.length > 0 && price > 0) {
                 setShow("images")
                 setActive(1)
+            } else {
+                toast.error('You need to fill out all inputs')
             }
         }
         if(show === "images") {
-            setShow("preview")
-            setActive(2)
+            if (images.length > 0) {
+                setShow("preview")
+                setActive(2)
+            } else {
+                toast.error("You need to upload atleast one image")
+            }
         }
         if(show === "preview") {
-            uploadProduct()
+            toast.promise(
+                uploadProduct(), {
+                    loading: "Uploading",
+                    success: <b>Product uploaded!</b>,
+                    error: <b>Could not upload.</b>,
+                }
+            )
+            .finally(() => router.push("/"))
         }
     }
 
@@ -87,6 +103,10 @@ const UploadProduct: React.FC = () => {
             <Grid.Container gap={4}>
             <UploadTimeline 
                 active={active}    
+            />
+            <Toaster 
+              position="bottom-right"
+              reverseOrder={false}
             />
                 {show === "title" &&
                 <Container>
@@ -124,7 +144,11 @@ const UploadProduct: React.FC = () => {
                 {show === "images" &&
                 <Container>
                     <ImageDropzone 
-                        onDrop={(files) => handleChange(files)}
+                        onDrop={(files) => toast.promise(handleChange(files), {
+                            loading: "Uploading image",
+                            success: <b>Image uploaded!</b>,
+                            error: <b>Could not upload.</b>,
+                        })}
                     />
                     <Grid.Container gap={1}>
                         {images.map((img, i) => (
