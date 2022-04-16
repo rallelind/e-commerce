@@ -18,12 +18,15 @@ import { FiUpload, FiLogOut } from "react-icons/fi"
 import { AiOutlineShop } from "react-icons/ai"
 import { User } from '../components/profilePage/UserNavbar';
 import Link from "next/link"
+import { useRouter } from 'next/router';
 
 export default function AppShellDemo() {
 
     const [showComponent, setShowComponent] = useState(<ProfileInfo />)
     const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);
+
+    const router = useRouter()
 
     const { data: session } = useSession()
 
@@ -39,6 +42,11 @@ export default function AppShellDemo() {
     const handleClick = (component: ReactComponentElement<any>) => {
         setShowComponent(component)
         setOpened(false)
+    }
+
+    const handleSignOut = async () => {
+      const data = await signOut({redirect: false, callbackUrl: "/"})
+      router.push(data.url)
     }
 
   return (
@@ -76,7 +84,7 @@ export default function AppShellDemo() {
               icon={<FiLogOut size={25} />}
               label="Sign Out"
               color="red"
-              onClick={() => signOut()}
+              onClick={() => handleSignOut()}
               />
           </Navbar.Section>
           <Navbar.Section>
