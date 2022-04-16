@@ -104,10 +104,7 @@ const UploadProduct: React.FC = () => {
             <UploadTimeline 
                 active={active}    
             />
-            <Toaster 
-              position="bottom-right"
-              reverseOrder={false}
-            />
+            <Toaster />
                 {show === "title" &&
                 <Container>
                     <div style={{ marginTop: "5%" }}>
