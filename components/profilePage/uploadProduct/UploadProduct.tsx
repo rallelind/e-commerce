@@ -69,11 +69,11 @@ const UploadProduct: React.FC = () => {
             }
         }
         if(show === "images") {
-            if (images.length > 0) {
+            if (images.length >= 5) {
                 setShow("preview")
                 setActive(2)
             } else {
-                toast.error("You need to upload atleast one image")
+                toast.error("You need to upload atleast five images")
             }
         }
         if(show === "preview") {

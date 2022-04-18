@@ -15,11 +15,11 @@ export type PostProps = {
     } | null;
   };
 
-const ProductCard: React.FC<{post: PostProps, xs: any, sm: any}> = ({ post, xs, sm }) => {
+const ProductCard: React.FC<{post: PostProps, xs: any, sm: any, clickable: boolean, hoverable: boolean, onClick: React.MouseEventHandler}> = ({ post, xs, sm, clickable, hoverable, onClick }) => {
     const authorName = post.author ? post.author.name : "Unknown author"
     return (
             <Grid xs={xs} sm={sm}>
-                <Card cover>
+                <Card cover hoverable={hoverable} clickable={clickable} onClick={onClick}>
                     <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                         <Col>
                             <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
