@@ -6,6 +6,7 @@ import GoogleProvider from "next-auth/providers/google"
 import prisma from "../../../lib/prisma";
 
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
+
 export default authHandler
 
 const options = {

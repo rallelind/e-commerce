@@ -19,7 +19,7 @@ const ProductCard: React.FC<{post: PostProps, xs: any, sm: any, clickable: boole
     const authorName = post.author ? post.author.name : "Unknown author"
     return (
             <Grid xs={xs} sm={sm}>
-                <Card cover hoverable={hoverable} clickable={clickable} onClick={onClick}>
+                <Card onClick={onClick} cover hoverable={hoverable} clickable={clickable}>
                     <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                         <Col>
                             <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
@@ -31,7 +31,9 @@ const ProductCard: React.FC<{post: PostProps, xs: any, sm: any, clickable: boole
                         </Col>
                     </Card.Header>
                     <Card.Body style={{ overflow: "hidden" }}>
-                        <ImageSlider images={post.image}/>
+                        <ImageSlider 
+                            images={post.image}
+                        />
                     </Card.Body>
                     <Card.Footer
                         blur

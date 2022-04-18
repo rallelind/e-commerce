@@ -22,7 +22,7 @@ const ImageSlider = (props) => {
         return (
           <div
             className={className}
-            style={{ ...style, right: "0", zIndex: "1"  }}
+            style={{ ...style, right: "0", zIndex: "3"  }}
             onClick={onClick}
           >
           </div>
@@ -34,7 +34,7 @@ const ImageSlider = (props) => {
         return (
           <div
             className={className}
-            style={{ ...style, left: "0", zIndex: "1"  }}
+            style={{ ...style, left: "0", zIndex: "3"  }}
             onClick={onClick}
           >
           </div>

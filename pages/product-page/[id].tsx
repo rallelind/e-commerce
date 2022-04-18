@@ -3,6 +3,8 @@ import { Grid,Image, Container } from "@nextui-org/react"
 import ImageDisplay from "../../components/productPage/ImageDisplay"
 import Layout from "../../components/utils/Layout"
 import prisma from "../../lib/prisma"
+import ProductInfo from "../../components/productPage/ProductInfo"
+import BookingSystem from "../../components/productPage/BookingSection"
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const post = await prisma.post.findUnique({
@@ -11,7 +13,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       },
       include: {
         author: {
-          select: { name: true, email: true },
+          select: { name: true, email: true, image: true },
         },
       },
     })
@@ -22,14 +24,23 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
 export default function ProductPage(props) {
 
-    console.log(props.image)
+    console.log(props)
 
     return (
         <Layout>
           <ImageDisplay 
             image={props.image}
           />
-            <h1>{props.title}</h1>
+          <Grid.Container justify="center" gap={4}>
+              <ProductInfo 
+                avatar={props.author.image}
+                title={props.title}
+                description={props.description}
+              />
+              <BookingSystem 
+                price={props.price}
+              />
+          </Grid.Container>
         </Layout>
     )
 }
