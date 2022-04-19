@@ -30,17 +30,17 @@ const ShowProduct: React.FC<Props> = (props) => {
   return (
     <Layout>
       <Grid.Container gap={4}>
-        {props.feed.map((post) => (
-            <ProductCard 
-              onClick={() => router.push(`/product-page/${post.id}`)}
-              hoverable
-              clickable
-              key={post.id} 
-              post={post} 
-              xs={12}
-              sm={3}
-              />
-        ))}
+          {props.feed.map((post) => (
+              <ProductCard 
+                onClick={() => router.push(`/product-page/${post.id}`)}
+                hoverable
+                clickable
+                key={post.id} 
+                post={post} 
+                xs={12}
+                sm={3}
+                />
+          ))}
       </Grid.Container>
     </Layout>
   )

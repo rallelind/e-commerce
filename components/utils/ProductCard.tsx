@@ -5,7 +5,6 @@ import ImageSlider from './ImageSlider';
 export type PostProps = {
     id: number;
     title: string;
-    content: string;
     image: string[];
     price: number;
     published: boolean;
@@ -22,9 +21,6 @@ const ProductCard: React.FC<{post: PostProps, xs: any, sm: any, clickable: boole
                 <Card onClick={onClick} cover hoverable={hoverable} clickable={clickable}>
                     <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                         <Col>
-                            <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
-                                {post.content}
-                            </Text>
                             <Text h4 color="white">
                                 {post.title}
                             </Text>

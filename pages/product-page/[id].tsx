@@ -35,7 +35,7 @@ export default function ProductPage(props) {
               <ProductInfo 
                 avatar={props.author.image}
                 title={props.title}
-                description={props.description}
+                description={props.content}
               />
               <BookingSystem 
                 price={props.price}

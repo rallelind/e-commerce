@@ -10,9 +10,6 @@ const PreviewProduct: React.FC<{ content: string, title: string, images: any, pr
             >
                 <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                             <Col>
-                                <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
-                                    {content}
-                                </Text>
                                 <Text h4 color="white">
                                     {title}
                                 </Text>
