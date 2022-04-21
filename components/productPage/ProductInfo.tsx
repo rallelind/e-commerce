@@ -3,7 +3,7 @@ import { Grid, Avatar, Container, Text, Divider, Spacer } from "@nextui-org/reac
 import { RangeCalendar } from '@mantine/dates';
 
 
-const ProductInfo: React.FC<{ title: string, description: string, avatar: string }> = ({ title, description, avatar }) => {
+const ProductInfo: React.FC<{ title: string, description: string, avatar: string, dates: string[] }> = ({ title, description, avatar, dates }) => {
 
     const [date, setDate] = useState<[Date | null, Date | null]>([
         new Date(),
@@ -45,6 +45,8 @@ const ProductInfo: React.FC<{ title: string, description: string, avatar: string
                         hideOutsideDates={false}
                         allowLevelChange={false}
                         disableOutsideEvents={true}
+                        minDate={new Date(dates[0])}
+                        maxDate={new Date(dates[1])}
                     />
                 </Container>
             </Container>

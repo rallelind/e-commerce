@@ -36,6 +36,7 @@ export default function ProductPage(props) {
                 avatar={props.author.image}
                 title={props.title}
                 description={props.content}
+                dates={props.dates}
               />
               <BookingSystem 
                 price={props.price}

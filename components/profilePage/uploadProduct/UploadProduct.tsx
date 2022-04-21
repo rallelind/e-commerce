@@ -1,14 +1,16 @@
 import React, { SyntheticEvent } from "react"
 import { useState } from "react"
 import { Textarea, Input, Grid, Spacer, Container } from "@nextui-org/react"
-import { Button } from '@mantine/core';
+import { Button, MultiSelect } from '@mantine/core';
+import { DateRangePicker } from '@mantine/dates';
 import ImageDropzone from "../../utils/Dropzone";
 import PreviewImagesUploaded from "./ImageUploadedPreview";
 import PreviewProduct from "./PreviewProduct";
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/router';
-
+import { FcCalendar } from "react-icons/fc"
 import UploadTimeline from "./Timeline"
+
 
 const UploadProduct: React.FC = () => {
 
@@ -17,6 +19,11 @@ const UploadProduct: React.FC = () => {
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState(null)
     const [images, setImages] = useState([])
+    const [dates, setDates] = useState<[Date | null, Date | null]>([
+        new Date(),
+        new Date(),
+      ]);
+    const [features, setFeatures] = useState([])
     const [show, setShow] = useState("title")
 
     const router = useRouter()
@@ -47,7 +54,7 @@ const UploadProduct: React.FC = () => {
         let prices = Number(price)
 
         try {
-            const body = { title, prices, images, description }
+            const body = { title, prices, images, description, dates, features }
             await fetch(`api/product/upload-product`, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
@@ -62,16 +69,24 @@ const UploadProduct: React.FC = () => {
         e.preventDefault()
         if(show === "title") {
             if(title.length > 0 && description.length > 0 && price > 0) {
-                setShow("images")
+                setShow("dates&features")
                 setActive(1)
             } else {
                 toast.error('You need to fill out all inputs')
             }
         }
+        if(show === "dates&features") {
+            if(dates.length === 2) {
+                setShow("images")
+                setActive(2)
+            } else {
+                toast.error('You need to fill the dates')
+            }
+        }
         if(show === "images") {
             if (images.length >= 5) {
                 setShow("preview")
-                setActive(2)
+                setActive(3)
             } else {
                 toast.error("You need to upload atleast five images")
             }
@@ -89,15 +104,31 @@ const UploadProduct: React.FC = () => {
     }
 
     const goBackButton = (e: React.SyntheticEvent) => {
-        if(show === "images") {
+        if(show === "dates&features") {
             setShow("title")
             setActive(0)
         }
-        if(show === "preview") {
-            setShow("images")
+        if(show === "images") {
+            setShow("dates&features")
             setActive(1)
         }
+        if(show === "preview") {
+            setShow("images")
+            setActive(2)
+        }
     }
+
+    const featuresData = [
+        { value: "waterSytstem", label: "Water system" },
+        { value: "kitcen", label: "Kitchen" },
+        { value: "shower", label: "Shower" },
+        { value: "wifi", label: "Wifi" },
+        { value: "fridge", label: "Fridge" },
+        { value: "stove", label: "Stove" },
+        { value: "waterTanks", label: "Water tanks" },
+    ]
+
+    console.log(dates)
 
     return (
             <Grid.Container gap={4}>
@@ -136,6 +167,30 @@ const UploadProduct: React.FC = () => {
                             value={price}
                         />
                     </div>
+                </Container>
+                }
+                {show === "dates&features" && 
+                <Container>
+                    <div style={{ width: "50%" }}>
+                        <Spacer y={1} />
+                        <DateRangePicker
+                                placeholder="Event date"
+                                label="Pick date"
+                                required
+                                allowLevelChange={false}
+                                icon={<FcCalendar size={30} />}
+                                disableOutsideEvents
+                                value={dates}
+                                onChange={setDates}
+                            />
+                            <Spacer y={1} />
+                            <MultiSelect 
+                                label="Pick included features"
+                                data={featuresData}
+                                value={features}
+                                onChange={setFeatures}
+                            />
+                        </div>
                 </Container>
                 }
                 {show === "images" &&

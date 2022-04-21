@@ -16,8 +16,7 @@ model Post {
   content   String?
   image     String[]
   price     Int    
-  startDare DateTime
-  endDate   DateTime
+  dates     String[]
   features  String[]
   published Boolean  @default(true)
   author    User?    @relation(fields: [authorId], references: [id])

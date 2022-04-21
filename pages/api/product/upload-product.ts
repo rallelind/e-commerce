@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
-    const { title, description, images, prices } = req.body;
+    const { title, description, images, prices, features, dates } = req.body;
     //
     const session = await getSession({ req })
     const result = await prisma.post.create({
@@ -12,6 +12,8 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
             content: description,
             image: images,
             price: prices,
+            dates: dates,
+            features: features,
             author: { connect: { email: session?.user?.email } },
         },
     })
