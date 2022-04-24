@@ -9,8 +9,8 @@ const FeaturesCards: React.FC<{ features: string[] }> = ({ features }) => {
     return (
         <Grid.Container justify="space-between">
             {features.map((e, i) => (
-            <Grid>
-                <Card key={i} shadow={false} color="gradient">
+            <Grid key={i}>
+                <Card shadow={false} color="gradient">
                     {e === "stove" && <GiGasStove size={25} />}
                     {e === "waterSystem" && <GiKitchenTap size={25} />}
                     {e === "kitchen" && <MdKitchen size={25} />}
