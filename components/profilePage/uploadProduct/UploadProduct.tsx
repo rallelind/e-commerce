@@ -119,8 +119,8 @@ const UploadProduct: React.FC = () => {
     }
 
     const featuresData = [
-        { value: "waterSytstem", label: "Water system" },
-        { value: "kitcen", label: "Kitchen" },
+        { value: "waterSystem", label: "Water system" },
+        { value: "kitchen", label: "Kitchen" },
         { value: "shower", label: "Shower" },
         { value: "wifi", label: "Wifi" },
         { value: "fridge", label: "Fridge" },

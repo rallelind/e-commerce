@@ -1,5 +1,6 @@
+import { useState } from "react"
 import { GetServerSideProps } from "next"
-import { Grid,Image, Container } from "@nextui-org/react"
+import { Grid, Image, Container } from "@nextui-org/react"
 import ImageDisplay from "../../components/productPage/ImageDisplay"
 import Layout from "../../components/utils/Layout"
 import prisma from "../../lib/prisma"
@@ -24,7 +25,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
 export default function ProductPage(props) {
 
-    console.log(props)
+    const [dates, setDates] = useState([])
+
+    console.log(dates)
 
     return (
         <Layout>
@@ -33,10 +36,14 @@ export default function ProductPage(props) {
           />
           <Grid.Container justify="center" gap={4}>
               <ProductInfo 
+                value={[new Date(dates[0]), new Date(dates[1])]}
+                onChange={setDates}
                 avatar={props.author.image}
                 title={props.title}
                 description={props.content}
-                dates={props.dates}
+                minDate={props.dates[0]}
+                maxDate={props.dates[1]}
+                features={props.features}
               />
               <BookingSystem 
                 price={props.price}
