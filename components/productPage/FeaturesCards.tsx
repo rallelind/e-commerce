@@ -11,13 +11,13 @@ const FeaturesCards: React.FC<{ features: string[] }> = ({ features }) => {
             {features.map((e, i) => (
             <Grid key={i}>
                 <Card shadow={false} color="gradient">
-                    {e === "stove" && <GiGasStove size={25} />}
-                    {e === "waterSystem" && <GiKitchenTap size={25} />}
-                    {e === "kitchen" && <MdKitchen size={25} />}
-                    {e === "shower" && <FaShower size={25} />}
-                    {e === "wifi" && <BiWifi size={25} />}
-                    {e === "fridge" && <BiFridge size={25} />}
-                    {e === "waterTanks" && <GiWaterGallon size={25} />}
+                    {e === "stove" && <GiGasStove size={20} />}
+                    {e === "waterSystem" && <GiKitchenTap size={20} />}
+                    {e === "kitchen" && <MdKitchen size={20} />}
+                    {e === "shower" && <FaShower size={20} />}
+                    {e === "wifi" && <BiWifi size={20} />}
+                    {e === "fridge" && <BiFridge size={20} />}
+                    {e === "waterTanks" && <GiWaterGallon size={20} />}
                 </Card>
             </Grid>
             ))

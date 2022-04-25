@@ -25,9 +25,16 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
 export default function ProductPage(props) {
 
-    const [dates, setDates] = useState([])
 
-    console.log(dates)
+    const [dates, setDates] = useState<[Date | null, Date | null]>([null, null])
+
+    const amountOfDays = () => {
+      if(dates[0] === null || dates[1] === null) {
+        return
+      }
+        let timeDiff = Math.abs(dates[0].getTime() - dates[1].getTime())
+        return Math.ceil(timeDiff / (1000 * 3600 * 24)) * props.price
+    }
 
     return (
         <Layout>
@@ -36,7 +43,7 @@ export default function ProductPage(props) {
           />
           <Grid.Container justify="center" gap={4}>
               <ProductInfo 
-                value={[new Date(dates[0]), new Date(dates[1])]}
+                value={dates}
                 onChange={setDates}
                 avatar={props.author.image}
                 title={props.title}
@@ -47,6 +54,13 @@ export default function ProductPage(props) {
               />
               <BookingSystem 
                 price={props.price}
+                minDate={props.dates[0]}
+                maxDate={props.dates[1]}
+                onChange={setDates}
+                value={dates}
+                rentCost={amountOfDays()}
+                serviceCost={amountOfDays()*0.1}
+                totalCost={amountOfDays() + amountOfDays()*0.1}
               />
           </Grid.Container>
         </Layout>
