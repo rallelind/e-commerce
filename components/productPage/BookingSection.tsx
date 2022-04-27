@@ -3,8 +3,18 @@ import { Grid, Card, Container, Text, Divider, Spacer } from "@nextui-org/react"
 import { DateRangePicker } from "@mantine/dates"
 import { FcCalendar } from "react-icons/fc"
 
-const BookingSystem: React.FC<{ serviceCost: number, totalCost: number, rentCost: number, price: number, value: [Date, Date], onChange: (value: [Date, Date]) => void, minDate: string, maxDate: string }> = ({ price, value, onChange, minDate, maxDate, serviceCost, totalCost, rentCost }) => {
-    
+type BookingProps = {
+    serviceCost: number;
+    totalCost: number;
+    rentCost: number;
+    price: number;
+    value: [Date, Date];
+    onChange: (value: [Date, Date]) => void;
+    minDate: string;
+    maxDate: string;
+}
+
+const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCost, price, value, onChange, minDate, maxDate }) => {
     
     return (
         <Grid xs={4}>

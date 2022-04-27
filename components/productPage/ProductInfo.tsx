@@ -3,8 +3,18 @@ import { Grid, Avatar, Container, Text, Divider, Spacer } from "@nextui-org/reac
 import { RangeCalendar } from '@mantine/dates';
 import FeaturesCards from "./FeaturesCards";
 
+type ProductInfoProps = {
+    onChange: (value: [Date, Date]) => void;
+    value: [Date, Date];
+    title: string;
+    description: string;
+    avatar: string;
+    minDate: string;
+    maxDate: string;
+    features: string[];
+}
 
-const ProductInfo: React.FC<{ onChange: (value: [Date, Date]) => void, value: [Date, Date], title: string, description: string, avatar: string, minDate: string, maxDate: string, features: string[] }> = ({ title, description, avatar, minDate, maxDate, features, value, onChange }) => {
+const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, minDate, maxDate, features, value, onChange }) => {
 
     return (
         <Grid xs={7}>
