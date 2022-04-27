@@ -12,17 +12,22 @@ type BookingProps = {
     onChange: (value: [Date, Date]) => void;
     minDate: string;
     maxDate: string;
+    height: string;
 }
 
-const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCost, price, value, onChange, minDate, maxDate }) => {
+const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCost, price, value, onChange, minDate, maxDate, height }) => {
     
     return (
         <Grid xs={4}>
-            <Card>
+            <Card bordered style={{ height: height }}>
                 <Card.Body>
+                    <Spacer y={0.5} />
                     <Container>
-                        {price}
+                        <Text
+                        h3
+                        >{price} <span>DKK / night</span></Text>
                     </Container>
+                    <Spacer y={0.5} />
                     <Container>
                         <DateRangePicker 
                             placeholder="Event date"

@@ -61,6 +61,7 @@ export default function ProductPage(props) {
                 rentCost={amountOfDays()}
                 serviceCost={amountOfDays()*0.1}
                 totalCost={amountOfDays() + amountOfDays()*0.1}
+                height={dates[0] === null || dates[1] === null ? "175px" : "300px"}
               />
           </Grid.Container>
         </Layout>
