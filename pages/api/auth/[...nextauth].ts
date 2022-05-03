@@ -9,6 +9,7 @@ const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 
 export default authHandler
 
+
 const options = {
     providers: [
       GitHubProvider({
@@ -20,6 +21,15 @@ const options = {
         clientSecret: process.env.GOOGLE_SECRET,
       })
     ],
+    callbacks: {
+      async redirect({ url, baseUrl }) {
+        // Allows relative callback URLs
+        if (url.startsWith("/")) return `${baseUrl}${url}`
+        // Allows callback URLs on the same origin
+        else if (new URL(url).origin === baseUrl) return url
+        return baseUrl
+      }
+    },
     adapter: PrismaAdapter(prisma),
     secret: process.env.SECRET,
   };
