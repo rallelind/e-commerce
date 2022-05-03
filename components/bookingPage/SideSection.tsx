@@ -1,8 +1,7 @@
 import { Aside } from "@mantine/core";
 import { Container, Text, Divider, Spacer } from "@nextui-org/react";
 import React from "react";
-import BookingImages from "./bookingImages"
-
+import BookingImages from "./BookingImages"
 
 type SideSection = {
     images: string[];
