@@ -1,6 +1,6 @@
-import React from "react"
-import { Grid, Card, Container, Text, Divider, Spacer } from "@nextui-org/react"
-import { DateRangePicker } from "@mantine/dates"
+import React, { MouseEventHandler, useRef } from "react"
+import { Grid, Card, Container, Text, Divider, Spacer, Button } from "@nextui-org/react"
+import { DatePicker, DateRangePicker } from "@mantine/dates"
 import { FcCalendar } from "react-icons/fc"
 
 type BookingProps = {
@@ -13,23 +13,24 @@ type BookingProps = {
     minDate: string;
     maxDate: string;
     height: string;
+    onClick: MouseEventHandler
 }
 
-const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCost, price, value, onChange, minDate, maxDate, height }) => {
-    
+const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCost, price, value, onChange, onClick, minDate, maxDate, height }) => {
+
     return (
         <Grid xs={4}>
-            <Card bordered style={{ height: height }}>
+            <Card bordered style={{ height: height, top: "0", position: "sticky" }}>
                 <Card.Body>
                     <Spacer y={0.5} />
                     <Container>
                         <Text
-                        h3
+                            h3
                         >{price} <span>DKK / night</span></Text>
                     </Container>
                     <Spacer y={0.5} />
                     <Container>
-                        <DateRangePicker 
+                        <DateRangePicker
                             placeholder="Event date"
                             label="Pick date"
                             allowLevelChange={false}
@@ -43,11 +44,21 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
                     </Container>
                     <Spacer y={1} />
                     {value[0] === null || value[0] && value[1] === null ? <></> :
-                    <>
-                        <Container style={{ display: "flex", justifyContent: "space-between" }}>
+                        <>
+                            <Container style={{ display: "flex", justifyContent: "center" }}>
+                                <Button 
+                                    rounded 
+                                    color="gradient" 
+                                    style={{ width: "100%" }}
+                                    onClick={onClick}
+                                    >
+                                    Checkout</Button>
+                            </Container>
+                            <Spacer y={1} />
+                            <Container style={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>
                                     <Text>
-                                        Cost of rent  
+                                        Cost of rent
                                     </Text>
                                 </div>
                                 <div>
@@ -55,12 +66,12 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
                                         {rentCost}
                                     </Text>
                                 </div>
-                        </Container>
-                        <Spacer y={0.5} />
-                        <Container style={{ display: "flex", justifyContent: "space-between" }}>
+                            </Container>
+                            <Spacer y={0.5} />
+                            <Container style={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>
                                     <Text>
-                                        Service cost  
+                                        Service cost
                                     </Text>
                                 </div>
                                 <div>
@@ -68,14 +79,14 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
                                         {serviceCost}
                                     </Text>
                                 </div>
-                        </Container>
-                        <Spacer y={0.5} />
-                        <Divider />
-                        <Spacer y={0.5} />
-                        <Container style={{ display: "flex", justifyContent: "space-between" }}>
+                            </Container>
+                            <Spacer y={0.5} />
+                            <Divider />
+                            <Spacer y={0.5} />
+                            <Container style={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>
                                     <Text>
-                                        Total cost  
+                                        Total cost
                                     </Text>
                                 </div>
                                 <div>
@@ -83,9 +94,9 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
                                         {totalCost}
                                     </Text>
                                 </div>
-                        </Container>
+                            </Container>
                         </>
-                        }
+                    }
                 </Card.Body>
             </Card>
         </Grid>

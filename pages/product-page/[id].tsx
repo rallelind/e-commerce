@@ -6,6 +6,7 @@ import Layout from "../../components/utils/Layout"
 import prisma from "../../lib/prisma"
 import ProductInfo from "../../components/productPage/ProductInfo"
 import BookingSystem from "../../components/productPage/BookingSection"
+import { useRouter } from "next/router"
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const post = await prisma.post.findUnique({
@@ -36,6 +37,20 @@ export default function ProductPage(props) {
         return Math.ceil(timeDiff / (1000 * 3600 * 24)) * props.price
     }
 
+    const router = useRouter()
+
+    const routeChange = () => {
+
+      let bookingDates = dates.map((e) => String(e))
+
+      console.log(bookingDates)
+
+      router.push({
+        pathname: `/booking-page/${props.id}`,
+        query: { bookingDates }
+      })
+    }
+
     return (
         <Layout>
           <ImageDisplay 
@@ -61,7 +76,8 @@ export default function ProductPage(props) {
                 rentCost={amountOfDays()}
                 serviceCost={amountOfDays()*0.1}
                 totalCost={amountOfDays() + amountOfDays()*0.1}
-                height={dates[0] === null || dates[1] === null ? "175px" : "300px"}
+                height={dates[0] === null || dates[1] === null ? "175px" : "350px"}
+                onClick={routeChange}
               />
           </Grid.Container>
         </Layout>
