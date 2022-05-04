@@ -6,6 +6,10 @@ import { Text, Container, Divider, Spacer, Button } from "@nextui-org/react";
 import SideSection from "../../components/bookingPage/SideSection";
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import { FcGoogle, FcCalendar } from "react-icons/fc"
+import { AiOutlineGithub } from "react-icons/ai"
+import wavesStyles from "../../styles/Waves.module.css"
+import GoBackBtn from "../../components/utils/GoBackBtn";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const post = await prisma.post.findUnique({
@@ -36,6 +40,7 @@ export default function BookingPage(props) {
     const serviceCost = priceForStay * 0.1
 
     return (
+        <div className={wavesStyles.svgContainer}>
             <AppShell
                 aside={
                     <SideSection 
@@ -48,35 +53,69 @@ export default function BookingPage(props) {
                     />
                 }
             >
-                <Container justify="center" style={{ width: "80%", marginTop: "5%" }}>
-                    <Text h2>
-                        Request to book this van
-                    </Text>
+                <Container justify="center" style={{ width: "90%", marginTop: "10%" }}>
+                    <div style={{ display: "flex" }}>
+                        <GoBackBtn />
+                        <Text 
+                            h2
+                            css={{
+                                textGradient: "45deg, $purple500 -20%, $pink500 100%",
+                            }}    
+                        >
+                             Request to book this van
+                        </Text>
+                    </div>
                     <Spacer y={1} />
                     <Container style={{ display: "flex", justifyContent: "space-between" }}>
                         <div>
-                            <Text h3>
+                            <Text h4>
                                 Dates
                             </Text>
                         </div>
                         <div>
-                            <Text h3>
+                            <Text h4>
                                 {`${dateOne.getDate()}.${dateOne.getMonth()}`} - {`${dateTwo.getDate()}.${dateTwo.getMonth()}`}
                             </Text>
                         </div>
                     </Container>
                     <Spacer y={1} />
                     <Divider />
-                    <Spacer y={1} />
                     {session.status === "unauthenticated" ?
-                        <Button onClick={() => signIn("google")}>
-                            Google
-                        </Button>
+                        <div>
+                            <Spacer y={1} />
+                            <Text 
+                                h3
+                                css={{
+                                    textGradient: "45deg, $purple500 -20%, $pink500 100%",
+                                }} 
+                            >
+                                In order to book, please sign in below
+                            </Text>
+                            <Spacer y={1} />
+                            <Container style={{ display: "flex", justifyContent: "space-between" }}>
+                                <div>
+                                    <Button color={null} size="lg" bordered onClick={() => signIn("google")}>
+                                        <FcGoogle size={35} />
+                                    </Button>
+                                </div>
+                                <div>
+                                    <Button color={null} size="lg" bordered onClick={() => signIn("github")}>
+                                        <AiOutlineGithub size={35} />
+                                    </Button>
+                                </div>
+                                <div>
+                                    <Button color={null} size="lg" bordered onClick={() => signIn("github")}>
+                                        <AiOutlineGithub size={35} />
+                                    </Button>
+                                </div>
+                            </Container>
+                        </div>
                         :
                         <h1>Hello </h1>
                     }
 
                 </Container>
             </AppShell>
+        </div>
     )
 }

@@ -1,0 +1,17 @@
+.GoBackBtnContainer {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    cursor: pointer;
+    position: relative;
+}
+
+.iconContainer {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+}
+
+.GoBackBtnContainer:hover {
+    background-color: #F0F0F0;
+}
