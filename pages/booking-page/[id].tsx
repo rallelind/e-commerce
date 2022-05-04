@@ -53,9 +53,11 @@ export default function BookingPage(props) {
                     />
                 }
             >
-                <Container justify="center" style={{ width: "90%", marginTop: "10%" }}>
+                <Container justify="center" style={{ width: "90%", marginTop: "15%" }}>
                     <div style={{ display: "flex" }}>
-                        <GoBackBtn />
+                        <div style={{ marginRight: "1%" }}>
+                            <GoBackBtn />
+                        </div>
                         <Text 
                             h2
                             css={{
@@ -83,14 +85,13 @@ export default function BookingPage(props) {
                     {session.status === "unauthenticated" ?
                         <div>
                             <Spacer y={1} />
-                            <Text 
-                                h3
-                                css={{
-                                    textGradient: "45deg, $purple500 -20%, $pink500 100%",
-                                }} 
-                            >
-                                In order to book, please sign in below
-                            </Text>
+                            <Container>
+                                <Text 
+                                    h3
+                                >
+                                    In order to book, please sign in below
+                                </Text>
+                                </Container>
                             <Spacer y={1} />
                             <Container style={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>
