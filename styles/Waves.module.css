@@ -1,7 +1,6 @@
 .svgContainer {
     background: 
-        url(/icons/wave-bottom.svg) top, 
-        url(/icons/wave-3.svg) bottom;
+        url(/icons/wave-top.svg) bottom;
     background-repeat:
         no-repeat; /* this applies to both images */
 }

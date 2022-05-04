@@ -53,7 +53,7 @@ export default function BookingPage(props) {
                     />
                 }
             >
-                <Container justify="center" style={{ width: "90%", marginTop: "15%" }}>
+                <Container justify="center" style={{ width: "90%", marginTop: "5%" }}>
                     <div style={{ display: "flex" }}>
                         <div style={{ marginRight: "1%" }}>
                             <GoBackBtn />
