@@ -44,11 +44,6 @@ export default function AppShellDemo() {
         setOpened(false)
     }
 
-    const handleSignOut = async () => {
-      const data = await signOut({redirect: false, callbackUrl: "/"})
-      router.push(data.url)
-    }
-
   return (
     <AppShell
       styles={{
@@ -84,7 +79,7 @@ export default function AppShellDemo() {
               icon={<FiLogOut size={25} />}
               label="Sign Out"
               color="red"
-              onClick={() => handleSignOut()}
+              onClick={() => signOut({redirect: true, callbackUrl: "/"})}
               />
           </Navbar.Section>
           <Navbar.Section>
