@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 
 const UserProducts: React.FC<{ userProduct: [] }> = ({ userProduct }) => {
 
+    if (userProduct.length === 0) return <h1>You have 0 products uploaded</h1> 
 
     return (
             <Grid xs={12}>
