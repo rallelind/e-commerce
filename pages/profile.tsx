@@ -1,4 +1,5 @@
 import React, { ReactComponentElement, useState } from 'react';
+import { GetServerSideProps } from "next"
 import {
   AppShell,
   Navbar,
@@ -19,8 +20,25 @@ import { AiOutlineShop } from "react-icons/ai"
 import { User } from '../components/profilePage/UserNavbar';
 import Link from "next/link"
 import { useRouter } from 'next/router';
+import prisma from '../lib/prisma';
+import { getSession } from 'next-auth/react';
 
-export default function AppShellDemo() {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+    const session = await getSession({ req })
+    const userProducts= await prisma.post.findMany({
+      where: {
+          author: { email: session.user.email }
+      },
+      include: {
+          author: {
+              select: { name: true }
+          },
+      },
+  });
+  return { props: { userProducts } }
+}
+
+export default function AppShellDemo(props) {
 
     const [showComponent, setShowComponent] = useState(<ProfileInfo />)
     const theme = useMantineTheme();
@@ -73,7 +91,7 @@ export default function AppShellDemo() {
               icon={<AiOutlineShop size={25} />}
               label="Your Products"
               color="blue"
-              onClick={() => handleClick(<UserProducts />)}
+              onClick={() => handleClick(<UserProducts userProduct={props.userProducts} />)}
               />
           <ProfileButton 
               icon={<FiLogOut size={25} />}

@@ -6,17 +6,7 @@ import { useState, useEffect } from 'react';
 
 
 
-const UserProducts: React.FC = (props) => {
-
-    const { data: session } = useSession();
-
-    const [userProduct, setUserProduct] = useState([])
-
-    useEffect(() => {
-        fetch("api/product/user-products")
-        .then(res => res.json())
-        .then(data => setUserProduct(data))
-    }, [])
+const UserProducts: React.FC<{ userProduct: [] }> = ({ userProduct }) => {
 
 
     return (
@@ -26,10 +16,10 @@ const UserProducts: React.FC = (props) => {
                         <Loading size="xl" />
                     }
                     
-                    {userProduct.map((post) => (
+                    {userProduct.map((post, i) => (
                         <ProductCard 
+                            key={i}
                             onClick={null}
-                            key={post.id} 
                             post={post} 
                             xs={12} 
                             sm={4} 
