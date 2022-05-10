@@ -33,7 +33,7 @@ const ProductsTable = ({ products }) => {
                   </Col>
                 );
               case "published":
-                return <StyledBadge type={product.published ? "active" : "paused" as any}>{cellValue}</StyledBadge>;
+                return <StyledBadge type={product.published}>{cellValue}</StyledBadge>;
         
               case "actions":
                 return (
