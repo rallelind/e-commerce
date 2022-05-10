@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Grid } from '@nextui-org/react'
 import ProductCard, { PostProps } from '../components/utils/ProductCard'
 import { GetServerSideProps } from "next"

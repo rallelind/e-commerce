@@ -14,14 +14,16 @@ import ProfileInfo from "../components/profilePage/profileInfo/ProfileInfo";
 import UploadProduct from "../components/profilePage/uploadProduct/UploadProduct";
 import UserProducts from "../components/profilePage/userProducts/UserProducts";
 import ProfileButton from '../components/profilePage/ProfileButtons';
+import ProductsTable from '../components/profilePage/manageProducts/Table';
 import { CgProfile } from "react-icons/cg"
 import { FiUpload, FiLogOut } from "react-icons/fi"
-import { AiOutlineShop } from "react-icons/ai"
+import { AiOutlineShop, AiFillEdit } from "react-icons/ai"
 import { User } from '../components/profilePage/UserNavbar';
 import Link from "next/link"
 import { useRouter } from 'next/router';
 import prisma from '../lib/prisma';
 import { getSession } from 'next-auth/react';
+
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const session = await getSession({ req })
@@ -73,7 +75,7 @@ export default function AppShellDemo(props) {
       asideOffsetBreakpoint="sm"
       fixed
       navbar={
-        <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
+        <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
           <Navbar.Section grow>
             <ProfileButton 
               icon={<CgProfile size={25} />}
@@ -93,6 +95,12 @@ export default function AppShellDemo(props) {
               color="blue"
               onClick={() => handleClick(<UserProducts userProduct={props.userProducts} />)}
               />
+          <ProfileButton 
+            icon={<AiFillEdit size={20} />}
+            label="Manage products"
+            color="blue"
+            onClick={() => handleClick(<ProductsTable products={props.userProducts} />)}
+          />
           <ProfileButton 
               icon={<FiLogOut size={25} />}
               label="Sign Out"
