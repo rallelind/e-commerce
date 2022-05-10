@@ -39,17 +39,17 @@ const ProductsTable = ({ products }) => {
                 return (
                   <Row justify="center" align="center">
                     <Col css={{ d: "flex" }}>
-                      <Tooltip content="Edit user">
-                        <IconButton onClick={() => console.log("Edit user", product.id)}>
+                      <Tooltip content="Edit product" color="primary">
+                        <IconButton onClick={() => console.log("Edit product", product.id)}>
                           <AiFillEdit size={20} fill="#979797" />
                         </IconButton>
                       </Tooltip>
                     </Col>
                     <Col css={{ d: "flex" }}>
                       <Tooltip
-                        content="Delete user"
+                        content="Delete product"
                         color="error"
-                        onClick={() => console.log("Delete user", product.id)}
+                        onClick={() => console.log("Delete product", product.id)}
                       >
                         <IconButton>
                           <AiTwotoneDelete size={20} fill="#FF0080" />
