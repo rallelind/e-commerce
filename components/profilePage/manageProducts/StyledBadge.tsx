@@ -4,7 +4,6 @@ import { styled } from '@nextui-org/react';
 export const StyledBadge = styled('span', {
   display: 'inline-block',
   textTransform: 'uppercase',
-  length: "0",
   padding: '$2 $3',
   margin: '0 2px',
   fontSize: '12px',

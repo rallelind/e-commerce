@@ -2,7 +2,6 @@ import { styled } from '@nextui-org/react';
 
 export const IconButton = styled('button', {
   dflex: 'center',
-  length: '0',
   border: 'none',
   outline: 'none',
   cursor: 'pointer',
