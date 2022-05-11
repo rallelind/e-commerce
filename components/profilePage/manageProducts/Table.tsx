@@ -8,7 +8,7 @@ const ProductsTable = ({ products }) => {
 
         const columns = [
             { name: "PRODUCT", uid: "title" },
-            { name: "DATES", uid: "dates" },
+            { name: "PUBLISHED DATES", uid: "dates" },
             { name: "STATUS", uid: "published" },
             { name: "ACTIONS", uid: "actions" },
           ];
