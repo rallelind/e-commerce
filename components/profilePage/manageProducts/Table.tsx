@@ -3,9 +3,23 @@ import { Table, Row, Col, Tooltip, User, Text } from "@nextui-org/react";
 import { StyledBadge } from "./StyledBadge";
 import { IconButton } from "./IconButton";
 import { AiTwotoneDelete, AiFillEdit } from "react-icons/ai"
+import DeleteModal from "./DeleteModal";
 
 const ProductsTable = ({ products }) => {
 
+        const [visible, setVisible] = useState(false)
+        const [deleteURL, setDeleteURL] = useState("")
+
+        const closeHandler = () => {
+          setVisible(false)
+        }
+
+        const handleOpen = (url) => {
+          setVisible(true)
+          setDeleteURL(url)
+        }
+
+        console.log(products)
         const columns = [
             { name: "PRODUCT", uid: "title" },
             { name: "PUBLISHED DATES", uid: "dates" },
@@ -49,7 +63,7 @@ const ProductsTable = ({ products }) => {
                       <Tooltip
                         content="Delete product"
                         color="error"
-                        onClick={() => console.log("Delete product", product.id)}
+                        onClick={() => handleOpen(product.id)}
                       >
                         <IconButton>
                           <AiTwotoneDelete size={20} fill="#FF0080" />
@@ -64,6 +78,8 @@ const ProductsTable = ({ products }) => {
           };
 
           return (
+            <>
+            <DeleteModal open={visible} onClose={closeHandler} productToDelete={deleteURL}/>
             <Table
               aria-label="Example table with custom cells"
               css={{
@@ -93,6 +109,7 @@ const ProductsTable = ({ products }) => {
                 )}
               </Table.Body>
             </Table>
+            </>
           );
 }
 
