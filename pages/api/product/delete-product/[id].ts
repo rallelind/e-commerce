@@ -7,8 +7,17 @@ export default async function handle(req, res) {
     if (req.method === "DELETE" && session) {
         const post = await prisma.post.delete({
             where: { id: postId },
+            include: {
+                author: {
+                    select: { email: true }
+                },
+            },
         });
-        res.json(post)
+        if(session?.user?.email === post.author.email) {
+            res.json(post)
+        } else {
+            throw new Error("ERROR!")
+        }
     } else {
         throw new Error(
             req.method !== "DELETE" ? `The HTTP ${req.method} is not supported at this route` : "You are not authorized"
