@@ -22,8 +22,10 @@ const DeleteModal: React.FC<Modal> = ({ open, onClose, productToDelete }) => {
             onClose={onClose}
         >
             <Modal.Body>
-                <Text h4>
-                    <Text small>Are you</Text><Text small>SURE</Text><Text small>you want to delete this van?</Text>
+                <Text>
+                    <Text h4>
+                        Are you SURE you want to delete this van?
+                    </Text>
                 </Text>
             </Modal.Body>
             <Modal.Footer>
