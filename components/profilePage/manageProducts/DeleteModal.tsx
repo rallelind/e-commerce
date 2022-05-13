@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Text } from '@nextui-org/react';
+import { Modal, Button, Text, Container } from '@nextui-org/react';
 
 type Modal = {
     open: boolean,
@@ -22,17 +22,23 @@ const DeleteModal: React.FC<Modal> = ({ open, onClose, productToDelete }) => {
             onClose={onClose}
         >
             <Modal.Body>
-                <Text>
-                    Are you SURE you want to delete this van?
+                <Text h4>
+                    <Text small>Are you</Text><Text small>SURE</Text><Text small>you want to delete this van?</Text>
                 </Text>
             </Modal.Body>
             <Modal.Footer>
-                <Button>
-                    Close
-                </Button>
-                <Button onClick={deleteProduct}>
-                    Delete
-                </Button>
+                <Container style={{ display: "flex", justifyContent: "space-evenly" }}>
+                    <div>
+                        <Button color="gradient" auto onClick={onClose}>
+                            Close
+                        </Button>
+                    </div>
+                    <div>
+                    <Button auto color="error" onClick={deleteProduct}>
+                        Delete
+                    </Button>
+                    </div>
+                </Container>
             </Modal.Footer>
         </Modal>
     )

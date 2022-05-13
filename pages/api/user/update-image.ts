@@ -13,5 +13,4 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
         }
     })
     res.json(result)
-    console.log(result)
 }
