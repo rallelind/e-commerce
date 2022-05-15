@@ -78,7 +78,7 @@ const ProfileInfo = () => {
                 <Text
                     h3
                     css={{
-                        textGradient: '45deg, $blue500 -20%, $pink500 50%',
+                        textGradient: "112deg, #06B7DB -63.59%, #FF4ECD -20.3%, #0072F5 70.46%",
                     }}
                 >
                     My Profile
@@ -102,7 +102,7 @@ const ProfileInfo = () => {
                 <Text
                     h5
                     css={{
-                        textGradient: '45deg, $blue500 -20%, $pink500 50%'
+                        textGradient: "112deg, #06B7DB -63.59%, #FF4ECD -20.3%, #0072F5 70.46%"
                     }}
                 >
                     Email:
@@ -114,7 +114,7 @@ const ProfileInfo = () => {
                     <Text
                         h5
                         css={{
-                            textGradient: '45deg, $blue500 -20%, $pink500 50%'
+                            textGradient: "112deg, #06B7DB -63.59%, #FF4ECD -20.3%, #0072F5 70.46%"
                         }}
                     >
                         Name:

@@ -7,7 +7,6 @@ const PreviewImagesUploaded = (props) => {
                     <Card 
                         style={{ marginTop: "7%" }}
                         cover 
-                        hoverable
                         onClick={props.onClick}
                     >
                         <Card.Image 

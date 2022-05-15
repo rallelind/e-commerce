@@ -4,22 +4,25 @@ import { StyledBadge } from "./StyledBadge";
 import { IconButton } from "./IconButton";
 import { AiTwotoneDelete, AiFillEdit } from "react-icons/ai"
 import DeleteModal from "./DeleteModal";
+import UpdateModal from "./UpdateModal";
 
-const ProductsTable = ({ products }) => {
+const ProductsTable: React.FC<{ products: any }> = ({ products }) => {
 
-        const [visible, setVisible] = useState(false)
+        const [visibleDeleteModal, setVisibleDeleteModal] = useState(false)
+        const [visibleUpdateModal, setVisibleUpdateModal] = useState(false)
+        const [productToUpdate, setProductToUpdate] = useState()
         const [deleteURL, setDeleteURL] = useState("")
 
-        const closeHandler = () => {
-          setVisible(false)
-        }
-
-        const handleOpen = (url) => {
-          setVisible(true)
+        const handleDeleteOpen = (url) => {
+          setVisibleDeleteModal(true)
           setDeleteURL(url)
         }
 
-        console.log(products)
+        const updateProduct = async (url) => {
+          await products.map((product) => product.id === url && setProductToUpdate(product))
+          setVisibleUpdateModal(true)
+        }
+
         const columns = [
             { name: "PRODUCT", uid: "title" },
             { name: "PUBLISHED DATES", uid: "dates" },
@@ -54,7 +57,7 @@ const ProductsTable = ({ products }) => {
                   <Row justify="center" align="center">
                     <Col css={{ d: "flex" }}>
                       <Tooltip content="Edit product" color="primary">
-                        <IconButton onClick={() => console.log("Edit product", product.id)}>
+                        <IconButton onClick={() => updateProduct(product.id)}>
                           <AiFillEdit size={20} fill="#979797" />
                         </IconButton>
                       </Tooltip>
@@ -63,7 +66,7 @@ const ProductsTable = ({ products }) => {
                       <Tooltip
                         content="Delete product"
                         color="error"
-                        onClick={() => handleOpen(product.id)}
+                        onClick={() => handleDeleteOpen(product.id)}
                       >
                         <IconButton>
                           <AiTwotoneDelete size={20} fill="#FF0080" />
@@ -79,7 +82,8 @@ const ProductsTable = ({ products }) => {
 
           return (
             <>
-            <DeleteModal open={visible} onClose={closeHandler} productToDelete={deleteURL}/>
+            <DeleteModal open={visibleDeleteModal} onClose={() => setVisibleDeleteModal(false)} productToDelete={deleteURL}/>
+            <UpdateModal open={visibleUpdateModal} onClose={() => setVisibleUpdateModal(false)} productToUpdate={productToUpdate} />
             <Table
               aria-label="Example table with custom cells"
               css={{

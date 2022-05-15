@@ -7,6 +7,7 @@ const PreviewProduct: React.FC<{ content: string, title: string, images: any, pr
             <Card 
                 style={{ width: "50%", left: "25%", marginTop: "5%" }}
                 cover
+                shadow={false}
             >
                 <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
                             <Col>

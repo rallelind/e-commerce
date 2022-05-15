@@ -42,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 export default function AppShellDemo(props) {
 
-    const [showComponent, setShowComponent] = useState(<ProfileInfo />)
+    const [showComponent, setShowComponent] = useState("profileInfo")
     const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);
 
@@ -57,11 +57,6 @@ export default function AppShellDemo(props) {
                 <p>You need to be signed in...</p>
             </div>
         )
-    }
-
-    const handleClick = (component: ReactComponentElement<any>) => {
-        setShowComponent(component)
-        setOpened(false)
     }
 
   return (
@@ -81,25 +76,25 @@ export default function AppShellDemo(props) {
               icon={<CgProfile size={25} />}
               label="View Profile"
               color="grape"
-              onClick={() => handleClick(<ProfileInfo/>)}
+              onClick={() => setShowComponent("profileInfo")}
               />
           <ProfileButton 
               icon={<FiUpload size={25} />}
               label="Upload Product"
               color="green"
-              onClick={() => handleClick(<UploadProduct />)}
+              onClick={() => setShowComponent("uploadProduct")}
               />
           <ProfileButton 
               icon={<AiOutlineShop size={25} />}
               label="Your Products"
               color="blue"
-              onClick={() => handleClick(<UserProducts userProduct={props.userProducts} />)}
+              onClick={() => setShowComponent("userProducts")}
               />
           <ProfileButton 
             icon={<AiFillEdit size={20} />}
             label="Manage products"
             color="blue"
-            onClick={() => handleClick(<ProductsTable products={props.userProducts} />)}
+            onClick={() => setShowComponent("manageProducts")}
           />
           <ProfileButton 
               icon={<FiLogOut size={25} />}
@@ -132,7 +127,7 @@ export default function AppShellDemo(props) {
             <Text
                 h4
                 css={{
-                    textGradient: '45deg, $blue500 -20%, $pink500 50%'
+                    textGradient: "112deg, #06B7DB -63.59%, #FF4ECD -20.3%, #0072F5 70.46%"
                 }}
             >
                 <Link href="/">
@@ -145,7 +140,10 @@ export default function AppShellDemo(props) {
         </Header>
       }
     >
-        {showComponent}
+        {showComponent === "profileInfo" && <ProfileInfo/>}
+        {showComponent === "uploadProduct" && <UploadProduct />}
+        {showComponent === "userProducts" && <UserProducts userProduct={props.userProducts} />}
+        {showComponent === "manageProducts" && <ProductsTable products={props.userProducts} />}
     </AppShell>
   );
 }

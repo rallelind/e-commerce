@@ -61,7 +61,7 @@ export default function BookingPage(props) {
                         <Text 
                             h2
                             css={{
-                                textGradient: "45deg, $purple500 -20%, $pink500 100%",
+                                textGradient: "112deg, #06B7DB -63.59%, #FF4ECD -20.3%, #0072F5 70.46%",
                             }}    
                         >
                              Request to book this van
