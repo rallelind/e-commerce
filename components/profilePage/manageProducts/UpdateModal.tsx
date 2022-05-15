@@ -80,11 +80,11 @@ const UpdateModal: React.FC<UpdateModal> = ({ productToUpdate, open, onClose }) 
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body),
                 })
+                .then(() => router.replace(router.asPath))
                 .then(onClose)
             } catch(error) {
                 console.log(error)
             }
-            router.replace(router.asPath)
         }
     }
 
