@@ -80,12 +80,12 @@ const UpdateModal: React.FC<UpdateModal> = ({ productToUpdate, open, onClose }) 
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body),
                 })
-                .then(() => router.replace(router.asPath))
-                .then(onClose)
             } catch(error) {
                 console.log(error)
             }
-        }
+        } else {
+            throw new Error("Please fill out all details")
+        }       
     }
 
     const featuresData = [
@@ -101,7 +101,7 @@ const UpdateModal: React.FC<UpdateModal> = ({ productToUpdate, open, onClose }) 
     return (
         <>
         <Modal width="50%" onClose={onClose} open={open}>
-        <Toaster />
+        <Toaster containerStyle={{ zIndex: "10000" }} />
             <Modal.Body>
                 <Text
                     h3
@@ -195,7 +195,14 @@ const UpdateModal: React.FC<UpdateModal> = ({ productToUpdate, open, onClose }) 
                         </Button>
                     </div>
                     <div>
-                        <Button auto color="error" onClick={updateProduct}>
+                        <Button auto color="error" onClick={() => toast.promise(updateProduct(), {
+                            loading: "Updating",
+                            success: <b>Product updatet!</b>,
+                            error: <b>Could not update.</b>, 
+                        })
+                        .then(() => router.replace(router.asPath))
+                        .then(onClose)
+                        }>
                             Update
                         </Button>
                     </div>
