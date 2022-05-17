@@ -21,6 +21,9 @@ const options = {
         clientSecret: process.env.GOOGLE_SECRET,
       })
     ],
+    pages: {
+      signIn: "/auth/signin"
+    },
     callbacks: {
       async redirect({ url, baseUrl }) {
         // Allows relative callback URLs

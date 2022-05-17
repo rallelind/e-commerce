@@ -1,0 +1,30 @@
+
+.container {
+    width: 350px;
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.leftCorner {
+    margin-bottom: 1px;
+    margin-left : 1px;
+    position: fixed;
+    bottom: 0;
+    z-index: 5;
+}
+
+.rightCorner {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 5;
+}

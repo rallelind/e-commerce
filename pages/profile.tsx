@@ -48,6 +48,11 @@ export default function AppShellDemo(props) {
 
     const router = useRouter()
 
+    const showTable = () => {
+      router.replace(router.asPath)
+      .then(() => setShowComponent("manageProducts"))
+    }
+
     const { data: session } = useSession()
 
 
@@ -141,7 +146,7 @@ export default function AppShellDemo(props) {
       }
     >
         {showComponent === "profileInfo" && <ProfileInfo/>}
-        {showComponent === "uploadProduct" && <UploadProduct />}
+        {showComponent === "uploadProduct" && <UploadProduct showTable={showTable} />}
         {showComponent === "userProducts" && <UserProducts userProduct={props.userProducts} />}
         {showComponent === "manageProducts" && <ProductsTable products={props.userProducts} />}
     </AppShell>

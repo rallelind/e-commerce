@@ -59,7 +59,7 @@ const Header: React.FC = () => {
         right = (
             <ul>
                 <li>
-                    <Link href="/api/auth/signin">
+                    <Link href="/auth/signin">
                         <a data-active={isActive('/signup')}>Log in</a>
                     </Link>
                 </li>

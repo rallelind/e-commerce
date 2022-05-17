@@ -12,7 +12,7 @@ import { FcCalendar } from "react-icons/fc"
 import UploadTimeline from "./Timeline"
 
 
-const UploadProduct: React.FC = () => {
+const UploadProduct: React.FC<{ showTable: () => void }> = ({ showTable }) => {
 
     const [active, setActive] = useState(0)
     const [title, setTitle] = useState("")
@@ -99,7 +99,7 @@ const UploadProduct: React.FC = () => {
                     error: <b>Could not upload.</b>,
                 }
             )
-            .finally(() => router.push("/"))
+            .then(showTable)
         }
     }
 
