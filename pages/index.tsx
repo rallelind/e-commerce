@@ -22,7 +22,6 @@ type Props = {
   feed: PostProps[]
 }
 
-//test
 const ShowProduct: React.FC<Props> = (props) => {
 
   const router = useRouter()

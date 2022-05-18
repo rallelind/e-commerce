@@ -25,6 +25,7 @@ const UploadProduct: React.FC<{ showTable: () => void }> = ({ showTable }) => {
       ]);
     const [features, setFeatures] = useState([])
     const [show, setShow] = useState("title")
+    const [disabledBtn, setDisabledBtn] = useState(false)
 
     const router = useRouter()
 
@@ -60,6 +61,7 @@ const UploadProduct: React.FC<{ showTable: () => void }> = ({ showTable }) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
             })
+            
         } catch (error) {
             console.log(error)
         } 
@@ -92,6 +94,7 @@ const UploadProduct: React.FC<{ showTable: () => void }> = ({ showTable }) => {
             }
         }
         if(show === "preview") {
+            setDisabledBtn(true)
             toast.promise(
                 uploadProduct(), {
                     loading: "Uploading",
@@ -233,6 +236,7 @@ const UploadProduct: React.FC<{ showTable: () => void }> = ({ showTable }) => {
                         </Button>
                         }
                         <Button 
+                            disabled={disabledBtn}
                             color="grape" 
                             radius="lg"
                             onClick={goForwardButton}

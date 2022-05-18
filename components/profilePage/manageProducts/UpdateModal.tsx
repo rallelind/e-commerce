@@ -6,7 +6,7 @@ import { FcCalendar } from "react-icons/fc";
 import Dropzone from "../../utils/Dropzone";
 import toast, { Toaster } from 'react-hot-toast';
 import PreviewImagesUploaded from "../uploadProduct/ImageUploadedPreview";
-import { useRouter } from "next/router"
+import useRouterRefresh from "../../../lib/customHook/useRouterRefresh"
 
 type UpdateModal = {
     productToUpdate: {
@@ -35,7 +35,7 @@ const UpdateModal: React.FC<UpdateModal> = ({ productToUpdate, open, onClose }) 
       ]);
     const [features, setFeatures] = useState([])
 
-    const router = useRouter()
+    const refresh = useRouterRefresh()
       
     useEffect(() => {
         if(productToUpdate !== undefined) {
@@ -200,7 +200,7 @@ const UpdateModal: React.FC<UpdateModal> = ({ productToUpdate, open, onClose }) 
                             success: <b>Product updatet!</b>,
                             error: <b>Could not update.</b>, 
                         })
-                        .then(() => router.replace(router.asPath))
+                        .then(refresh)
                         .then(onClose)
                         }>
                             Update

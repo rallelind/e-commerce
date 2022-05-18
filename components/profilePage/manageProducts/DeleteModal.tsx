@@ -1,7 +1,7 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import { Modal, Button, Text, Container } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
+import useRouterRefresh from "../../../lib/customHook/useRouterRefresh"
 
 type Modal = {
     open: boolean,
@@ -11,13 +11,13 @@ type Modal = {
 
 const DeleteModal: React.FC<Modal> = ({ open, onClose, productToDelete }) => {
 
-    const router = useRouter()
+    const refresh = useRouterRefresh()
 
     const deleteProduct = async () => {
         await fetch(`/api/product/delete-product/${productToDelete}`, {
             method: "DELETE"
         })
-        .then(() => router.replace(router.asPath))
+        .then(refresh)
         .then(onClose);
     }
 

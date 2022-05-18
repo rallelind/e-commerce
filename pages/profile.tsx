@@ -15,14 +15,15 @@ import UploadProduct from "../components/profilePage/uploadProduct/UploadProduct
 import UserProducts from "../components/profilePage/userProducts/UserProducts";
 import ProfileButton from '../components/profilePage/ProfileButtons';
 import ProductsTable from '../components/profilePage/manageProducts/Table';
+import useRouterRefresh from '../lib/customHook/useRouterRefresh';
 import { CgProfile } from "react-icons/cg"
 import { FiUpload, FiLogOut } from "react-icons/fi"
 import { AiOutlineShop, AiFillEdit } from "react-icons/ai"
 import { User } from '../components/profilePage/UserNavbar';
 import Link from "next/link"
-import { useRouter } from 'next/router';
 import prisma from '../lib/prisma';
 import { getSession } from 'next-auth/react';
+
 
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
@@ -46,10 +47,10 @@ export default function AppShellDemo(props) {
     const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);
 
-    const router = useRouter()
+    const refresh = useRouterRefresh()
 
     const showTable = () => {
-      router.replace(router.asPath)
+      refresh()
       .then(() => setShowComponent("manageProducts"))
     }
 
