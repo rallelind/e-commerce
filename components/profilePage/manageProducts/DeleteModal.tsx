@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { Modal, Button, Text, Container } from '@nextui-org/react';
+import toast, { Toaster } from 'react-hot-toast';
 
 type Modal = {
     open: boolean,
@@ -20,7 +21,17 @@ const DeleteModal: React.FC<Modal> = ({ open, onClose, productToDelete }) => {
         .then(onClose);
     }
 
+    const deletingProduct = () => {
+        toast.promise(deleteProduct(), {
+            loading: "Deleting",
+            success: <b>Product deleted!</b>,
+            error: <b>Could not delete.</b>, 
+        })
+    }
+
     return (
+        <>
+        <Toaster containerStyle={{ zIndex: "10000" }} />
         <Modal
             open={open}
             onClose={onClose}
@@ -40,13 +51,14 @@ const DeleteModal: React.FC<Modal> = ({ open, onClose, productToDelete }) => {
                         </Button>
                     </div>
                     <div>
-                    <Button auto color="error" onClick={deleteProduct}>
+                    <Button auto color="error" onClick={deletingProduct}>
                         Delete
                     </Button>
                     </div>
                 </Container>
             </Modal.Footer>
         </Modal>
+        </>
     )
 }
 

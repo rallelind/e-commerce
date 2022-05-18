@@ -89,6 +89,7 @@ const ProductsTable: React.FC<{ products: any }> = ({ products }) => {
               css={{
                 height: "auto",
                 minWidth: "100%",
+                zIndex: "5",
               }}
               selectionMode="none"
             >

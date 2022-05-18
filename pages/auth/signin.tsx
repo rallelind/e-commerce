@@ -4,12 +4,17 @@ import Image from "next/image"
 import GoogleLogin from "../../components/utils/social-login/GoogleLogin"
 import GithubLogin from "../../components/utils/social-login/GithubLogin"
 import loginStyles from "../../styles/LoginStyles.module.css"
+import { useMediaQuery } from "@mantine/hooks"
 
 export default function SignIn({ providers }) {
+
+  const matches = useMediaQuery("(min-width: 1200px)")
+  const sm = useMediaQuery("(min-width: 500px)")
+
   console.log(providers)
   return (
     <div>
-        <Card shadow={true} className={loginStyles.container}>
+        <Card shadow={sm ? true : false} className={loginStyles.container}>
           <Card.Body>
             <Image src="/illustrations/loginCard.jpg" height="200" width="400" />
             <Text css={{
@@ -29,10 +34,10 @@ export default function SignIn({ providers }) {
             <Spacer y={1} />
           </Card.Body>
         </Card>
-        <div className={loginStyles.leftCorner}>
+        <div className={matches ? loginStyles.leftCorner : loginStyles.displayMiddle}>
           <Image src="/illustrations/leftCorner.jpg" height="400" width="600"/>
         </div>
-        <div className={loginStyles.rightCorner}>
+        <div className={matches ? loginStyles.rightCorner : loginStyles.displayNone}>
           <Image src="/illustrations/rightCorner.jpg" height="400" width="600"/>
         </div>
     </div>

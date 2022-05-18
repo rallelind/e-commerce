@@ -53,6 +53,11 @@ export default function AppShellDemo(props) {
       .then(() => setShowComponent("manageProducts"))
     }
 
+    const navigateProfilePage = (component: string) => {
+      setOpened(false)
+      setShowComponent(component)
+    }
+
     const { data: session } = useSession()
 
 
@@ -81,25 +86,25 @@ export default function AppShellDemo(props) {
               icon={<CgProfile size={25} />}
               label="View Profile"
               color="grape"
-              onClick={() => setShowComponent("profileInfo")}
+              onClick={() => navigateProfilePage("profileInfo")}
               />
           <ProfileButton 
               icon={<FiUpload size={25} />}
               label="Upload Product"
               color="green"
-              onClick={() => setShowComponent("uploadProduct")}
+              onClick={() => navigateProfilePage("uploadProduct")}
               />
           <ProfileButton 
               icon={<AiOutlineShop size={25} />}
               label="Your Products"
               color="blue"
-              onClick={() => setShowComponent("userProducts")}
+              onClick={() => navigateProfilePage("userProducts")}
               />
           <ProfileButton 
             icon={<AiFillEdit size={20} />}
             label="Manage products"
             color="blue"
-            onClick={() => setShowComponent("manageProducts")}
+            onClick={() => navigateProfilePage("manageProducts")}
           />
           <ProfileButton 
               icon={<FiLogOut size={25} />}
