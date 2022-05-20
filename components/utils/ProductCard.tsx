@@ -6,6 +6,7 @@ export type PostProps = {
     id: number;
     title: string;
     image: string[];
+    dates: string[];
     price: number;
     published: boolean;
     author: {
@@ -18,17 +19,18 @@ const ProductCard: React.FC<{post: PostProps, xs: any, sm: any, clickable: boole
     const authorName = post.author ? post.author.name : "Unknown author"
     return (
                 <Grid xs={xs} sm={sm}>
-                    <Card onClick={onClick} cover hoverable={hoverable} clickable={clickable}>
-                        <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
+                    <Card cover hoverable={hoverable}>
+                        <Card.Header css={{ position: "absolute", zIndex: 1, top: 5, cursor: "pointer" }} onClick={onClick}>
                             <Col>
                                 <Text h4 color="white">
                                     {post.title}
                                 </Text>
                             </Col>
                         </Card.Header>
-                        <Card.Body style={{ overflow: "hidden" }}>
+                        <Card.Body style={{ overflow: "hidden"}}>
                             <ImageSlider 
                                 images={post.image}
+                                onClick={onClick}
                             />
                         </Card.Body>
                         <Card.Footer
@@ -39,6 +41,7 @@ const ProductCard: React.FC<{post: PostProps, xs: any, sm: any, clickable: boole
                                 borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
                                 bottom: 0,
                                 zIndex: 1,
+                                cursor: "default"
                             }}
                             >
                             {post.price} DKK

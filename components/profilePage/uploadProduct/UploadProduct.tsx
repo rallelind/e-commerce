@@ -182,6 +182,7 @@ const UploadProduct: React.FC<{ showTable: () => void }> = ({ showTable }) => {
                                 required
                                 allowLevelChange={false}
                                 icon={<FcCalendar size={30} />}
+                                minDate={new Date()}
                                 disableOutsideEvents
                                 value={dates}
                                 onChange={setDates}

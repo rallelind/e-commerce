@@ -69,7 +69,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, m
                         hideOutsideDates={false}
                         allowLevelChange={false}
                         disableOutsideEvents={true}
-                        minDate={new Date(minDate)}
+                        minDate={new Date(minDate) > new Date() ? new Date(minDate) : new Date()}
                         maxDate={new Date(maxDate)}
                     />
                 </Container>

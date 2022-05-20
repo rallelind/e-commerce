@@ -52,6 +52,8 @@ const ImageSlider = (props) => {
                         src={image} 
                         alt="productImage" 
                         height={340}
+                        onClick={props.onClick}
+                        css={{ cursor: "pointer" }}
                     />
                 ))}
             </Slider>

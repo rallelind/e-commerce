@@ -38,7 +38,7 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
                             disableOutsideEvents
                             value={value}
                             onChange={onChange}
-                            minDate={new Date(minDate)}
+                            minDate={new Date(minDate) > new Date() ? new Date(minDate) : new Date()}
                             maxDate={new Date(maxDate)}
                         />
                     </Container>

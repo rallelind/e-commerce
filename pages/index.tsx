@@ -7,6 +7,9 @@ import prisma from "../lib/prisma"
 import Layout from '../components/utils/Layout';
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  //const date1 = new Date('2022-05-20')
+  //const date2 = new Date('2022-05-28')
+
   const feed = await prisma.post.findMany({
     where: { published: true },
     include: {
@@ -15,6 +18,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
       },
     },
   });
+  /*const products = []
+  feed.map((e) => {
+    if(date1 >= new Date(e.dates[0]) && date1 <= new Date(e.dates[1]) && date2 >= new Date(e.dates[0]) && date2 <= new Date(e.dates[1])) {
+      products.push(e)
+    }
+  })
+  console.log(products)*/
   return { props: { feed } }
 }
 
@@ -23,7 +33,6 @@ type Props = {
 }
 
 const ShowProduct: React.FC<Props> = (props) => {
-
   const router = useRouter()
 
   return (
@@ -32,7 +41,7 @@ const ShowProduct: React.FC<Props> = (props) => {
           {props.feed.map((post) => (
               <ProductCard 
                 onClick={() => router.push(`/product-page/${post.id}`)}
-                hoverable
+                hoverable={false}
                 clickable
                 key={post.id} 
                 post={post} 
