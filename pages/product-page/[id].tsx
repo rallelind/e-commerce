@@ -7,6 +7,7 @@ import prisma from "../../lib/prisma"
 import ProductInfo from "../../components/productPage/ProductInfo"
 import BookingSystem from "../../components/productPage/BookingSection"
 import { useRouter } from "next/router"
+import StripePayment from "../../components/stripe/StripePayment"
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const post = await prisma.post.findUnique({
@@ -42,8 +43,6 @@ export default function ProductPage(props) {
     const routeChange = () => {
 
       let bookingDates = dates.map((e) => String(e))
-
-      console.log(bookingDates)
 
       router.push({
         pathname: `/booking-page/${props.id}`,

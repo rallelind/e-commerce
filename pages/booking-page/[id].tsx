@@ -10,6 +10,7 @@ import { FcGoogle, FcCalendar } from "react-icons/fc"
 import { AiOutlineGithub } from "react-icons/ai"
 import wavesStyles from "../../styles/Waves.module.css"
 import GoBackBtn from "../../components/utils/GoBackBtn";
+import StripePayment from "../../components/stripe/StripePayment";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const post = await prisma.post.findUnique({
@@ -17,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             id: String(params?.id), 
         },
         select: { 
-            image: true, price: true, title: true,
+            image: true, price: true, title: true, id: true, authorId: true,
         },
     });
     return { props: post }
@@ -30,6 +31,9 @@ export default function BookingPage(props) {
     const session = useSession()
     
     const bookingDates = query.bookingDates
+
+    console.log(bookingDates)
+    console.log(props.id)
 
     const dateOne = new Date(bookingDates[0])
     const dateTwo = new Date(bookingDates[1])
@@ -112,7 +116,7 @@ export default function BookingPage(props) {
                             </Container>
                         </div>
                         :
-                        <h1>Hello </h1>
+                        <StripePayment amountOfDays={numberOfNights} productId={props.id} dates={bookingDates} />
                     }
 
                 </Container>
