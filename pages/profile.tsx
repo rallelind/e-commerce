@@ -8,19 +8,22 @@ import {
   Burger,
   useMantineTheme,
 } from '@mantine/core';
-import { Text } from '@nextui-org/react';
+import { Text, Loading } from '@nextui-org/react';
 import { useSession, signOut } from 'next-auth/react';
 import ProfileInfo from "../components/profilePage/profileInfo/ProfileInfo";
 import UploadProduct from "../components/profilePage/uploadProduct/UploadProduct";
 import UserProducts from "../components/profilePage/userProducts/UserProducts";
 import ProfileButton from '../components/profilePage/ProfileButtons';
 import ProductsTable from '../components/profilePage/manageProducts/Table';
+import OrderedTrips from "../components/profilePage/orderedTrips/OrderedTrips"
 import useRouterRefresh from '../lib/customHook/useRouterRefresh';
+import { GiSurferVan } from "react-icons/gi"
 import { CgProfile } from "react-icons/cg"
 import { FiUpload, FiLogOut } from "react-icons/fi"
 import { AiOutlineShop, AiFillEdit } from "react-icons/ai"
 import { User } from '../components/profilePage/UserNavbar';
 import Link from "next/link"
+import { useRouter } from 'next/router';
 import prisma from '../lib/prisma';
 import { getSession } from 'next-auth/react';
 
@@ -28,9 +31,21 @@ import { getSession } from 'next-auth/react';
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const session = await getSession({ req })
+
+    const userOrders = await prisma.order.findMany({
+      where: {
+        user: { email: session?.user?.email }
+      },
+      include: {
+        product: {
+          select: { image: true }
+        }
+      }
+    })
+
     const userProducts= await prisma.post.findMany({
       where: {
-          author: { email: session.user.email }
+          author: { email: session?.user?.email }
       },
       include: {
           author: {
@@ -38,10 +53,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
           },
       },
   });
-  return { props: { userProducts } }
+  return { props: { userProducts, userOrders } }
 }
 
 export default function AppShellDemo(props) {
+
+    const router = useRouter()
+
+    console.log(props.userOrders)
 
     const [showComponent, setShowComponent] = useState("profileInfo")
     const theme = useMantineTheme();
@@ -63,11 +82,7 @@ export default function AppShellDemo(props) {
 
 
     if (!session) {
-        return (
-            <div>
-                <p>You need to be signed in...</p>
-            </div>
-        )
+        return <Loading />
     }
 
   return (
@@ -106,6 +121,12 @@ export default function AppShellDemo(props) {
             label="Manage products"
             color="blue"
             onClick={() => navigateProfilePage("manageProducts")}
+          />
+          <ProfileButton 
+            icon={<GiSurferVan size={30} />}
+            label="Ordered trips"
+            color="grape"
+            onClick={() => navigateProfilePage("orderedTrips")}
           />
           <ProfileButton 
               icon={<FiLogOut size={25} />}
@@ -152,6 +173,7 @@ export default function AppShellDemo(props) {
       }
     >
         {showComponent === "profileInfo" && <ProfileInfo/>}
+        {showComponent === "orderedTrips" && <OrderedTrips userOrders={props.userOrders} />}
         {showComponent === "uploadProduct" && <UploadProduct showTable={showTable} />}
         {showComponent === "userProducts" && <UserProducts userProduct={props.userProducts} />}
         {showComponent === "manageProducts" && <ProductsTable products={props.userProducts} />}
