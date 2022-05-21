@@ -1,4 +1,5 @@
 import { buffer } from "micro"
+import prisma from "../../../../lib/prisma"
 
 export const config = { api: { bodyParser: false } }
 
@@ -29,13 +30,18 @@ export default async function handler(req, res) {
     switch(event.type) {
         case 'payment_intent.succeeded':
             const paymentIntent = event.data.object;
-            console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
+            prisma.order.create({
+                data: {
+                    user: { connect: { email: paymentIntent.metadata.user } },
+                    product: { connect: { id: paymentIntent.metadata.product } },
+                    dates: [paymentIntent.metadata.firstDate, paymentIntent.metadata.secondDate],
+                }
+            })
             break;
         default:
             console.log(`Unhandled event type ${event.type}`)
     }
 
-    console.log(event.data.object)
-
+    console.log(event.data.object.metadata)
     res.send()
 }

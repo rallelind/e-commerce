@@ -15,11 +15,12 @@ model Post {
   title     String
   content   String?
   image     String[]
-  price     Int    
+  price     Int
   dates     String[]
   features  String[]
   published Boolean  @default(true)
   author    User?    @relation(fields: [authorId], references: [id])
+  orders    Order[]
   authorId  String?
 }
 
@@ -66,8 +67,19 @@ model User {
   posts         Post[]
   accounts      Account[]
   sessions      Session[]
+  orders        Order[]
 
   @@map(name: "users")
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  authorId  String?
+  productId String?
+  dates     String[]
+  user      User?    @relation(fields: [authorId], references: [id])
+  product   Post?    @relation(fields: [productId], references: [id])
+  accepted  Boolean  @default(false)
 }
 
 model VerificationToken {
