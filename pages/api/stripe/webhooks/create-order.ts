@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     switch(event.type) {
         case 'payment_intent.succeeded':
             const paymentIntent = event.data.object;
-            prisma.order.create({
+            await prisma.order.create({
                 data: {
                     user: { connect: { email: paymentIntent.metadata.user } },
                     product: { connect: { id: paymentIntent.metadata.product } },
