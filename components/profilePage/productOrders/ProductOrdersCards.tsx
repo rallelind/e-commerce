@@ -1,0 +1,87 @@
+import { Card, Grid, Text, Avatar, Divider, Spacer, Button } from "@nextui-org/react"
+import React, { useState } from "react"
+import productOrdersCardStyles from "../../../styles/ProductOrderCard.module.css"
+import ProductOrdersModal from "./ProductOrdersModal"
+import Image from "next/image"
+
+const ProductOrdersCards = ({ userName, userImage, dates, productTitle, productImages }) => {
+
+    const [declineOrderModal, setDeclineOrderModal] = useState(false)
+    const [acceptOrderModal, setAcceptOrderModal] = useState(false)
+
+    const dateOne = new Date(dates[0])
+
+    const dateTwo = new Date(dates[1])
+
+    return (
+        <>
+        <ProductOrdersModal 
+            open={declineOrderModal}
+            onClick={() => console.log("decline")}
+            onClose={() => setDeclineOrderModal(false)}
+            headline="are you SURE you want to decline this order?"
+            color="error"
+            buttonAction="Decline order"
+        />
+        <ProductOrdersModal 
+            open={acceptOrderModal}
+            onClick={() => console.log("decline")}
+            onClose={() => setAcceptOrderModal(false)}
+            headline="are you SURE you want to accept this order?"
+            color="success"
+            buttonAction="Accept order"
+        />
+        <Grid sm={3}>
+            <Card>
+                <Card.Body>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <div className={productOrdersCardStyles.verticalAlign}>
+                            <Text
+                                h5
+                                css={{
+                                    textGradient: "112deg, #06B7DB -63.59%, #FF4ECD -20.3%, #0072F5 70.46%",
+                                }}
+                            >{userName}</Text>
+                        </div>
+                        <div>
+                            <Avatar
+                                squared
+                                size="lg"
+                                src={userImage}
+                            />
+                        </div>
+                    </div>
+                    <Spacer y={0.5} />
+                    <Divider />
+                    <Spacer y={0.5} />
+                    <Text>
+                        Requested to book <Text b>{productTitle}</Text>
+                    </Text>
+                    <Spacer y={0.5} />
+                    <Text>
+                        from {`${dateOne.getDate()}.${dateOne.getMonth()}`} - {`${dateTwo.getDate()}.${dateTwo.getMonth()}`}
+                    </Text>
+                    <Spacer y={0.5} />
+                    <Divider />
+                    <Spacer y={0.5} />
+
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <div>
+                            <Button color="error" onClick={() => setDeclineOrderModal(true)} auto size="xs">
+                                Decline
+                            </Button>
+                        </div>
+                        <div>
+                            <Button onClick={() => setAcceptOrderModal(true)} color="success" auto size="xs">
+                                Accept
+                            </Button>
+                        </div>
+                    </div>
+                </Card.Body>
+            </Card>
+        </Grid>
+        </>
+    )
+}
+
+export default ProductOrdersCards

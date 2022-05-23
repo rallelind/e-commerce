@@ -6,25 +6,18 @@ import { useRouter } from 'next/router'
 import prisma from "../lib/prisma"
 import Layout from '../components/utils/Layout';
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  //const date1 = new Date('2022-05-20')
-  //const date2 = new Date('2022-05-28')
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   const feed = await prisma.post.findMany({
-    where: { published: true },
+    where: { 
+      published: true,
+    },
     include: {
       author: {
         select: { name: true },
       },
     },
   });
-  /*const products = []
-  feed.map((e) => {
-    if(date1 >= new Date(e.dates[0]) && date1 <= new Date(e.dates[1]) && date2 >= new Date(e.dates[0]) && date2 <= new Date(e.dates[1])) {
-      products.push(e)
-    }
-  })
-  console.log(products)*/
   return { props: { feed } }
 }
 

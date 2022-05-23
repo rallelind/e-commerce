@@ -13,9 +13,12 @@ export default async function handle(req, res) {
                 },
             },
         });
+
         if(session?.user?.email === post.author.email) {
             res.json(post)
-        } else {
+        } 
+        
+        else {
             throw new Error("ERROR!")
         }
     } else {

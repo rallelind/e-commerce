@@ -16,7 +16,9 @@ import UserProducts from "../components/profilePage/userProducts/UserProducts";
 import ProfileButton from '../components/profilePage/ProfileButtons';
 import ProductsTable from '../components/profilePage/manageProducts/Table';
 import OrderedTrips from "../components/profilePage/orderedTrips/OrderedTrips"
+import ProductOrders from "../components/profilePage/productOrders/ProductOrders";
 import useRouterRefresh from '../lib/customHook/useRouterRefresh';
+import { BiPurchaseTagAlt } from "react-icons/bi"
 import { GiSurferVan } from "react-icons/gi"
 import { CgProfile } from "react-icons/cg"
 import { FiUpload, FiLogOut } from "react-icons/fi"
@@ -43,7 +45,22 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       }
     })
 
-    const userProducts= await prisma.post.findMany({
+    const productOrders = await prisma.order.findMany({
+      where: {
+        product: { author: { email: session?.user?.email } },
+        accepted: false,
+      },
+      include: {
+        user: {
+          select: { image: true, name: true }
+        },
+        product: {
+          select: { image: true, title: true }
+        }
+      }
+    })
+
+    const userProducts = await prisma.post.findMany({
       where: {
           author: { email: session?.user?.email }
       },
@@ -53,14 +70,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
           },
       },
   });
-  return { props: { userProducts, userOrders } }
+  return { props: { userProducts, userOrders, productOrders } }
 }
 
 export default function AppShellDemo(props) {
 
     const router = useRouter()
 
-    console.log(props.userOrders)
+    console.log(props.productOrders)
 
     const [showComponent, setShowComponent] = useState("profileInfo")
     const theme = useMantineTheme();
@@ -82,7 +99,7 @@ export default function AppShellDemo(props) {
 
 
     if (!session) {
-        return <Loading />
+        return <h1>you need to be logged in to access the profile page...</h1>
     }
 
   return (
@@ -127,6 +144,12 @@ export default function AppShellDemo(props) {
             label="Ordered trips"
             color="grape"
             onClick={() => navigateProfilePage("orderedTrips")}
+          />
+          <ProfileButton 
+            icon={<BiPurchaseTagAlt size={25} />}
+            label="Product orders"
+            color="green"
+            onClick={() => navigateProfilePage("productOrders")}
           />
           <ProfileButton 
               icon={<FiLogOut size={25} />}
@@ -177,6 +200,7 @@ export default function AppShellDemo(props) {
         {showComponent === "uploadProduct" && <UploadProduct showTable={showTable} />}
         {showComponent === "userProducts" && <UserProducts userProduct={props.userProducts} />}
         {showComponent === "manageProducts" && <ProductsTable products={props.userProducts} />}
+        {showComponent === "productOrders" && <ProductOrders productOrders={props.productOrders} />}
     </AppShell>
   );
 }
