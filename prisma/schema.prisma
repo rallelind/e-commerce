@@ -22,6 +22,7 @@ model Post {
   author    User?    @relation(fields: [authorId], references: [id])
   orders    Order[]
   authorId  String?
+  bookedDates String[]
 }
 
 model Account {

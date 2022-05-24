@@ -70,6 +70,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
           },
       },
   });
+  
   return { props: { userProducts, userOrders, productOrders } }
 }
 

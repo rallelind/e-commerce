@@ -12,10 +12,15 @@ export default async function handler(req, res) {
     const session = await getSession({ req })
 
     const product = await prisma.post.findUnique({
-        where: { id: productId }
+        where: { id: productId },
+        include: {
+            author: {
+                select: { email: true }
+            }
+        }
     })
 
-    if (req.method === "POST") {
+    if (req.method === "POST" && product.author.email !== session?.user?.email) {
         const { amountOfDays, dates } = req.body;
 
         const calculateAmount = (price) => amountOfDays * price * 100
@@ -41,5 +46,7 @@ export default async function handler(req, res) {
         } catch(error) {
             res.status(500).json({ statusCode: 500, message: error.message })
         }
+    } else {
+        res.status(500).json({ statusCode: 500, message: "You cant book your own vehicle" })
     }
 }

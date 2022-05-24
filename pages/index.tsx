@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Grid } from '@nextui-org/react'
+import { useSession } from 'next-auth/react'
 import ProductCard, { PostProps } from '../components/utils/ProductCard'
 import { GetServerSideProps } from "next"
 import { useRouter } from 'next/router'
@@ -14,10 +15,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     },
     include: {
       author: {
-        select: { name: true },
+        select: { name: true, email: true },
       },
     },
   });
+  
   return { props: { feed } }
 }
 
@@ -28,10 +30,13 @@ type Props = {
 const ShowProduct: React.FC<Props> = (props) => {
   const router = useRouter()
 
+  const session = useSession()
+
   return (
     <Layout>
       <Grid.Container gap={4}>
           {props.feed.map((post) => (
+            post.author.email !== session?.data?.user?.email && 
               <ProductCard 
                 onClick={() => router.push(`/product-page/${post.id}`)}
                 hoverable={false}
