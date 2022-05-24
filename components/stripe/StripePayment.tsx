@@ -26,7 +26,7 @@ const StripePayment = ({ amountOfDays, productId, dates }) => {
         })
         .then((res) => res.json())
         .then((data) => setClientSecret(data.client_secret))
-    }, [])
+    }, [amountOfDays, dates, productId])
 
     const appearance: appearance = {
         theme: 'flat'

@@ -9,8 +9,9 @@ const ProductOrders = ({ productOrders }) => {
 
     return (
         <Grid.Container gap={4}>
-            {productOrders.map((productOrder) => (
+            {productOrders.map((productOrder, i) => (
                 <ProductOrdersCards
+                    key={i}
                     userName={productOrder.user.name}
                     userImage={productOrder.user.image}
                     dates={productOrder.dates}
