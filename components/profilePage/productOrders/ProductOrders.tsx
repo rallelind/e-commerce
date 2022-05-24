@@ -16,7 +16,7 @@ const ProductOrders = ({ productOrders }) => {
                     userImage={productOrder.user.image}
                     dates={productOrder.dates}
                     productTitle={productOrder.product.title}
-                    productImages={productOrder.product.image}
+                    orderId={productOrder.id}
                 />
             ))}
         </Grid.Container>

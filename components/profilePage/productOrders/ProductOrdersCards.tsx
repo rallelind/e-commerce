@@ -2,9 +2,10 @@ import { Card, Grid, Text, Avatar, Divider, Spacer, Button } from "@nextui-org/r
 import React, { useState } from "react"
 import productOrdersCardStyles from "../../../styles/ProductOrderCard.module.css"
 import ProductOrdersModal from "./ProductOrdersModal"
+import useRouterRefresh from "../../../lib/customHook/useRouterRefresh"
 import Image from "next/image"
 
-const ProductOrdersCards = ({ userName, userImage, dates, productTitle, productImages }) => {
+const ProductOrdersCards = ({ userName, userImage, dates, productTitle, orderId }) => {
 
     const [declineOrderModal, setDeclineOrderModal] = useState(false)
     const [acceptOrderModal, setAcceptOrderModal] = useState(false)
@@ -13,11 +14,29 @@ const ProductOrdersCards = ({ userName, userImage, dates, productTitle, productI
 
     const dateTwo = new Date(dates[1])
 
+    const refresh = useRouterRefresh()
+
+    const declineOrder = async (id) => {
+        await fetch(`/api/orders/decline/${id}`, {
+            method: "DELETE"
+        })
+        .then(refresh)
+        .then(() => setDeclineOrderModal(false))
+    }
+
+    const acceptOrder = async (id) => {
+        await fetch(`/api/orders/accept/${id}`, {
+            method: "PUT"
+        })
+        .then(refresh)
+        .then(() => setAcceptOrderModal(false))
+    }
+
     return (
         <>
         <ProductOrdersModal 
             open={declineOrderModal}
-            onClick={() => console.log("decline")}
+            onClick={() => declineOrder(orderId)}
             onClose={() => setDeclineOrderModal(false)}
             headline="are you SURE you want to decline this order?"
             color="error"
@@ -25,7 +44,7 @@ const ProductOrdersCards = ({ userName, userImage, dates, productTitle, productI
         />
         <ProductOrdersModal 
             open={acceptOrderModal}
-            onClick={() => console.log("decline")}
+            onClick={() => acceptOrder(orderId)}
             onClose={() => setAcceptOrderModal(false)}
             headline="are you SURE you want to accept this order?"
             color="success"
