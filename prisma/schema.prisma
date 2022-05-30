@@ -11,17 +11,17 @@ datasource db {
 }
 
 model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  image     String[]
-  price     Int
-  dates     String[]
-  features  String[]
-  published Boolean  @default(true)
-  author    User?    @relation(fields: [authorId], references: [id])
-  orders    Order[]
-  authorId  String?
+  id          String   @id @default(cuid())
+  title       String
+  content     String?
+  image       String[]
+  price       Int
+  dates       String[]
+  features    String[]
+  published   Boolean  @default(true)
+  author      User?    @relation(fields: [authorId], references: [id])
+  orders      Order[]
+  authorId    String?
   bookedDates String[]
 }
 
@@ -77,7 +77,8 @@ model Order {
   id        String   @id @default(cuid())
   authorId  String?
   productId String?
-  dates     String[]
+  startDate DateTime @db.Date
+  endDate   DateTime @db.Date
   user      User?    @relation(fields: [authorId], references: [id])
   product   Post?    @relation(fields: [productId], references: [id])
   accepted  Boolean  @default(false)

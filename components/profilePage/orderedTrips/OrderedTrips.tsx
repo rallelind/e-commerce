@@ -14,7 +14,8 @@ const OrderedTrips = ({ userOrders }) => {
                     key={i}
                     image={order.product.image[0]}
                     status={order.accepted}
-                    dates={order.dates}
+                    startDate={order.startDate}
+                    endDate={order.endDate}
                 />
             ))}
         </Grid.Container>

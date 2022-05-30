@@ -30,13 +30,18 @@ export default async function handler(req, res) {
     switch(event.type) {
         case 'payment_intent.succeeded':
             const paymentIntent = event.data.object;
-            await prisma.order.create({
-                data: {
-                    user: { connect: { email: paymentIntent.metadata.user } },
-                    product: { connect: { id: paymentIntent.metadata.product } },
-                    dates: [paymentIntent.metadata.firstDate, paymentIntent.metadata.secondDate],
-                }
-            })
+            try {
+                await prisma.order.create({
+                    data: {
+                        user: { connect: { email: paymentIntent.metadata.user } },
+                        product: { connect: { id: paymentIntent.metadata.product } },
+                        startDate: paymentIntent.metadata.firstDate,
+                        endDate: paymentIntent.metadata.secondDate,
+                    }
+                })
+            } catch(error) {
+                console.log(error)
+            }
             break;
         default:
             console.log(`Unhandled event type ${event.type}`)

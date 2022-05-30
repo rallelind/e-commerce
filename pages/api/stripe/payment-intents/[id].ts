@@ -33,8 +33,8 @@ export default async function handler(req, res) {
                 metadata: {
                     user: String(session.user.email),
                     product: String(productId),
-                    firstDate: dates[0],
-                    secondDate: dates[1]
+                    firstDate: new Date(dates[0]).toISOString(),
+                    secondDate: new Date(dates[1]).toISOString()
                 }
             } 
             const payment_intent = await stripe.paymentIntents.create(params);

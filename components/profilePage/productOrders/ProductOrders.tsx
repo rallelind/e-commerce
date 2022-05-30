@@ -14,8 +14,10 @@ const ProductOrders = ({ productOrders }) => {
                     key={i}
                     userName={productOrder.user.name}
                     userImage={productOrder.user.image}
-                    dates={productOrder.dates}
+                    startDate={productOrder.startDate}
+                    endDate={productOrder.endDate}
                     productTitle={productOrder.product.title}
+                    productId={productOrder.product.id}
                     orderId={productOrder.id}
                 />
             ))}

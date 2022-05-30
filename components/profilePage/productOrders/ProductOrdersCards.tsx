@@ -5,14 +5,14 @@ import ProductOrdersModal from "./ProductOrdersModal"
 import useRouterRefresh from "../../../lib/customHook/useRouterRefresh"
 import Image from "next/image"
 
-const ProductOrdersCards = ({ userName, userImage, dates, productTitle, orderId }) => {
+const ProductOrdersCards = ({ userName, userImage, startDate, endDate, productTitle, orderId, productId }) => {
 
     const [declineOrderModal, setDeclineOrderModal] = useState(false)
     const [acceptOrderModal, setAcceptOrderModal] = useState(false)
 
-    const dateOne = new Date(dates[0])
+    const dateOne = new Date(startDate)
 
-    const dateTwo = new Date(dates[1])
+    const dateTwo = new Date(endDate)
 
     const refresh = useRouterRefresh()
 
@@ -25,8 +25,20 @@ const ProductOrdersCards = ({ userName, userImage, dates, productTitle, orderId 
     }
 
     const acceptOrder = async (id) => {
+
+        const body = { startDate, endDate, productId }
+
         await fetch(`/api/orders/accept/${id}`, {
-            method: "PUT"
+            method: "PUT",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+        })
+        .then(async () => {
+            await fetch("/api/orders/accept/removeDuplicateOrders", {
+                method: "DELETE",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            })
         })
         .then(refresh)
         .then(() => setAcceptOrderModal(false))

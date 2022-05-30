@@ -5,15 +5,23 @@ export default async function handler(req, res) {
 
     const orderId = req.query.id
 
+    const { startDate, endDate, productId } = req.body
+
     const session = await getSession({ req })
 
     if(req.method === "PUT" && session) {
-        const order = await prisma.order.update({
+        const acceptOrder = await prisma.order.update({
             where: { id: orderId },
             data: {
-                accepted: true
-            }
+                accepted: true,
+                product: {
+                    update: {
+                        bookedDates: [startDate, endDate]
+                    },
+                },
+            },
         })
-        res.json(order)
+
+        res.json(acceptOrder)
     }
 }

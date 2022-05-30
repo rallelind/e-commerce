@@ -55,7 +55,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
           select: { image: true, name: true }
         },
         product: {
-          select: { image: true, title: true }
+          select: { image: true, title: true, id: true }
         }
       }
     })
@@ -71,7 +71,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       },
   });
   
-  return { props: { userProducts, userOrders, productOrders } }
+  return { props: { userProducts, userOrders: JSON.parse(JSON.stringify(userOrders)), productOrders: JSON.parse(JSON.stringify(productOrders)) } }
 }
 
 export default function AppShellDemo(props) {

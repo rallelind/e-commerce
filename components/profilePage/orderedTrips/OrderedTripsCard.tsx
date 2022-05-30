@@ -6,14 +6,15 @@ import Image from "next/image"
 type OrderedTripsCards = {
     image: string;
     status: boolean;
-    dates: string[];
+    startDate: Date;
+    endDate: Date;
 }
 
-const OrderedTripsCards: React.FC<OrderedTripsCards> = ({ image, status, dates }) => {
+const OrderedTripsCards: React.FC<OrderedTripsCards> = ({ image, status, startDate, endDate }) => {
 
-    const dateOne = new Date(dates[0])
+    const dateOne = new Date(startDate)
 
-    const dateTwo = new Date(dates[1])
+    const dateTwo = new Date(endDate)
 
     return (
         <Grid sm={3}>
