@@ -14,11 +14,11 @@ export default async function handler(req, res) {
             where: { id: orderId },
             data: {
                 accepted: true,
-                product: {
+                /*product: {
                     update: {
                         bookedDates: [startDate, endDate]
                     },
-                },
+                },*/
             },
         })
 
