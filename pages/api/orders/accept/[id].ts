@@ -16,7 +16,9 @@ export default async function handler(req, res) {
                 accepted: true,
                 product: {
                     update: {
-                        bookedDates: [startDate, endDate]
+                        bookedDates: {
+                            push: [startDate, endDate]
+                        }
                     },
                 },
             },
