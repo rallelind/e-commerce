@@ -12,7 +12,7 @@ import { FcCalendar } from "react-icons/fc"
 import UploadTimeline from "./Timeline"
 
 
-const UploadProduct: React.FC<{ showTable: () => void }> = ({ showTable }) => {
+const UploadProduct: React.FC<{ showTable: () => void, stripeConnect: boolean }> = ({ showTable, stripeConnect }) => {
 
     const [active, setActive] = useState(0)
     const [title, setTitle] = useState("")
@@ -131,7 +131,19 @@ const UploadProduct: React.FC<{ showTable: () => void }> = ({ showTable }) => {
         { value: "waterTanks", label: "Water tanks" },
     ]
 
+    const redirectToStripeConnect = async () => {
+        await fetch("")
+    }
+
     console.log(dates)
+
+    if (!stripeConnect) {
+        return (
+            <form method="POST" action="/api/stripe/stripe-connect/create-link">
+                <Button type="submit">Create stripe connect account</Button>
+            </form>
+        )
+    }
 
     return (
             <Grid.Container gap={4}>

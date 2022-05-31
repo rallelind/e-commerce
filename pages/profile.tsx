@@ -34,6 +34,11 @@ import { getSession } from 'next-auth/react';
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const session = await getSession({ req })
 
+    const user = await prisma.user.findUnique({
+      where: { email: session?.user?.email },
+      select: { stripeConnect: true, stripeConnectId: true }
+    })
+
     const userOrders = await prisma.order.findMany({
       where: {
         user: { email: session?.user?.email }
@@ -71,7 +76,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       },
   });
   
-  return { props: { userProducts, userOrders: JSON.parse(JSON.stringify(userOrders)), productOrders: JSON.parse(JSON.stringify(productOrders)) } }
+  return { props: { user, userProducts, userOrders: JSON.parse(JSON.stringify(userOrders)), productOrders: JSON.parse(JSON.stringify(productOrders)) } }
 }
 
 export default function AppShellDemo(props) {
@@ -198,7 +203,7 @@ export default function AppShellDemo(props) {
     >
         {showComponent === "profileInfo" && <ProfileInfo/>}
         {showComponent === "orderedTrips" && <OrderedTrips userOrders={props.userOrders} />}
-        {showComponent === "uploadProduct" && <UploadProduct showTable={showTable} />}
+        {showComponent === "uploadProduct" && <UploadProduct stripeConnect={props.user.stripeConnect} showTable={showTable} />}
         {showComponent === "userProducts" && <UserProducts userProduct={props.userProducts} />}
         {showComponent === "manageProducts" && <ProductsTable products={props.userProducts} />}
         {showComponent === "productOrders" && <ProductOrders productOrders={props.productOrders} />}

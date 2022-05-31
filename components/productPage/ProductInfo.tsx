@@ -12,9 +12,10 @@ type ProductInfoProps = {
     minDate: string;
     maxDate: string;
     features: string[];
+    bookedDates: string[];
 }
 
-const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, minDate, maxDate, features, value, onChange }) => {
+const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, minDate, maxDate, features, value, onChange, bookedDates }) => {
 
     return (
         <Grid xs={7}>
@@ -71,6 +72,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, m
                         disableOutsideEvents={true}
                         minDate={new Date(minDate) > new Date() ? new Date(minDate) : new Date()}
                         maxDate={new Date(maxDate)}
+                        excludeDate={(date) => bookedDates.some((dates) => date.getDate() === new Date(dates).getDate())}
                     />
                 </Container>
             </Container>

@@ -9,6 +9,23 @@ export default async function handler(req, res) {
 
     const session = await getSession({ req })
 
+    let datesToExclude = []
+
+    const getDatesInRange = (startDate, endDate) => {
+        
+        const date = new Date(startDate.getTime())
+
+        while(date <= endDate) {
+            datesToExclude.push(new Date(date));
+            date.setDate(date.getDate() + 1);
+        }
+
+    }
+
+    await getDatesInRange(new Date(startDate), new Date(endDate))
+
+    console.log(datesToExclude)
+
     if(req.method === "PUT" && session) {
         const acceptOrder = await prisma.order.update({
             where: { id: orderId },
@@ -16,12 +33,12 @@ export default async function handler(req, res) {
                 accepted: true,
                 product: {
                     update: {
-                        bookedDates: [startDate, endDate]
+                        bookedDates: datesToExclude
                     },
                 },
             },
         })
-
+        console.log(acceptOrder)
         res.json(acceptOrder)
     }
 }

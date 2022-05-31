@@ -12,11 +12,14 @@ type BookingProps = {
     onChange: (value: [Date, Date]) => void;
     minDate: string;
     maxDate: string;
+    bookedDates: string[];
     height: string;
     onClick: MouseEventHandler
 }
 
-const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCost, price, value, onChange, onClick, minDate, maxDate, height }) => {
+const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCost, price, value, onChange, onClick, bookedDates, minDate, maxDate, height }) => {
+
+    console.log(bookedDates)
 
     return (
         <Grid xs={4}>
@@ -40,6 +43,7 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
                             onChange={onChange}
                             minDate={new Date(minDate) > new Date() ? new Date(minDate) : new Date()}
                             maxDate={new Date(maxDate)}
+                            excludeDate={(date) => bookedDates.some((dates) => date.getDate() === new Date(dates).getDate())}
                         />
                     </Container>
                     <Spacer y={1} />

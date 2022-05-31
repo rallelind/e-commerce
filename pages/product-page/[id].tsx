@@ -27,7 +27,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
 export default function ProductPage(props) {
 
-
     const [dates, setDates] = useState<[Date | null, Date | null]>([null, null])
 
     const amountOfDays = () => {
@@ -49,7 +48,7 @@ export default function ProductPage(props) {
         query: { bookingDates }
       })
     }
-
+    
     return (
         <Layout>
           <ImageDisplay 
@@ -65,6 +64,7 @@ export default function ProductPage(props) {
                 minDate={props.dates[0]}
                 maxDate={props.dates[1]}
                 features={props.features}
+                bookedDates={props.bookedDates}
               />
               <BookingSystem 
                 price={props.price}
@@ -77,6 +77,7 @@ export default function ProductPage(props) {
                 totalCost={amountOfDays() + amountOfDays()*0.1}
                 height={dates[0] === null || dates[1] === null ? "175px" : "350px"}
                 onClick={routeChange}
+                bookedDates={props.bookedDates}
               />
           </Grid.Container>
         </Layout>

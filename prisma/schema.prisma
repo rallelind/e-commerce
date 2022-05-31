@@ -69,6 +69,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   orders        Order[]
+  stripeConnect Boolean @default(false)
+  stripeConnectId String @default("")
 
   @@map(name: "users")
 }
