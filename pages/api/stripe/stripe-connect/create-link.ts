@@ -7,7 +7,10 @@ export default async function handler(req, res) {
 
     const session = await getSession({ req })
 
-    const account = await stripe.accounts.create({type: "standard"});
+    const account = await stripe.accounts.create({
+        type: "standard",
+        email: session?.user?.email
+    });
 
     await prisma.user.update({
         where: { email: session?.user?.email },

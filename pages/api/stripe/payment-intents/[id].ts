@@ -15,7 +15,7 @@ export default async function handler(req, res) {
         where: { id: productId },
         include: {
             author: {
-                select: { email: true }
+                select: { email: true, stripeConnectId: true }
             }
         }
     })
@@ -35,6 +35,10 @@ export default async function handler(req, res) {
                     product: String(productId),
                     firstDate: new Date(dates[0]).toISOString(),
                     secondDate: new Date(dates[1]).toISOString()
+                },
+                application_fee_amount: calculateAmount(product.price) * 0.10,
+                transfer_data: {
+                    destination: product.author.stripeConnectId
                 }
             } 
             const payment_intent = await stripe.paymentIntents.create(params);

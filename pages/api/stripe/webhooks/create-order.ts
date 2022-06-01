@@ -1,9 +1,12 @@
 import { buffer } from "micro"
+import { getSession } from "next-auth/react"
 import prisma from "../../../../lib/prisma"
 
 export const config = { api: { bodyParser: false } }
 
 export default async function handler(req, res) {
+
+    const session = await getSession({ req })
 
     const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
@@ -28,6 +31,22 @@ export default async function handler(req, res) {
     }
 
     switch(event.type) {
+        case 'account.updated':
+            const account = event.data.object;
+            console.log(event.data.object.charges_enabled)
+            if (account.charges_enabled) {
+                try {
+                    await prisma.user.update({
+                        where: { email: event.data.object.email },
+                        data: {
+                            stripeConnect: true
+                        }
+                    })
+                } catch(error) {
+                    console.log(error)
+                }
+            }
+            break;
         case 'payment_intent.succeeded':
             const paymentIntent = event.data.object;
             try {
