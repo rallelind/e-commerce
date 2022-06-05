@@ -36,6 +36,7 @@ export default async function handler(req, res) {
                     firstDate: new Date(dates[0]).toISOString(),
                     secondDate: new Date(dates[1]).toISOString()
                 },
+                capture_method: 'manual',
                 application_fee_amount: calculateAmount(product.price) * 0.10,
                 transfer_data: {
                     destination: product.author.stripeConnectId

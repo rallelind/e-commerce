@@ -58,32 +58,33 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
-  image         String?
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  posts         Post[]
-  accounts      Account[]
-  sessions      Session[]
-  orders        Order[]
-  stripeConnect Boolean @default(false)
-  stripeConnectId String? @unique
+  id              String    @id @default(cuid())
+  name            String?
+  email           String?   @unique
+  emailVerified   DateTime? @map("email_verified")
+  image           String?
+  createdAt       DateTime  @default(now()) @map(name: "created_at")
+  updatedAt       DateTime  @updatedAt @map(name: "updated_at")
+  posts           Post[]
+  accounts        Account[]
+  sessions        Session[]
+  orders          Order[]
+  stripeConnect   Boolean   @default(false)
+  stripeConnectId String?   @unique
 
   @@map(name: "users")
 }
 
 model Order {
-  id        String   @id @default(cuid())
-  authorId  String?
-  productId String?
-  startDate DateTime @db.Date
-  endDate   DateTime @db.Date
-  user      User?    @relation(fields: [authorId], references: [id])
-  product   Post?    @relation(fields: [productId], references: [id])
-  accepted  Boolean  @default(false)
+  id                    String   @id @default(cuid())
+  authorId              String?
+  productId             String?
+  startDate             DateTime @db.Date
+  endDate               DateTime @db.Date
+  user                  User?    @relation(fields: [authorId], references: [id])
+  product               Post?    @relation(fields: [productId], references: [id])
+  accepted              Boolean  @default(false)
+  stripePaymentIntentId String?
 }
 
 model VerificationToken {

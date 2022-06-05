@@ -47,7 +47,7 @@ export default async function handler(req, res) {
                 }
             }
             break;
-        case 'payment_intent.succeeded':
+        case 'charge.succeeded':
             const paymentIntent = event.data.object;
             try {
                 await prisma.order.create({
@@ -56,8 +56,10 @@ export default async function handler(req, res) {
                         product: { connect: { id: paymentIntent.metadata.product } },
                         startDate: paymentIntent.metadata.firstDate,
                         endDate: paymentIntent.metadata.secondDate,
+                        stripePaymentIntentId: paymentIntent.payment_intent,
                     }
                 })
+                console.log(paymentIntent)
             } catch(error) {
                 console.log(error)
             }
@@ -66,6 +68,5 @@ export default async function handler(req, res) {
             console.log(`Unhandled event type ${event.type}`)
     }
 
-    console.log(event.data.object.metadata)
     res.send()
 }

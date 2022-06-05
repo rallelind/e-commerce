@@ -1,5 +1,6 @@
 import { getSession } from "next-auth/react";
 import prisma from "../../../../lib/prisma";
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
 export default async function handler(req, res) {
 
@@ -29,6 +30,7 @@ export default async function handler(req, res) {
     if(req.method === "PUT" && session) {
         const acceptOrder = await prisma.order.update({
             where: { id: orderId },
+            select: { stripePaymentIntentId: true },
             data: {
                 accepted: true,
                 product: {
@@ -38,7 +40,12 @@ export default async function handler(req, res) {
                 },
             },
         })
-        console.log(acceptOrder)
-        res.json(acceptOrder)
+        try {
+            res.json(acceptOrder)
+        } catch(error) {
+            console.log(error)
+        } finally {
+            await stripe.paymentIntents.capture(acceptOrder.stripePaymentIntentId)
+        }
     }
 }
