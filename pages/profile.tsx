@@ -115,22 +115,25 @@ export default function AppShellDemo(props) {
   const [userSeen, setUserSeen] = useState(true)
   const [ownerSeen, setOwnerSeen] = useState(true)
   const [checked, setChecked] = useState(props.user.host)
+  const [loadingUserHost, setLoadingUserHost] = useState(false)
 
   const refresh = useRouterRefresh()
 
   const switchOnChange = async (event) => {
     setChecked(event)
     try {
+      setLoadingUserHost(true)
       const body = { checked: event }
       await fetch("/api/user/update-host", {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
       })
-    } catch(error) {
+    } catch (error) {
       console.log(error)
     } finally {
       refresh()
+        .then(() => setLoadingUserHost(false))
     }
   }
 
@@ -211,16 +214,16 @@ export default function AppShellDemo(props) {
               }
               if (props.user.host && buttonData.host || buttonData.host === null) {
                 return <ProfileButton
-                key={i}
-                label={buttonData.label}
-                color={buttonData.color}
-                onClick={buttonData.onClick}
-                icon={buttonData.icon}
-                ownerSeen={buttonData.ownerSeen}
-                userSeen={buttonData.userSeen}
-              />
+                  key={i}
+                  label={buttonData.label}
+                  color={buttonData.color}
+                  onClick={buttonData.onClick}
+                  icon={buttonData.icon}
+                  ownerSeen={buttonData.ownerSeen}
+                  userSeen={buttonData.userSeen}
+                />
               }
-          })}
+            })}
           </Navbar.Section>
           <Navbar.Section>
             <User
@@ -258,12 +261,18 @@ export default function AppShellDemo(props) {
               </Text>
             </div>
             <div>
-              <Switch
-                label="Switch to host"
-                color="grape"
-                checked={checked}
-                onChange={(event) => switchOnChange(event.currentTarget.checked)}
-              />
+              {loadingUserHost ?
+                <Loading />
+                :
+                <>
+                  <Switch
+                    color="grape"
+                    label={`Switch to ${props.user.host ? "user" : "host"}`}
+                    checked={checked}
+                    onChange={(event) => switchOnChange(event.currentTarget.checked)}
+                  />
+                </>
+              }
             </div>
           </div>
         </Header>
