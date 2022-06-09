@@ -134,6 +134,7 @@ export default function AppShellDemo(props) {
     } finally {
       refresh()
         .then(() => setLoadingUserHost(false))
+        .then(() => setShowComponent("manageProducts"))
     }
   }
 
