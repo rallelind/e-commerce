@@ -71,6 +71,7 @@ model User {
   orders          Order[]
   stripeConnect   Boolean   @default(false)
   stripeConnectId String?   @unique
+  host            Boolean   @default(false)
 
   @@map(name: "users")
 }
@@ -85,6 +86,8 @@ model Order {
   product               Post?    @relation(fields: [productId], references: [id])
   accepted              Boolean  @default(false)
   stripePaymentIntentId String?
+  userSeen              Boolean  @default(false)
+  ownerSeen             Boolean  @default(false)
 }
 
 model VerificationToken {

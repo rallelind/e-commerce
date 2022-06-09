@@ -1,0 +1,29 @@
+.leftCorner {
+    margin-bottom: 1px;
+    margin-left : 1px;
+    position: fixed;
+    bottom: 0;
+    z-index: 5;
+}
+
+.textContainer {
+    width: 55%;
+    text-align: center;
+    margin-left: 22.5%;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.successButton {
+    background-color: #7ac142
+}
+
+.smallTextContainer {
+    width: 70%;
+    text-align: center;
+    margin-left: 15%;
+}
