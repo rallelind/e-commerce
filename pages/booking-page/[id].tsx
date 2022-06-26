@@ -116,7 +116,10 @@ export default function BookingPage(props) {
                             </Container>
                         </div>
                         :
-                        <StripePayment amountOfDays={numberOfNights} productId={props.id} dates={bookingDates} />
+                        <>
+                            <Spacer y={1}/>
+                            <StripePayment amountOfDays={numberOfNights} productId={props.id} dates={bookingDates} />
+                        </>
                     }
 
                 </Container>

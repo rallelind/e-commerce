@@ -7,6 +7,8 @@ const ProductOrders = ({ productOrders }) => {
         return <h1>You have 0 orders on your products</h1>
     }
 
+    console.log(productOrders)
+
     return (
         <Grid.Container gap={4}>
             {productOrders.map((productOrder, i) => (

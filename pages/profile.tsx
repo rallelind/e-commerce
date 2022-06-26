@@ -61,6 +61,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     },
     select: {
       ownerSeen: true,
+      startDate: true,
+      endDate: true,
       user: {
         select: { image: true, name: true }
       },
