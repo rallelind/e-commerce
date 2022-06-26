@@ -23,7 +23,7 @@ import { BiPurchaseTagAlt } from "react-icons/bi"
 import { GiSurferVan } from "react-icons/gi"
 import { CgProfile } from "react-icons/cg"
 import { FiUpload, FiLogOut } from "react-icons/fi"
-import { AiOutlineShop, AiFillEdit } from "react-icons/ai"
+import { AiOutlineShop, AiFillEdit, AiOutlineMessage } from "react-icons/ai"
 import { User } from '../components/profilePage/UserNavbar';
 import Link from "next/link"
 import { useRouter } from 'next/router';
@@ -104,7 +104,7 @@ export default function AppShellDemo(props) {
       }
     })
 
-  }, [])
+  }, [props.productOrders, props.userOrders])
 
 
   const router = useRouter()
@@ -134,7 +134,7 @@ export default function AppShellDemo(props) {
     } finally {
       refresh()
         .then(() => setLoadingUserHost(false))
-        .then(() => setShowComponent("manageProducts"))
+        .then(() => setShowComponent("profileInfo"))
     }
   }
 
@@ -181,8 +181,10 @@ export default function AppShellDemo(props) {
     { label: "Upload Product", color: "green", onClick: () => navigateProfilePage("uploadProduct"), icon: <FiUpload size={25} />, ownerSeen: null, userSeen: null, host: true },
     { label: "Your Products", color: "blue", onClick: () => navigateProfilePage("userProducts"), icon: <AiOutlineShop size={25} />, ownerSeen: null, userSeen: null, host: true },
     { label: "Manage Products", color: "blue", onClick: () => navigateProfilePage("manageProducts"), icon: <AiFillEdit size={20} />, ownerSeen: null, userSeen: null, host: true },
-    { label: "Ordered Trips", color: "grape", onClick: () => navigateProfilePage("orderedTrips"), icon: <GiSurferVan size={30} />, ownerSeen: null, userSeen: userSeen, host: false },
+    { label: "Ordered Trips", color: "green", onClick: () => navigateProfilePage("orderedTrips"), icon: <GiSurferVan size={30} />, ownerSeen: null, userSeen: userSeen, host: false },
     { label: "Product orders", color: "green", onClick: () => navigateProfilePage("productOrders"), icon: <BiPurchaseTagAlt size={25} />, ownerSeen: ownerSeen, userSeen: null, host: true },
+    { label: "Inbox", color: "grape", onClick: () => router.push("/inbox/user"), icon: <AiOutlineMessage size={25} />, ownerSeen: null, userSeen: null, host: false},
+    { label: "Inbox", color: "grape", onClick: () => router.push("/inbox/host"), icon: <AiOutlineMessage size={25} />, ownerSeen: null, userSeen: null, host: true},
     { label: "Sign out", color: "red", onClick: () => signOut({ redirect: true, callbackUrl: "/" }), icon: <FiLogOut size={25} />, ownerSeen: null, userSeen: null, host: null },
   ]
 

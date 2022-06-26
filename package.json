@@ -29,6 +29,7 @@
     "react-infinite-scroller": "^1.2.6",
     "react-slick": "^0.28.1",
     "slick-carousel": "^1.8.1",
+    "socket.io": "^4.5.1",
     "stripe": "^8.222.0"
   },
   "devDependencies": {
