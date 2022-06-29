@@ -43,6 +43,7 @@ export default function UserHost(props) {
 
     const [opened, setOpened] = useState(false)
     const [openChat, setOpenChat] = useState("")
+    const [hoverMessage, setHoverMessage] = useState("")
 
     return (
         <AppShell
@@ -57,11 +58,22 @@ export default function UserHost(props) {
             navbar={
                 <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
                     {props.userChannels.map(userChannel => (
-                        <div key={userChannel.id} onClick={() => setOpenChat(userChannel.chatChannel)}>
+                        <div 
+                            key={userChannel.id} 
+                            onClick={() => setOpenChat(userChannel.chatChannel)} 
+                            onMouseEnter={() => setHoverMessage(userChannel.id)}
+                            onMouseLeave={() => setHoverMessage("")}
+                            style={{ 
+                                cursor: "pointer", 
+                                marginTop: "5%",  
+                                backgroundColor: hoverMessage === userChannel.id ? theme.colors.gray[1] : "white",
+                                padding: "5%",
+                                borderRadius: "5px",
+                            }}>
                             <User 
                                 userData={userChannel.accepted ? "order accepted" : "awaiting approval"}
                                 userName={userChannel.user.name}
-                                avatar={userChannel.data.image}
+                                avatar={userChannel.user.image}
                             />
                         </div>
                     ))}

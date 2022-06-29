@@ -88,7 +88,7 @@ model Order {
   stripePaymentIntentId String?
   userSeen              Boolean  @default(false)
   ownerSeen             Boolean  @default(false)
-  chatChannel           String   @unique @default(cuid())
+  chatChannel           String?   @unique @default(cuid())
 }
 
 model VerificationToken {

@@ -11,12 +11,7 @@ export function User({ avatar, userName, userData }: user) {
   const theme = useMantineTheme();
 
   return (
-    <Box
-      sx={{
-        paddingTop: theme.spacing.sm,
-        borderTop: `1px solid ${theme.colors.gray[2]}`,
-      }}
-    >
+    <Box>
         <Group>
           <Avatar
             src={avatar}

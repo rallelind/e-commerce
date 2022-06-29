@@ -20,7 +20,7 @@ const AblyChatComponent = dynamic(() => import('../../components/ably/AblyChatCo
 export const getServerSideProps: GetServerSideProps = async({req}) => {
     const session = await getSession({ req })
 
-    const hostChannels = prisma.order.findMany({
+    const hostChannels = await prisma.order.findMany({
         where: {
             product: { author: { email: session?.user?.email } }
         },
@@ -44,6 +44,7 @@ export default function HostInbox(props) {
 
     const [opened, setOpened] = useState(false)
     const [openChat, setOpenChat] = useState("")
+    const [hoverMessage, setHoverMessage] = useState("")
 
 
     return (
@@ -59,7 +60,19 @@ export default function HostInbox(props) {
             navbar={
                 <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
                     {props.hostChannels.map((hostChannel) => (
-                        <div onClick={() => setOpenChat(hostChannel.chatChannel)} key={hostChannel.id}>
+                        <div 
+                            onClick={() => setOpenChat(hostChannel.chatChannel)} 
+                            key={hostChannel.id}
+                            onMouseEnter={() => setHoverMessage(hostChannel.id)}
+                            onMouseLeave={() => setHoverMessage("")}
+                            style={{ 
+                                cursor: "pointer", 
+                                marginTop: "5%",  
+                                backgroundColor: hoverMessage === hostChannel.id ? theme.colors.gray[1] : "white",
+                                padding: "5%",
+                                borderRadius: "5px",
+                            }}
+                        >
                             <User 
                                 userData={hostChannel.accepted ? "order accepted" : "order needs confirmation"}
                                 userName={hostChannel.user.name}
