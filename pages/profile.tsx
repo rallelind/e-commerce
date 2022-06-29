@@ -234,7 +234,7 @@ export default function AppShellDemo(props) {
             <User
               avatar={session.user.image}
               userName={session.user.name}
-              userEmail={session.user.email}
+              userData={session.user.email}
             />
           </Navbar.Section>
         </Navbar>

@@ -13,6 +13,7 @@ import dynamic from "next/dynamic"
 import { getSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import prisma from "../../lib/prisma";
+import { User } from "../../components/profilePage/UserNavbar";
 
 const AblyChatComponent = dynamic(() => import('../../components/ably/AblyChatComponent'), { ssr: false })
 
@@ -25,6 +26,12 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
         },
         select: {
             chatChannel: true,
+            accepted: true,
+            id: true,
+            user: {
+                select: { image: true, name: true }
+            }
+            
         }
     })
 
@@ -51,7 +58,15 @@ export default function HostInbox(props) {
             fixed
             navbar={
                 <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
-
+                    {props.hostChannels.map((hostChannel) => (
+                        <div onClick={() => setOpenChat(hostChannel.chatChannel)} key={hostChannel.id}>
+                            <User 
+                                userData={hostChannel.accepted ? "order accepted" : "order needs confirmation"}
+                                userName={hostChannel.user.name}
+                                avatar={hostChannel.image}
+                            />
+                        </div>
+                    ))}
                 </Navbar>
             }
             header={

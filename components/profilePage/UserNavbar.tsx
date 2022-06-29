@@ -4,10 +4,10 @@ import { Group, Avatar, Text, Box, useMantineTheme, AVATAR_SIZES } from '@mantin
 interface user {
     avatar: string;
     userName: string;
-    userEmail: string;
+    userData: string;
 }
 
-export function User({ avatar, userName, userEmail }: user) {
+export function User({ avatar, userName, userData }: user) {
   const theme = useMantineTheme();
 
   return (
@@ -27,7 +27,7 @@ export function User({ avatar, userName, userEmail }: user) {
               {userName}
             </Text>
             <Text color="dimmed" size="xs">
-              {userEmail}
+              {userData}
             </Text>
           </Box>
 
