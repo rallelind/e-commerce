@@ -13,6 +13,7 @@ import dynamic from "next/dynamic"
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import prisma from "../../lib/prisma";
+import { User } from "../../components/profilePage/UserNavbar";
 
 const AblyChatComponent = dynamic(() => import('../../components/ably/AblyChatComponent'), { ssr: false })
 
@@ -22,14 +23,21 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const userChannels = await prisma.order.findMany({
         where: { user: { email: session?.user?.email } },
         select: {
-            chatChannel: true
+            chatChannel: true,
+            id: true,
+            accepted: true,
+            user: { 
+                select: {
+                    image: true, name: true,
+                }
+             }
         }
     })
 
     return { props: { userChannels } }
 }
 
-export default function UserHost() {
+export default function UserHost(props) {
 
     const theme = useMantineTheme();
 
@@ -48,7 +56,15 @@ export default function UserHost() {
             fixed
             navbar={
                 <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
-
+                    {props.userChannels.map(userChannel => (
+                        <div key={userChannel.id} onClick={() => setOpenChat(userChannel.chatChannel)}>
+                            <User 
+                                userData={userChannel.accepted ? "order accepted" : "awaiting approval"}
+                                userName={userChannel.user.name}
+                                avatar={userChannel.data.image}
+                            />
+                        </div>
+                    ))}
                 </Navbar>
             }
             header={
