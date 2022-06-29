@@ -9,13 +9,34 @@ import {
 } from "@mantine/core";
 import { Text } from "@nextui-org/react";
 import Link from "next/link"
+import dynamic from "next/dynamic"
+import { getSession } from "next-auth/react";
+import { GetServerSideProps } from "next";
+import prisma from "../../lib/prisma";
 
+const AblyChatComponent = dynamic(() => import('../../components/ably/AblyChatComponent'), { ssr: false })
 
-export default function HostInbox() {
+export const getServerSideProps: GetServerSideProps = async({req}) => {
+    const session = await getSession({ req })
+
+    const hostChannels = prisma.order.findMany({
+        where: {
+            product: { author: { email: session?.user?.email } }
+        },
+        select: {
+            chatChannel: true,
+        }
+    })
+
+    return { props: { hostChannels } }
+}
+
+export default function HostInbox(props) {
 
     const theme = useMantineTheme();
 
     const [opened, setOpened] = useState(false)
+    const [openChat, setOpenChat] = useState("")
 
 
     return (
@@ -63,7 +84,7 @@ export default function HostInbox() {
             </Header>
         }
         >
-
+            <AblyChatComponent channelName={openChat} />
         </AppShell>
     )
 }
