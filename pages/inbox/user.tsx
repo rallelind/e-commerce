@@ -45,6 +45,15 @@ export default function UserHost(props) {
     const [openChat, setOpenChat] = useState("")
     const [hoverMessage, setHoverMessage] = useState("")
 
+    const backGroundColor = (id, chatChannel) => {
+        if (id === hoverMessage) {
+            return theme.colors.gray[1]
+        }
+        if (chatChannel === openChat) {
+            return theme.colors.gray[1]
+        }
+    }
+
     return (
         <AppShell
             styles={{
@@ -66,7 +75,7 @@ export default function UserHost(props) {
                             style={{ 
                                 cursor: "pointer", 
                                 marginTop: "5%",  
-                                backgroundColor: hoverMessage === userChannel.id ? theme.colors.gray[1] : "white",
+                                backgroundColor: backGroundColor(userChannel.id, userChannel.chatChannel),
                                 padding: "5%",
                                 borderRadius: "5px",
                             }}>

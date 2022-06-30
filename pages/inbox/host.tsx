@@ -46,6 +46,14 @@ export default function HostInbox(props) {
     const [openChat, setOpenChat] = useState("")
     const [hoverMessage, setHoverMessage] = useState("")
 
+    const backGroundColor = (id, chatChannel) => {
+        if (id === hoverMessage) {
+            return theme.colors.gray[1]
+        }
+        if (chatChannel === openChat) {
+            return theme.colors.gray[1]
+        }
+    }
 
     return (
         <AppShell
@@ -68,7 +76,7 @@ export default function HostInbox(props) {
                             style={{ 
                                 cursor: "pointer", 
                                 marginTop: "5%",  
-                                backgroundColor: hoverMessage === hostChannel.id ? theme.colors.gray[1] : "white",
+                                backgroundColor: backGroundColor(hostChannel.id, hostChannel.chatChannel),
                                 padding: "5%",
                                 borderRadius: "5px",
                             }}
