@@ -3,7 +3,6 @@ import { useChannel } from "../../lib/customHook/useChannel"
 import { Input, Button, Avatar, Text } from "@nextui-org/react"
 import { useSession } from "next-auth/react"
 
-
 const AblyChatComponent = ({ channelName, oppositeUserData }) => {
 
     let inputBox = null
@@ -47,7 +46,7 @@ const AblyChatComponent = ({ channelName, oppositeUserData }) => {
         return (
         <div key={index} style={{ marginTop: "2%", width: "100%" }}>
             <div style={{ display: "flex", width: "100%" }}>
-                <Avatar src={author === "me" ? session.data.user.image : oppositeUserData.image} />
+                <Avatar css={{ zIndex: "1" }} src={author === "me" ? session.data.user.image : oppositeUserData.image} />
                 <div>
                     <Text style={{ marginLeft: "20px", width: "100%" }} h4>{author === "me" ? session.data.user.name : oppositeUserData.name}</Text>
                     <span><Text style={{ marginLeft: "20px" }}>
@@ -66,11 +65,10 @@ const AblyChatComponent = ({ channelName, oppositeUserData }) => {
 
     return (
         <div style={{ display: "flex", justifyContent: "center" }}>
-            <div style={{ width: "75%" }}>
-                {messages}
+            <div style={{ overflowY: "scroll", width: "75%", marginBottom: "5%" }}>
+                    {messages}
             </div>
             
-            <div ref={(element) => { messageEnd = element; }}></div>
             <div style={{ position: "absolute", bottom: "10px" }}>
                 <form onSubmit={handleFormSubmission}>
                     <div style={{ display: "flex" }}>
@@ -84,9 +82,10 @@ const AblyChatComponent = ({ channelName, oppositeUserData }) => {
                             onKeyDown={handleKeyPress}
                             onChange={e => setMessageText(e.target.value)}
                         />
-                        <Button auto type="submit" disabled={messageTextIsEmpty}>Send</Button>
+                        <button style={{ display: "none" }} type="submit" disabled={messageTextIsEmpty}></button>
                     </div>
                 </form>
+                <div ref={(element) => { messageEnd = element; }}></div>
             </div>
         </div>
     )
