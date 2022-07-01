@@ -9,7 +9,7 @@ import {
   useMantineTheme,
   Switch
 } from '@mantine/core';
-import { Text, Loading } from '@nextui-org/react';
+import { Text, Loading, Divider } from '@nextui-org/react';
 import { useSession, signOut } from 'next-auth/react';
 import ProfileInfo from "../components/profilePage/profileInfo/ProfileInfo";
 import UploadProduct from "../components/profilePage/uploadProduct/UploadProduct";
@@ -231,6 +231,7 @@ export default function AppShellDemo(props) {
             })}
           </Navbar.Section>
           <Navbar.Section>
+            <Divider y={1} />
             <User
               avatar={session.user.image}
               userName={session.user.name}

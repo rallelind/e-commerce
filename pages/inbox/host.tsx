@@ -43,7 +43,8 @@ export default function HostInbox(props) {
     const theme = useMantineTheme();
 
     const [opened, setOpened] = useState(false)
-    const [openChat, setOpenChat] = useState("")
+    const [openChat, setOpenChat] = useState("1")
+    const [oppositeUserData, setOppositeUserData] = useState()
     const [hoverMessage, setHoverMessage] = useState("")
 
     const backGroundColor = (id, chatChannel) => {
@@ -53,6 +54,11 @@ export default function HostInbox(props) {
         if (chatChannel === openChat) {
             return theme.colors.gray[1]
         }
+    }
+
+    const chatChannelOnclick = (hostChannel) => {
+        setOpenChat(hostChannel.chatChannel)
+        setOppositeUserData(hostChannel.user)
     }
 
     return (
@@ -69,7 +75,7 @@ export default function HostInbox(props) {
                 <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
                     {props.hostChannels.map((hostChannel) => (
                         <div 
-                            onClick={() => setOpenChat(hostChannel.chatChannel)} 
+                            onClick={() => chatChannelOnclick(hostChannel)} 
                             key={hostChannel.id}
                             onMouseEnter={() => setHoverMessage(hostChannel.id)}
                             onMouseLeave={() => setHoverMessage("")}
@@ -84,7 +90,7 @@ export default function HostInbox(props) {
                             <User 
                                 userData={hostChannel.accepted ? "order accepted" : "order needs confirmation"}
                                 userName={hostChannel.user.name}
-                                avatar={hostChannel.image}
+                                avatar={hostChannel.user.image}
                             />
                         </div>
                     ))}
@@ -120,7 +126,7 @@ export default function HostInbox(props) {
             </Header>
         }
         >
-            <AblyChatComponent channelName={openChat} />
+            <AblyChatComponent channelName={openChat} oppositeUserData={oppositeUserData} />
         </AppShell>
     )
 }

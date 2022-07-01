@@ -26,9 +26,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
             chatChannel: true,
             id: true,
             accepted: true,
-            user: { 
+            product: { 
                 select: {
-                    image: true, name: true,
+                    author: {
+                        select: { image: true, name: true, }
+                    }
                 }
              }
         }
@@ -42,7 +44,8 @@ export default function UserHost(props) {
     const theme = useMantineTheme();
 
     const [opened, setOpened] = useState(false)
-    const [openChat, setOpenChat] = useState("")
+    const [openChat, setOpenChat] = useState("1")
+    const [oppositeUserData, setOppositeUserData] = useState()
     const [hoverMessage, setHoverMessage] = useState("")
 
     const backGroundColor = (id, chatChannel) => {
@@ -52,6 +55,11 @@ export default function UserHost(props) {
         if (chatChannel === openChat) {
             return theme.colors.gray[1]
         }
+    }
+
+    const chatChannelOnclick = (userChannel) => {
+        setOpenChat(userChannel.chatChannel)
+        setOppositeUserData(userChannel.product.author)
     }
 
     return (
@@ -69,7 +77,7 @@ export default function UserHost(props) {
                     {props.userChannels.map(userChannel => (
                         <div 
                             key={userChannel.id} 
-                            onClick={() => setOpenChat(userChannel.chatChannel)} 
+                            onClick={() => chatChannelOnclick(userChannel)} 
                             onMouseEnter={() => setHoverMessage(userChannel.id)}
                             onMouseLeave={() => setHoverMessage("")}
                             style={{ 
@@ -81,8 +89,8 @@ export default function UserHost(props) {
                             }}>
                             <User 
                                 userData={userChannel.accepted ? "order accepted" : "awaiting approval"}
-                                userName={userChannel.user.name}
-                                avatar={userChannel.user.image}
+                                userName={userChannel.product.author.name}
+                                avatar={userChannel.product.author.image}
                             />
                         </div>
                     ))}
@@ -118,7 +126,7 @@ export default function UserHost(props) {
             </Header>
         }
         >
-            <AblyChatComponent channelName={openChat} />
+            <AblyChatComponent channelName={openChat} oppositeUserData={oppositeUserData} />
         </AppShell>
     )
 }
