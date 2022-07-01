@@ -45,14 +45,17 @@ const AblyChatComponent = ({ channelName, oppositeUserData }) => {
     const messages = receivedMessages.map((message, index) => {
         const author = message.connectionId === ably.connection.id ? "me" : "other";
         return (
-        <div key={index}>
-            <div>
+        <div key={index} style={{ marginTop: "2%", width: "100%" }}>
+            <div style={{ display: "flex", width: "100%" }}>
                 <Avatar src={author === "me" ? session.data.user.image : oppositeUserData.image} />
-                <Text h4>{author === "me" ? session.data.user.name : oppositeUserData.name}</Text> 
+                <div>
+                    <Text style={{ marginLeft: "20px", width: "100%" }} h4>{author === "me" ? session.data.user.name : oppositeUserData.name}</Text>
+                    <span><Text style={{ marginLeft: "20px" }}>
+                        {message.data}
+                    </Text></span>
+                </div>
             </div>
-            <Text>
-                {message.data}
-            </Text>
+
         </div>
         );
       });
@@ -62,25 +65,27 @@ const AblyChatComponent = ({ channelName, oppositeUserData }) => {
       });
 
     return (
-        <div>
-            <div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ width: "75%" }}>
                 {messages}
             </div>
             
             <div ref={(element) => { messageEnd = element; }}></div>
             <div style={{ position: "absolute", bottom: "10px" }}>
                 <form onSubmit={handleFormSubmission}>
-                    <Input 
-                        ref={(element) => { inputBox = element; }}
-                        size="md" 
-                        placeholder="Write a message"
-                        status="primary"
-                        color="primary"
-                        value={messageText}
-                        onKeyDown={handleKeyPress}
-                        onChange={e => setMessageText(e.target.value)}
-                    />
-                    <Button auto type="submit" disabled={messageTextIsEmpty}>Send</Button>
+                    <div style={{ display: "flex" }}>
+                        <Input 
+                            ref={(element) => { inputBox = element; }}
+                            size="md" 
+                            placeholder="Write a message"
+                            status="primary"
+                            color="primary"
+                            value={messageText}
+                            onKeyDown={handleKeyPress}
+                            onChange={e => setMessageText(e.target.value)}
+                        />
+                        <Button auto type="submit" disabled={messageTextIsEmpty}>Send</Button>
+                    </div>
                 </form>
             </div>
         </div>
