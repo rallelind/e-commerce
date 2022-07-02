@@ -14,6 +14,7 @@ const AblyChatComponent = ({ channelName, oppositeUserData }) => {
     const [receivedMessages, setReceivedMessages] = useState([])
     const messageTextIsEmpty = messageText.trim().length === 0;
 
+    console.log(receivedMessages)
 
     const [channel, ably] = useChannel(channelName, (message) => {
 
@@ -41,17 +42,46 @@ const AblyChatComponent = ({ channelName, oppositeUserData }) => {
         event.preventDefault()
     }
 
+    
+
     const messages = receivedMessages.map((message, index) => {
         const author = message.connectionId === ably.connection.id ? "me" : "other";
+        const timeOfMessage = new Date(message.timestamp).toLocaleTimeString(navigator.language, {
+            hour: '2-digit',
+            minute:'2-digit'
+        })
+
+        const latestMessage = receivedMessages[receivedMessages.length-1]
+        const previousMessage = receivedMessages.length > 1 && receivedMessages[receivedMessages.length-2]
+
+        const latestMessageAuthor = latestMessage.connectionId
+        const previousMessageAuthor = previousMessage.connectionId
+
+        const latestMessageTime = new Date(latestMessage.timestamp).getTime()
+        const previousMessageTime = new Date(previousMessage.timestamp).getTime()
+
+        const minuteDiff = Number(Math.abs(latestMessageTime - previousMessageTime) / (1000 * 60) % 60)
+
+        console.log(minuteDiff)
+
         return (
         <div key={index} style={{ marginTop: "2%", width: "100%" }}>
             <div style={{ display: "flex", width: "100%" }}>
                 <Avatar css={{ zIndex: "1" }} src={author === "me" ? session.data.user.image : oppositeUserData.image} />
                 <div>
-                    <Text style={{ marginLeft: "20px", width: "100%" }} h4>{author === "me" ? session.data.user.name : oppositeUserData.name}</Text>
-                    <span><Text style={{ marginLeft: "20px" }}>
-                        {message.data}
-                    </Text></span>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                        <Text style={{ marginLeft: "20px", width: "100%" }} h4>
+                            {author === "me" ? session.data.user.name : oppositeUserData.name} 
+                            <span style={{ marginLeft: "10px", fontWeight: "lighter", fontSize: "15px" }}>
+                                {timeOfMessage}
+                            </span>
+                        </Text> 
+                    </div>
+                    <span>
+                        <Text style={{ marginLeft: "20px" }}>
+                            {message.data} 
+                        </Text>
+                    </span>
                 </div>
             </div>
 
