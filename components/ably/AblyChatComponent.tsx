@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useChannel } from "../../lib/customHook/useChannel"
 import { Input, Button, Avatar, Text } from "@nextui-org/react"
 import { useSession } from "next-auth/react"
+import { GiSurferVan } from "react-icons/gi"
 
 const AblyChatComponent = ({ channelName, oppositeUserData }) => {
 
@@ -16,12 +17,14 @@ const AblyChatComponent = ({ channelName, oppositeUserData }) => {
 
     console.log(receivedMessages)
 
-    const [channel, ably] = useChannel(channelName, (message) => {
+    const [channel, ably] = useChannel(`${channelName}`, (message) => {
 
         const history = receivedMessages.slice(-199)
         setReceivedMessages([...history, message])
 
     })
+
+    console.log(channel)
 
     const sendChatMessage = (messageText) => {
         channel.publish({ name: "chat-message", data: messageText });
@@ -62,7 +65,6 @@ const AblyChatComponent = ({ channelName, oppositeUserData }) => {
 
         const minuteDiff = Number(Math.abs(latestMessageTime - previousMessageTime) / (1000 * 60) % 60)
 
-        console.log(minuteDiff)
 
         return (
         <div key={index} style={{ marginTop: "2%", width: "100%" }}>
@@ -84,7 +86,7 @@ const AblyChatComponent = ({ channelName, oppositeUserData }) => {
                     </span>
                 </div>
             </div>
-
+            
         </div>
         );
       });
@@ -95,22 +97,27 @@ const AblyChatComponent = ({ channelName, oppositeUserData }) => {
 
     return (
         <div style={{ display: "flex", justifyContent: "center" }}>
-            <div style={{ overflowY: "scroll", width: "75%", marginBottom: "5%" }}>
+            <div style={{ overflowY: "scroll", width: "75%", marginBottom: "10%" }}>
                     {messages}
             </div>
             
-            <div style={{ position: "absolute", bottom: "10px" }}>
+            <div style={{ position: "absolute", bottom: "30px" }}>
                 <form onSubmit={handleFormSubmission}>
                     <div style={{ display: "flex" }}>
                         <Input 
+                            width="400px"
+                            css={{ backgroundColor: "white" }}
                             ref={(element) => { inputBox = element; }}
                             size="md" 
                             placeholder="Write a message"
-                            status="primary"
-                            color="primary"
+                            color="default"
+                            bordered
                             value={messageText}
                             onKeyDown={handleKeyPress}
                             onChange={e => setMessageText(e.target.value)}
+                            contentRight={
+                                <GiSurferVan />
+                            }
                         />
                         <button style={{ display: "none" }} type="submit" disabled={messageTextIsEmpty}></button>
                     </div>

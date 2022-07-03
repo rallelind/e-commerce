@@ -12,7 +12,7 @@ export function useChannel(channelName, callbackOnMessage) {
     }
 
     const onUnmount = () => {
-        channel.unsubscribe();
+        channel.unsubscribe(() => console.log("unsubscribed"));
     }
 
     const useEffectHook = () => {

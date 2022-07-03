@@ -44,7 +44,7 @@ export default function UserHost(props) {
     const theme = useMantineTheme();
 
     const [opened, setOpened] = useState(false)
-    const [openChat, setOpenChat] = useState("1")
+    const [openChat, setOpenChat] = useState(props.userChannels[0].chatChannel)
     const [oppositeUserData, setOppositeUserData] = useState()
     const [hoverMessage, setHoverMessage] = useState("")
 

@@ -44,7 +44,7 @@ export default function HostInbox(props) {
     const theme = useMantineTheme();
 
     const [opened, setOpened] = useState(false)
-    const [openChat, setOpenChat] = useState("1")
+    const [openChat, setOpenChat] = useState(props.hostChannels[0].chatChannel)
     const [oppositeUserData, setOppositeUserData] = useState()
     const [hoverMessage, setHoverMessage] = useState("")
 
