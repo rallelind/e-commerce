@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/profilePage/profileInfo/ProfileInfo.tsx", "pages/api/product/upload-product.ts", "pages/api/product/user-products.js", "components/ably/AblyChatComponent.tsx"  ],
+, "components/profilePage/profileInfo/ProfileInfo.tsx", "pages/api/product/upload-product.ts", "pages/api/product/user-products.js", "components/chat/ChatComponent.tsx"  ],
   "exclude": [
     "node_modules"
   ]

@@ -15,7 +15,7 @@ import { getSession } from "next-auth/react";
 import prisma from "../../lib/prisma";
 import { User } from "../../components/profilePage/UserNavbar";
 
-const AblyChatComponent = dynamic(() => import('../../components/ably/AblyChatComponent'), { ssr: false })
+const ChatComponent = dynamic(() => import('../../components/chat/ChatComponent'), { ssr: false })
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const session = await getSession({ req })
@@ -126,7 +126,7 @@ export default function UserHost(props) {
             </Header>
         }
         >
-            <AblyChatComponent channelName={openChat} oppositeUserData={oppositeUserData} />
+            <ChatComponent channelName={openChat} />
         </AppShell>
     )
 }
