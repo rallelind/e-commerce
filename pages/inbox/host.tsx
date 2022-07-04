@@ -14,7 +14,7 @@ import { getSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import prisma from "../../lib/prisma";
 import { User } from "../../components/profilePage/UserNavbar";
-import { ScrollArea } from "@mantine/core"
+import GoBackButton from "../../components/utils/GoBackBtn"
 
 const ChatComponent = dynamic(() => import('../../components/chat/ChatComponent'), { ssr: false })
 
@@ -116,11 +116,7 @@ export default function HostInbox(props) {
                   textGradient: "112deg, #06B7DB -63.59%, #FF4ECD -20.3%, #0072F5 70.46%"
                 }}
               >
-                <Link href="/">
-                  <a>
-                    Home
-                  </a>
-                </Link>
+                <GoBackButton />
               </Text>
             </div>
             </div>
