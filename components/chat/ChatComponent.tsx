@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react"
-import { useChannel } from "../../lib/customHook/useChannel"
-import { Input, Button, Avatar, Text } from "@nextui-org/react"
+import { Input } from "@nextui-org/react"
 import { useSession } from "next-auth/react"
 import { GiSurferVan } from "react-icons/gi"
 import ChatMessage from "./ChatMessage"
@@ -11,13 +10,13 @@ import { collection, query, where, getFirestore, orderBy, limit, addDoc, Timesta
 import { useCollectionData } from "react-firebase-hooks/firestore"
 
 const app = firebase.initializeApp({
-    apiKey: "AIzaSyDVebTnjyXGJy6sM1-vJVYWu3ehIY7qt2I",
-    authDomain: "vanli-7f181.firebaseapp.com",
-    projectId: "vanli-7f181",
-    storageBucket: "vanli-7f181.appspot.com",
-    messagingSenderId: "1079732229579",
-    appId: "1:1079732229579:web:914a732fb08bfe7f11d24e",
-    measurementId: "G-FZL6Q30E37"
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGE_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 })
 
 const db = getFirestore(app);
@@ -33,6 +32,7 @@ const ChatComponent = ({ channelName }) => {
 
     const [messages] = useCollectionData(channelQuery);
 
+    const sortedArray = messages && messages.sort((a,b) => a.createdAt.seconds > b.createdAt.seconds ? 1 : -1)
     
 
     useEffect(() => {
@@ -64,7 +64,7 @@ const ChatComponent = ({ channelName }) => {
     return (
         <div style={{ display: "flex", justifyContent: "center" }}>
             <div style={{ overflowY: "scroll", width: "75%", marginBottom: "10%" }}>
-                {messages && messages.map((msg, index) => <ChatMessage message={msg} key={index} />)}
+                {sortedArray && sortedArray.map((msg, index) => <ChatMessage message={msg} key={index} />)}
             </div>
             
             <div style={{ position: "absolute", bottom: "30px" }}>
