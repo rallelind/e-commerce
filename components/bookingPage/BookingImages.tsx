@@ -5,7 +5,7 @@ const BookingImages: React.FC<{images: string[]}> = ({ images }) => {
     return (
         <Grid.Container gap={2} justify="center">
             <Grid xs={5}>
-                <Card shadow={false} cover style={{ height: "100px" }}>
+                <Card shadow={false} cover className="h-full">
                     <Card.Image 
                         width="100%"
                         src={images[0]}
@@ -13,7 +13,7 @@ const BookingImages: React.FC<{images: string[]}> = ({ images }) => {
                 </Card>
             </Grid>
             <Grid xs={5}>
-                <Card shadow={false} cover style={{ height: "100px" }}>
+                <Card shadow={false} cover className="h-full">
                     <Card.Image 
                         src={images[1]}
                         width="100%"
@@ -21,7 +21,7 @@ const BookingImages: React.FC<{images: string[]}> = ({ images }) => {
                 </Card>
             </Grid>
             <Grid xs={11}>
-                <Card shadow={false} cover style={{ height: "150px" }}>
+                <Card shadow={false} cover className="h-[150px]">
                     <Card.Image 
                         src={images[2]}
                         width="100%"
@@ -29,7 +29,7 @@ const BookingImages: React.FC<{images: string[]}> = ({ images }) => {
                 </Card>
             </Grid>
             <Grid xs={5}>
-                <Card shadow={false} cover style={{ height: "100px" }}>
+                <Card shadow={false} cover className="h-[100px]">
                     <Card.Image 
                         src={images[3]}
                         width="100%"
@@ -37,7 +37,7 @@ const BookingImages: React.FC<{images: string[]}> = ({ images }) => {
                 </Card>
             </Grid>
             <Grid xs={5}>
-                <Card shadow={false} cover style={{ height: "100px" }}>
+                <Card shadow={false} cover className="h-[100px]">
                     <Card.Image 
                         src={images[4]}
                         width="100%"

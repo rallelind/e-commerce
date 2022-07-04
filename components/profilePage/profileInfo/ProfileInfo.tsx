@@ -74,7 +74,7 @@ const ProfileInfo = () => {
 
     return (
         <Grid xs={5}>
-            <Container style={{ width: "100%" }}>
+            <Container className='w-full'>
                 <Text
                     h3
                     css={{
@@ -86,7 +86,7 @@ const ProfileInfo = () => {
                 <Spacer y={1} />
                 <Avatar 
                     zoomed 
-                    style={{ height: "125px", width: "125px", zIndex: "0" }} 
+                    className='h-[125px] w-[125px] z-0'
                     bordered 
                     color="gradient" 
                     src={session.user.image} 
@@ -95,7 +95,7 @@ const ProfileInfo = () => {
                 />
                       <input type="file"
                         ref={hiddenFileInput}
-                        style={{display:'none'}} 
+                        className="hidden"
                         onChange={handleChange}
                 /> 
                 <Spacer y={1} />
@@ -119,7 +119,7 @@ const ProfileInfo = () => {
                     >
                         Name:
                     </Text>
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <div className='flex justify-between'>
                         <div>
                             <Text>
                                 {newName === false ? session.user.name : <Input onChange={(e) => setUpdateName(e.target.value)} />}
@@ -128,7 +128,7 @@ const ProfileInfo = () => {
                         <div>
                             {
                                 newName === false ?
-                                <Avatar style={{ zIndex: "0" }} squared pointer icon={<AiFillEdit size={20} />} onClick={() => setNewName(true)} />
+                                <Avatar className='z-0' squared pointer icon={<AiFillEdit size={20} />} onClick={() => setNewName(true)} />
                                 :
                                 <Button auto onClick={updateUserName}>Change</Button>
                             }

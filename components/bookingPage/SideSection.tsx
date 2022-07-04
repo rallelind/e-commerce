@@ -14,7 +14,7 @@ type SideSection = {
 
 const SideSection: React.FC<SideSection> = ({ images, title, price, numberOfNights, priceForStay, serviceCost }) => {
     return (
-        <Aside style={{ width: "450px" }}>
+        <Aside className="h-[450px]">
             <Spacer y={0.5} />
             <BookingImages images={images.map((e) => e)} />
             <Spacer y={0.5} />
@@ -31,7 +31,7 @@ const SideSection: React.FC<SideSection> = ({ images, title, price, numberOfNigh
                 </Text>
             </Container>
             <Spacer y={0.5} />
-            <Container style={{ display: "flex", justifyContent: "space-between" }}>
+            <Container className="flex justify-between">
                 <div>
                     <Text h5>
                         {price} x {numberOfNights} nights
@@ -46,7 +46,7 @@ const SideSection: React.FC<SideSection> = ({ images, title, price, numberOfNigh
                 </div>
             </Container>
             <Spacer y={0.5} />
-            <Container style={{ display: "flex", justifyContent: "space-between" }}>
+            <Container className="flex justify-between">
                 <div>
                     <Text 
                         h5
@@ -63,7 +63,7 @@ const SideSection: React.FC<SideSection> = ({ images, title, price, numberOfNigh
             <Spacer y={0.5} />
             <Divider />
             <Spacer y={0.5} />
-            <Container style={{ display: "flex", justifyContent: "space-between" }}>
+            <Container className="flex justify-between">
                 <div>
                     <Text h5>
                         Total cost

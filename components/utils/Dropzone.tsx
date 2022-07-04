@@ -10,7 +10,7 @@ const ImageDropzone = (props) => {
                 onDrop={props.onDrop}
             >
                 {() =>
-                    <Group position="center" spacing="xl" style={{ minHeight: 220, pointerEvents: 'none' }}>
+                    <Group position="center" spacing="xl" className="min-h-[220px] pointer-events-none">
                     <FcAddImage size={80} />
 
                     <div>

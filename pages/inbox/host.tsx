@@ -80,13 +80,7 @@ export default function HostInbox(props) {
                             key={hostChannel.id}
                             onMouseEnter={() => setHoverMessage(hostChannel.id)}
                             onMouseLeave={() => setHoverMessage("")}
-                            style={{ 
-                                cursor: "pointer", 
-                                marginTop: "5%",  
-                                backgroundColor: backGroundColor(hostChannel.id, hostChannel.chatChannel),
-                                padding: "5%",
-                                borderRadius: "5px",
-                            }}
+                            className={`cursor-pointer mt-[5%] bg-${backGroundColor(hostChannel.id, hostChannel.chatChannel)} p-[5%] rounded-[5px]`}
                         >
                             <User 
                                 userData={hostChannel.accepted ? "order accepted" : "order needs confirmation"}
@@ -99,7 +93,7 @@ export default function HostInbox(props) {
             }
             header={
                 <Header height={70} p="md">
-                    <div style={{ display: 'flex', justifyContent: "space-between", alignItems: 'center', height: '100%' }}>
+                    <div className="flex justify-between items-center h-full">
             <div>
               <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
                 <Burger

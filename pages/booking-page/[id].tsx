@@ -57,9 +57,9 @@ export default function BookingPage(props) {
                     />
                 }
             >
-                <Container justify="center" style={{ width: "90%", marginTop: "10%" }}>
-                    <div style={{ display: "flex" }}>
-                        <div style={{ marginRight: "1%" }}>
+                <Container justify="center" className="w-[90%] mt-[10%]">
+                    <div className="flex">
+                        <div className="mr-[1%]">
                             <GoBackBtn />
                         </div>
                         <Text 
@@ -72,7 +72,7 @@ export default function BookingPage(props) {
                         </Text>
                     </div>
                     <Spacer y={1} />
-                    <Container style={{ display: "flex", justifyContent: "space-between" }}>
+                    <Container className="flex justify-between">
                         <div>
                             <Text h4>
                                 Dates
@@ -97,7 +97,7 @@ export default function BookingPage(props) {
                                 </Text>
                                 </Container>
                             <Spacer y={1} />
-                            <Container style={{ display: "flex", justifyContent: "space-between" }}>
+                            <Container className="flex justify-between">
                                 <div>
                                     <Button color={null} size="lg" bordered onClick={() => signIn("google")}>
                                         <FcGoogle size={35} />

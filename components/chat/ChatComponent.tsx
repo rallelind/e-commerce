@@ -62,14 +62,14 @@ const ChatComponent = ({ channelName }) => {
     }
 
     return (
-        <div style={{ display: "flex", justifyContent: "center" }}>
-            <div style={{ overflowY: "scroll", width: "75%", marginBottom: "10%" }}>
+        <div className="flex justify-center">
+            <div className="overflow-y-scroll w-3/4 mb-[10%]">
                 {sortedArray && sortedArray.map((msg, index) => <ChatMessage message={msg} key={index} />)}
             </div>
             
-            <div style={{ position: "absolute", bottom: "30px" }}>
+            <div className="absolute bottom-[30px]">
                 <form onSubmit={handleFormSubmission}>
-                    <div style={{ display: "flex" }}>
+                    <div className="flex">
                         <Input 
                             width="400px"
                             css={{ backgroundColor: "white" }}
@@ -83,7 +83,7 @@ const ChatComponent = ({ channelName }) => {
                             }
                             onChange={e => setMessageText(e.target.value)}
                         />
-                        <button style={{ display: "none" }} type="submit"></button>
+                        <button className="hidden" type="submit"></button>
                     </div>
                 </form>
                 <div ref={(element) => { messageEnd = element; }}></div>

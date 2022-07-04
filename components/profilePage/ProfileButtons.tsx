@@ -16,7 +16,7 @@ export default function ProfileButton({ icon, userSeen, ownerSeen, color, label,
   return (
     <ConditionalWrapper
       condition={userSeen === false || ownerSeen === false}
-      wrapper={children => <Indicator color="grape" style={{marginRight: "5%"}} label="NEW" size={16}>{children}</Indicator>}
+      wrapper={children => <Indicator color="grape" className='mr-[5%]' label="NEW" size={16}>{children}</Indicator>}
     >
         <UnstyledButton
             onClick={onClick}

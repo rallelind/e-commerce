@@ -10,7 +10,7 @@ const UploadTimeline = (props) => {
     const matches = useMediaQuery('(min-width: 650px)');
 
     return (
-        <Stepper style={{ width: "100%" }} iconSize={40} active={props.active} onStepClick={props.onStepClick} color="grape">
+        <Stepper className="w-full" iconSize={40} active={props.active} onStepClick={props.onStepClick} color="grape">
             <Stepper.Step
                 label={matches ? "Step 1" : null}
                 icon={<MdDescription size={30} />}

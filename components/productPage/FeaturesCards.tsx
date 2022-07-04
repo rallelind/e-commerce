@@ -8,16 +8,16 @@ import { Card, Grid } from "@nextui-org/react"
 const FeaturesCards: React.FC<{ features: string[] }> = ({ features }) => {
     return (
         <Grid.Container justify="space-between">
-            {features.map((e, i) => (
-            <Grid key={i}>
+            {features.map((feature, index) => (
+            <Grid key={index}>
                 <Card shadow={false} color="gradient">
-                    {e === "stove" && <GiGasStove size={20} />}
-                    {e === "waterSystem" && <GiKitchenTap size={20} />}
-                    {e === "kitchen" && <MdKitchen size={20} />}
-                    {e === "shower" && <FaShower size={20} />}
-                    {e === "wifi" && <BiWifi size={20} />}
-                    {e === "fridge" && <BiFridge size={20} />}
-                    {e === "waterTanks" && <GiWaterGallon size={20} />}
+                    {feature === "stove" && <GiGasStove size={20} />}
+                    {feature === "waterSystem" && <GiKitchenTap size={20} />}
+                    {feature === "kitchen" && <MdKitchen size={20} />}
+                    {feature === "shower" && <FaShower size={20} />}
+                    {feature === "wifi" && <BiWifi size={20} />}
+                    {feature === "fridge" && <BiFridge size={20} />}
+                    {feature === "waterTanks" && <GiWaterGallon size={20} />}
                 </Card>
             </Grid>
             ))

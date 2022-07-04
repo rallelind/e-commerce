@@ -44,7 +44,7 @@ const DeleteModal: React.FC<Modal> = ({ open, onClose, productToDelete }) => {
                 </Text>
             </Modal.Body>
             <Modal.Footer>
-                <Container style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <Container className='flex justify-evenly'>
                     <div>
                         <Button color="gradient" auto onClick={onClose}>
                             Close

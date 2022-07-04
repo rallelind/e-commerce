@@ -153,7 +153,7 @@ const UploadProduct: React.FC<{ showTable: () => void, stripeConnect: boolean }>
             <Toaster />
                 {show === "title" &&
                 <Container>
-                    <div style={{ marginTop: "5%" }}>
+                    <div className="mt-[5%]">
                         <Input 
                             clearable 
                             width="50%"
@@ -186,7 +186,7 @@ const UploadProduct: React.FC<{ showTable: () => void, stripeConnect: boolean }>
                 }
                 {show === "dates&features" && 
                 <Container>
-                    <div style={{ width: "50%" }}>
+                    <div className="w-[50%]">
                         <Spacer y={1} />
                         <DateRangePicker
                                 placeholder="Event date"
@@ -238,7 +238,7 @@ const UploadProduct: React.FC<{ showTable: () => void, stripeConnect: boolean }>
                         />
                 }
                 <Container>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginTop: "5%" }}>
+                    <div className="flex justify-between mt-[5%]">
                     {show === "title" ? <div></div> :
                         <Button 
                             variant="default" 

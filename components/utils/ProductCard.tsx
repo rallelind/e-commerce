@@ -27,7 +27,7 @@ const ProductCard: React.FC<{post: PostProps, xs: any, sm: any, clickable: boole
                                 </Text>
                             </Col>
                         </Card.Header>
-                        <Card.Body style={{ overflow: "hidden"}}>
+                        <Card.Body className='overflow-hidden'>
                             <ImageSlider 
                                 images={post.image}
                                 onClick={onClick}

@@ -189,7 +189,7 @@ const UpdateModal: React.FC<UpdateModal> = ({ productToUpdate, open, onClose }) 
                 </Grid.Container>
             </Modal.Body>
             <Modal.Footer>
-                <Container style={{ display: "flex", justifyContent: "space-evenly" }}>
+                <Container className="flex justify-evenly">
                     <div>
                         <Button color="gradient" auto onClick={onClose}>
                             Close

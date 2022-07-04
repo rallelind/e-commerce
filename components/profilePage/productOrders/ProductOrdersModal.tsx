@@ -25,7 +25,7 @@ const ProductOrdersModal: React.FC<Modal> = ({ open, onClose, onClick, headline,
                 </Text>
             </Modal.Body>
             <Modal.Footer>
-                <Container style={{ display: "flex", justifyContent: "space-between" }}>
+                <Container className="flex justify-between">
                     <div>
                         <Button size="sm" color="default" auto onClick={onClose}>
                             Close

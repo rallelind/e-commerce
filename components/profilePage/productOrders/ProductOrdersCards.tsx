@@ -65,7 +65,7 @@ const ProductOrdersCards = ({ userName, userImage, startDate, endDate, productTi
         <Grid sm={3}>
             <Card>
                 <Card.Body>
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <div className="flex justify-between">
                         <div className={productOrdersCardStyles.verticalAlign}>
                             <Text
                                 h5
@@ -96,7 +96,7 @@ const ProductOrdersCards = ({ userName, userImage, startDate, endDate, productTi
                     <Divider />
                     <Spacer y={0.5} />
 
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <div className="flex justify-between">
                         <div>
                             <Button color="error" onClick={() => setDeclineOrderModal(true)} auto size="xs">
                                 Decline

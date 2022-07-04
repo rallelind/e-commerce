@@ -5,7 +5,7 @@ const PreviewImagesUploaded = (props) => {
     return (
             <Grid xs={4}>
                     <Card 
-                        style={{ marginTop: "7%" }}
+                        className="mt-[7%]"
                         cover 
                         onClick={props.onClick}
                     >

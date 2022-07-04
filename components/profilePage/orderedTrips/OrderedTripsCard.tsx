@@ -21,11 +21,11 @@ const OrderedTripsCards: React.FC<OrderedTripsCards> = ({ image, status, startDa
             <Card>
                 <Card.Body>
                     <Spacer y={0.5} />
-                    <Image style={{ borderRadius: "10px" }} src={image} height="275" width="250" />
+                    <Image className="rounded-[10px]" src={image} height="275" width="250" />
                     <Spacer y={0.5} />
                     <StyledBadge type={status ? "active" : "vacation"}>{status ? "Order accepted" : "Awaiting approval"}</StyledBadge>
                     <Spacer y={0.5} />
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <div className="flex justify-between">
                         <Text h5>
                             Requested dates:
                         </Text>

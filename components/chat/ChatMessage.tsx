@@ -4,20 +4,20 @@ import { GiSurferVan } from "react-icons/gi"
 const ChatMessage = ({ message }) => {
 
     return (
-        <div style={{ marginTop: "2%", width: "100%" }}>
-        <div style={{ display: "flex", width: "100%" }}>
+        <div className="w-full mt-[2%]">
+        <div className="flex w-full">
             <Avatar css={{ zIndex: "1" }} src={message.img} />
             <div>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                    <Text style={{ marginLeft: "20px", width: "100%" }} h4>
+                <div className="flex items-center">
+                    <Text className="ml-[20px] w-full font-semibold" h4>
                         {message.name} 
-                        <span style={{ marginLeft: "10px", fontWeight: "lighter", fontSize: "15px" }}>
+                        <span className="ml-[10px] font-light text-sm">
                             {message.timeSent}
                         </span>
                     </Text> 
                 </div>
                 <span>
-                    <Text style={{ marginLeft: "20px" }}>
+                    <Text className="ml-[20px]">
                         {message.text} 
                     </Text>
                 </span>

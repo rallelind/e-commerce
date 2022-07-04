@@ -20,7 +20,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, m
     return (
         <Grid xs={7}>
             <Container>
-                <Container style={{display: "flex", justifyContent: "space-between"}}>
+                <Container className="flex justify-between">
                     <div>
                         <Text
                             h2
@@ -61,7 +61,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, m
                 <Spacer y={0.5} />
                 <Divider />
                 <Spacer y={0.5} />
-                <Container style={{ display: "flex", justifyContent: "center" }}>
+                <Container className="flex justify-center">
                     <RangeCalendar 
                         amountOfMonths={2} 
                         value={value}

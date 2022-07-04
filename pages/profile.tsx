@@ -242,7 +242,7 @@ export default function AppShellDemo(props) {
       }
       header={
         <Header height={70} p="md">
-          <div style={{ display: 'flex', justifyContent: "space-between", alignItems: 'center', height: '100%' }}>
+          <div className='flex justify-between items-center h-full'>
             <div>
               <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
                 <Burger

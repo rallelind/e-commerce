@@ -81,13 +81,8 @@ export default function UserHost(props) {
                             onClick={() => chatChannelOnclick(userChannel)} 
                             onMouseEnter={() => setHoverMessage(userChannel.id)}
                             onMouseLeave={() => setHoverMessage("")}
-                            style={{ 
-                                cursor: "pointer", 
-                                marginTop: "5%",  
-                                backgroundColor: backGroundColor(userChannel.id, userChannel.chatChannel),
-                                padding: "5%",
-                                borderRadius: "5px",
-                            }}>
+                            className={`cursor-pointer mt-[5%] bg-${backGroundColor(userChannel.id, userChannel.chatChannel)} p-[5%] rounded-[5px]`}>
+
                             <User 
                                 userData={userChannel.accepted ? "order accepted" : "awaiting approval"}
                                 userName={userChannel.product.author.name}
@@ -99,7 +94,7 @@ export default function UserHost(props) {
             }
             header={
                 <Header height={70} p="md">
-                    <div style={{ display: 'flex', justifyContent: "space-between", alignItems: 'center', height: '100%' }}>
+                    <div className="flex justify-between items-center h-full">
             <div>
               <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
                 <Burger
