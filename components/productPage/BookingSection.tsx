@@ -23,7 +23,8 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
 
     return (
         <Grid xs={4}>
-            <Card className={`h-[${height}px] top-0 sticky`} bordered>
+            <div className={`h-[${height}] top-0 sticky w-full`}>
+            <Card bordered>
                 <Card.Body>
                     <Spacer y={0.5} />
                     <Container>
@@ -103,6 +104,7 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
                     }
                 </Card.Body>
             </Card>
+            </div>
         </Grid>
     )
 }

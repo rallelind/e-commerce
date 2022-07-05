@@ -80,7 +80,7 @@ export default function HostInbox(props) {
                             key={hostChannel.id}
                             onMouseEnter={() => setHoverMessage(hostChannel.id)}
                             onMouseLeave={() => setHoverMessage("")}
-                            className={`cursor-pointer mt-[5%] hover:bg-[#f1f3f5] bg-${hostChannel.chatChannel === openChat && "[#f1f3f5]"} p-[5%] rounded-[5px]`}
+                            className={`cursor-pointer mt-[5%] hover:bg-[#f1f3f5] ${hostChannel.chatChannel === openChat && "bg-[#f1f3f5]"} p-[5%] rounded-[5px]`}
                         >
                             <User 
                                 userData={hostChannel.accepted ? "order accepted" : "order needs confirmation"}

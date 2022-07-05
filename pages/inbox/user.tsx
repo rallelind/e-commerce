@@ -81,7 +81,7 @@ export default function UserHost(props) {
                             onClick={() => chatChannelOnclick(userChannel)} 
                             onMouseEnter={() => setHoverMessage(userChannel.id)}
                             onMouseLeave={() => setHoverMessage("")}
-                            className={`cursor-pointer mt-[5%] bg-${backGroundColor(userChannel.id, userChannel.chatChannel)} p-[5%] rounded-[5px]`}>
+                            className={`cursor-pointer mt-[5%] hover:bg-[#f1f3f5] ${userChannel.chatChannel === openChat && "bg-[#f1f3f5]"} p-[5%] rounded-[5px]`}>
 
                             <User 
                                 userData={userChannel.accepted ? "order accepted" : "awaiting approval"}
