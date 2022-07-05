@@ -14,7 +14,7 @@ type SideSection = {
 
 const SideSection: React.FC<SideSection> = ({ images, title, price, numberOfNights, priceForStay, serviceCost }) => {
     return (
-        <Aside className="h-[450px]">
+        <Aside className="w-[450px]">
             <Spacer y={0.5} />
             <BookingImages images={images.map((e) => e)} />
             <Spacer y={0.5} />
