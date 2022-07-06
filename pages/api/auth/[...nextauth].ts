@@ -31,7 +31,7 @@ const options = {
         // Allows callback URLs on the same origin
         else if (new URL(url).origin === baseUrl) return url
         return baseUrl
-      }
+      },
     },
     adapter: PrismaAdapter(prisma),
     secret: process.env.SECRET,
