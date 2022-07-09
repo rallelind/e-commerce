@@ -1,15 +1,12 @@
 import { useState } from "react"
 import { Loading } from "@nextui-org/react"
 import { Switch } from "@mantine/core"
-import { useSession } from "next-auth/react"
 import useRouterRefresh from "../../../lib/customHook/useRouterRefresh"
 
-const SwitchUserRole = () => {
-
-    const { data: session } = useSession()
+const SwitchUserRole = ({ userHostStatus }) => {
 
     const [loadingUserHost, setLoadingUserHost] = useState(false)
-    const [checked, setChecked] = useState()
+    const [checked, setChecked] = useState(userHostStatus)
 
     const refresh = useRouterRefresh()
 
@@ -39,7 +36,7 @@ const SwitchUserRole = () => {
           <>
             <Switch
               color="grape"
-              label={`Switch to ${session.user ? "user" : "host"}`}
+              label={`Switch to ${userHostStatus ? "user" : "host"}`}
               checked={checked}
               onChange={(event) => switchOnChange(event.currentTarget.checked)}
             />

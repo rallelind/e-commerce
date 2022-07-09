@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Grid } from '@nextui-org/react'
 import { useSession } from 'next-auth/react'
-import ProductCard, { PostProps } from '../components/utils/ProductCard'
+import { PostProps } from '../components/utils/ProductCard'
 import { GetServerSideProps } from "next"
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+const ProductCard = dynamic(() => import('../components/utils/ProductCard'), { ssr: false })
 import prisma from "../lib/prisma"
 import Layout from '../components/utils/Layout';
 

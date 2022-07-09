@@ -41,24 +41,18 @@ export const getServerSideProps: GetServerSideProps = async({req}) => {
 
 export default function HostInbox(props) {
 
-    const [opened, setOpened] = useState(false)
     const [openChat, setOpenChat] = useState(props.hostChannels[0].chatChannel)
 
     const chatChannelOnclick = (hostChannel) => {
         setOpenChat(hostChannel.chatChannel)
     }
 
-    const burgerOnclick = () => {
-        setOpened(!opened)
-    }
-
     return (
         <UserAppShell 
-            burgerOnclick={burgerOnclick}
-            opened={opened}
+            userHostStatus={null}
             inbox
             navbar={
-                <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
+                <>
                     {props.hostChannels.map((hostChannel) => (
                         <div 
                             onClick={() => chatChannelOnclick(hostChannel)} 
@@ -72,7 +66,7 @@ export default function HostInbox(props) {
                             />
                         </div>
                     ))}
-                </Navbar>
+                </>
             }
         >
             <ChatComponent channelName={openChat} />

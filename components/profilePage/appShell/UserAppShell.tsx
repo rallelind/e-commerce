@@ -4,13 +4,22 @@ import {
   MediaQuery,
   Burger,
   useMantineTheme,
+  Navbar
 } from "@mantine/core";
+import { useState } from "react";
 import GoBackBtn from "../../utils/GoBackBtn";
 import HomeLink from "./HomeLink";
 import SwitchUserRole from "./SwitchUserRole";
 
-const UserAppShell = ({ children, inbox, navbar, opened, burgerOnclick }) => {
+const UserAppShell = ({ children, inbox, navbar, userHostStatus }) => {
+
   const theme = useMantineTheme();
+
+  const [opened, setOpened] = useState(false)
+
+  const burgerOnclick = () => {
+    setOpened(!opened)
+  }
 
   return (
     <AppShell
@@ -22,7 +31,11 @@ const UserAppShell = ({ children, inbox, navbar, opened, burgerOnclick }) => {
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
       fixed
-      navbar={navbar}
+      navbar={
+        <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
+          {navbar}
+        </Navbar>
+      }
       header={
         <Header height={70} p="md">
           <div className="flex justify-between items-center h-full">
@@ -39,7 +52,7 @@ const UserAppShell = ({ children, inbox, navbar, opened, burgerOnclick }) => {
                 {inbox ? <GoBackBtn /> : <HomeLink />}
             </div>
             {!inbox && (
-              <SwitchUserRole />
+              <SwitchUserRole userHostStatus={userHostStatus} />
             )}
           </div>
         </Header>

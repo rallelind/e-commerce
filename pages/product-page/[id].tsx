@@ -1,11 +1,12 @@
 import { useState } from "react"
 import { GetServerSideProps } from "next"
 import { Grid, Image, Container } from "@nextui-org/react"
-import ImageDisplay from "../../components/productPage/ImageDisplay"
+import dynamic from "next/dynamic"
+const ImageDisplay = dynamic(() => import("../../components/productPage/ImageDisplay"), { ssr: false })
 import Layout from "../../components/utils/Layout"
 import prisma from "../../lib/prisma"
-import ProductInfo from "../../components/productPage/ProductInfo"
-import BookingSystem from "../../components/productPage/BookingSection"
+const ProductInfo = dynamic(() => import("../../components/productPage/ProductInfo"), { ssr: false })
+const BookingSystem = dynamic(() => import("../../components/productPage/BookingSection"), { ssr: false })
 import { useRouter } from "next/router"
 import StripePayment from "../../components/stripe/StripePayment"
 
