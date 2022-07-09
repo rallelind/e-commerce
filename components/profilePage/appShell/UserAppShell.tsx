@@ -32,7 +32,7 @@ const UserAppShell = ({ children, inbox, navbar, userHostStatus }) => {
       asideOffsetBreakpoint="sm"
       fixed
       navbar={
-        <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
+        <Navbar onClick={burgerOnclick} p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
           {navbar}
         </Navbar>
       }
