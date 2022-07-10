@@ -1,19 +1,9 @@
 import { useState } from "react";
-import { 
-    AppShell,
-    Navbar,
-    Header,
-    MediaQuery,
-    Burger,
-    useMantineTheme
-} from "@mantine/core";
-import { Text } from "@nextui-org/react";
 import dynamic from "next/dynamic"
 import { getSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import prisma from "../../lib/prisma";
 import { User } from "../../components/profilePage/UserNavbar";
-import GoBackButton from "../../components/utils/GoBackBtn"
 import UserAppShell from "../../components/profilePage/appShell/UserAppShell";
 
 const ChatComponent = dynamic(() => import('../../components/chat/ChatComponent'), { ssr: false })

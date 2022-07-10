@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { GetServerSideProps } from "next"
-import {
-  AppShell,
-  Navbar,
-  Header,
-  MediaQuery,
-  Burger,
-  useMantineTheme,
-  Switch
-} from '@mantine/core';
+import { Navbar } from '@mantine/core';
 import dynamic from "next/dynamic"
-import { Text, Loading, Divider } from '@nextui-org/react';
+import { Divider } from '@nextui-org/react';
 import { useSession, signOut } from 'next-auth/react';
 const ProfileInfo = dynamic(() => import("../components/profilePage/profileInfo/ProfileInfo"), { ssr: false });
 const UploadProduct = dynamic(() => import("../components/profilePage/uploadProduct/UploadProduct"), { ssr: false });
@@ -26,69 +18,35 @@ import { CgProfile } from "react-icons/cg"
 import { FiUpload, FiLogOut } from "react-icons/fi"
 import { AiOutlineShop, AiFillEdit, AiOutlineMessage } from "react-icons/ai"
 import { User } from '../components/profilePage/UserNavbar';
-import Link from "next/link"
 import { useRouter } from 'next/router';
-import prisma from '../lib/prisma';
-import { getSession } from 'next-auth/react';
 import UserAppShell from '../components/profilePage/appShell/UserAppShell';
 
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req })
 
-  const user = await prisma.user.findUnique({
-    where: { email: session?.user?.email },
-    select: { stripeConnect: true, stripeConnectId: true, host: true }
-  })
+  const userReq = await fetch(`${process.env.ENVIRONMENT}/api/user/user`)
+  const user = await userReq.json()
 
-  const userOrders = await prisma.order.findMany({
-    where: {
-      user: { email: session?.user?.email }
-    },
-    select: {
-      userSeen: true,
-      startDate: true,
-      endDate: true,
-      accepted: true,
-      product: {
-        select: { image: true }
-      }
-    }
-  })
+  const userOrdersReq = await fetch(`${process.env.ENVIRONMENT}/api/orders/userOrders`)
+  const userOrders = await userOrdersReq.json()
 
-  const productOrders = await prisma.order.findMany({
-    where: {
-      product: { author: { email: session?.user?.email } },
-      accepted: false,
-    },
-    select: {
-      ownerSeen: true,
-      startDate: true,
-      endDate: true,
-      user: {
-        select: { image: true, name: true }
-      },
-      product: {
-        select: { image: true, title: true, id: true }
-      }
-    }
-  })
+  const productOrdersReq = await fetch(`${process.env.ENVIRONMENT}/api/orders/productOrders`)
+  const productOrders = await productOrdersReq.json()
 
-  const userProducts = await prisma.post.findMany({
-    where: {
-      author: { email: session?.user?.email }
-    },
-    include: {
-      author: {
-        select: { name: true }
-      },
-    },
-  });
+  const userProductsReq = await fetch(`${process.env.ENVIRONMENT}/api/product/user-products`)
+  const userProducts = await userProductsReq.json()
 
-  return { props: { user, userProducts, userOrders: JSON.parse(JSON.stringify(userOrders)), productOrders: JSON.parse(JSON.stringify(productOrders)) } }
+  return { 
+    props: { 
+      user, 
+      userProducts, 
+      userOrders: JSON.parse(JSON.stringify(userOrders)), 
+      productOrders: JSON.parse(JSON.stringify(productOrders)) 
+    } 
+  }
 }
 
-export default function AppShellDemo(props) {
+export default function Profile(props) {
 
   useEffect(() => {
 
@@ -165,8 +123,6 @@ export default function AppShellDemo(props) {
     { label: "Inbox", color: "grape", onClick: () => router.push("/inbox/host"), icon: <AiOutlineMessage size={25} />, ownerSeen: null, userSeen: null, host: true},
     { label: "Sign out", color: "red", onClick: () => signOut({ redirect: true, callbackUrl: "/" }), icon: <FiLogOut size={25} />, ownerSeen: null, userSeen: null, host: null },
   ]
-
-  console.log(props.user)
 
   return (
     <UserAppShell

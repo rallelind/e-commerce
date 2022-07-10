@@ -8,19 +8,13 @@ import prisma from "../../lib/prisma"
 const ProductInfo = dynamic(() => import("../../components/productPage/ProductInfo"), { ssr: false })
 const BookingSystem = dynamic(() => import("../../components/productPage/BookingSection"), { ssr: false })
 import { useRouter } from "next/router"
-import StripePayment from "../../components/stripe/StripePayment"
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    const post = await prisma.post.findUnique({
-      where: {
-        id: String(params?.id),
-      },
-      include: {
-        author: {
-          select: { name: true, email: true, image: true },
-        },
-      },
-    })
+
+
+    const postRes = await fetch(`${process.env.ENVIRONMEN}/api/product/product-details/${String(params?.id)}`)
+    const post = postRes.json()
+
     return {
       props: post,
     }

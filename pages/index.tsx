@@ -6,22 +6,13 @@ import { GetServerSideProps } from "next"
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 const ProductCard = dynamic(() => import('../components/utils/ProductCard'), { ssr: false })
-import prisma from "../lib/prisma"
 import Layout from '../components/utils/Layout';
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
-  const feed = await prisma.post.findMany({
-    where: { 
-      published: true,
-    },
-    include: {
-      author: {
-        select: { name: true, email: true },
-      },
-    },
-  });
-  
+  const res = await fetch(`${process.env.ENVIRONMENT}/api/product/feed`)
+  const feed = await res.json()
+
   return { props: { feed } }
 }
 
@@ -33,6 +24,8 @@ const ShowProduct: React.FC<Props> = (props) => {
   const router = useRouter()
 
   const session = useSession()
+
+  console.log(props.feed)
 
   return (
     <Layout>
