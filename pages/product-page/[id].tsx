@@ -4,15 +4,13 @@ import { Grid, Image, Container } from "@nextui-org/react"
 import dynamic from "next/dynamic"
 const ImageDisplay = dynamic(() => import("../../components/productPage/ImageDisplay"), { ssr: false })
 import Layout from "../../components/utils/Layout"
-import prisma from "../../lib/prisma"
 const ProductInfo = dynamic(() => import("../../components/productPage/ProductInfo"), { ssr: false })
 const BookingSystem = dynamic(() => import("../../components/productPage/BookingSection"), { ssr: false })
 import { useRouter } from "next/router"
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
-
-    const postRes = await fetch(`${process.env.ENVIRONMEN}/api/product/product-details/${String(params?.id)}`)
+    const postRes = await fetch(`${process.env.ENVIRONMENT}/api/product/product-details/${String(params?.id)}`)
     const post = postRes.json()
 
     return {

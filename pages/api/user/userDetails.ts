@@ -12,6 +12,7 @@ export default async function user(req, res) {
           })
 
         res.json(user)  
+
     } catch(error) {
         throw error
     }

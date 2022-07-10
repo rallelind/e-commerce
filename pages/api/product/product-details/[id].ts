@@ -7,12 +7,12 @@ export default async function productDetails(req, res) {
     try {
         const post = await prisma.post.findUnique({
             where: {
-            id: productId,
+                id: productId,
             },
             include: {
-            author: {
-                select: { name: true, email: true, image: true },
-            },
+                author: {
+                    select: { name: true, email: true, image: true },
+                },
             },
         })
 

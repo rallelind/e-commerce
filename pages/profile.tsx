@@ -24,17 +24,17 @@ import UserAppShell from '../components/profilePage/appShell/UserAppShell';
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
-  const userReq = await fetch(`${process.env.ENVIRONMENT}/api/user/user`)
-  const user = await userReq.json()
+  const userRes = await fetch(`${process.env.ENVIRONMENT}/api/user/userDetails`)
+  const user = await userRes.json()
 
-  const userOrdersReq = await fetch(`${process.env.ENVIRONMENT}/api/orders/userOrders`)
-  const userOrders = await userOrdersReq.json()
+  const userOrdersRes = await fetch(`${process.env.ENVIRONMENT}/api/orders/userOrders`)
+  const userOrders = await userOrdersRes.json()
 
-  const productOrdersReq = await fetch(`${process.env.ENVIRONMENT}/api/orders/productOrders`)
-  const productOrders = await productOrdersReq.json()
+  const productOrdersRes = await fetch(`${process.env.ENVIRONMENT}/api/orders/productOrders`)
+  const productOrders = await productOrdersRes.json()
 
-  const userProductsReq = await fetch(`${process.env.ENVIRONMENT}/api/product/user-products`)
-  const userProducts = await userProductsReq.json()
+  const userProductsRes = await fetch(`${process.env.ENVIRONMENT}/api/product/user-products`)
+  const userProducts = await userProductsRes.json()
 
   return { 
     props: { 

@@ -1,30 +1,15 @@
 import { useState } from "react";
 import dynamic from "next/dynamic"
-import { getSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
-import prisma from "../../lib/prisma";
 import { User } from "../../components/profilePage/UserNavbar";
 import UserAppShell from "../../components/profilePage/appShell/UserAppShell";
 
 const ChatComponent = dynamic(() => import('../../components/chat/ChatComponent'), { ssr: false })
 
 export const getServerSideProps: GetServerSideProps = async({req}) => {
-    const session = await getSession({ req })
 
-    const hostChannels = await prisma.order.findMany({
-        where: {
-            product: { author: { email: session?.user?.email } }
-        },
-        select: {
-            chatChannel: true,
-            accepted: true,
-            id: true,
-            user: {
-                select: { image: true, name: true }
-            }
-            
-        }
-    })
+    const hostChannelsRes = await fetch(`${process.env.ENVIRONMENT}/api/chatChannel/hostChannels`) 
+    const hostChannels = hostChannelsRes.json()
 
     return { props: { hostChannels } }
 }

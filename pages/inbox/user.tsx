@@ -1,42 +1,15 @@
 import { useState } from "react";
-import { 
-    AppShell,
-    Navbar,
-    Header,
-    MediaQuery,
-    Burger,
-    useMantineTheme,
-} from "@mantine/core";
-import { Text } from "@nextui-org/react";
-import Link from "next/link"
 import dynamic from "next/dynamic"
 import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
-import prisma from "../../lib/prisma";
 import { User } from "../../components/profilePage/UserNavbar";
-import GoBackButton from "../../components/utils/GoBackBtn"
 import UserAppShell from "../../components/profilePage/appShell/UserAppShell";
 
 const ChatComponent = dynamic(() => import('../../components/chat/ChatComponent'), { ssr: false })
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-    const session = await getSession({ req })
 
-    const userChannels = await prisma.order.findMany({
-        where: { user: { email: session?.user?.email } },
-        select: {
-            chatChannel: true,
-            id: true,
-            accepted: true,
-            product: { 
-                select: {
-                    author: {
-                        select: { image: true, name: true, }
-                    }
-                }
-             }
-        }
-    })
+    const userChannelsRes = await fetch(`${process.env.ENVIRONMANT}/api/chatChannel/userChannels`)
+    const userChannels = await userChannelsRes.json()
 
     return { props: { userChannels } }
 }

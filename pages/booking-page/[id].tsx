@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
 import { GetServerSideProps } from "next";
-import prisma from "../../lib/prisma";
 import { AppShell } from "@mantine/core";
 import { Text, Container, Divider, Spacer, Button } from "@nextui-org/react";
 import SideSection from "../../components/bookingPage/SideSection";
@@ -13,27 +12,19 @@ import GoBackBtn from "../../components/utils/GoBackBtn";
 import StripePayment from "../../components/stripe/StripePayment";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    const post = await prisma.post.findUnique({
-      where: { 
-            id: String(params?.id), 
-        },
-        select: { 
-            image: true, price: true, title: true, id: true, authorId: true,
-        },
-    });
+    
+    const postRes = await fetch(`${process.env.ENVIRONMENT}/api/product/product-details/booking-details/${String(params?.id)}`)
+    const post = postRes.json()
+
     return { props: post }
   }
 
 export default function BookingPage(props) {
 
     const { query } = useRouter()
-    const router = useRouter()
     const session = useSession()
     
     const bookingDates = query.bookingDates
-
-    console.log(bookingDates)
-    console.log(props.id)
 
     const dateOne = new Date(bookingDates[0])
     const dateTwo = new Date(bookingDates[1])
