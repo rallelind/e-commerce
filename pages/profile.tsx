@@ -9,15 +9,16 @@ import {
   useMantineTheme,
   Switch
 } from '@mantine/core';
+import dynamic from "next/dynamic"
 import { Text, Loading, Divider } from '@nextui-org/react';
 import { useSession, signOut } from 'next-auth/react';
-import ProfileInfo from "../components/profilePage/profileInfo/ProfileInfo";
-import UploadProduct from "../components/profilePage/uploadProduct/UploadProduct";
-import UserProducts from "../components/profilePage/userProducts/UserProducts";
+const ProfileInfo = dynamic(() => import("../components/profilePage/profileInfo/ProfileInfo"), { ssr: false });
+const UploadProduct = dynamic(() => import("../components/profilePage/uploadProduct/UploadProduct"), { ssr: false });
+const UserProducts = dynamic(() => import("../components/profilePage/userProducts/UserProducts"), { ssr: false });
 import ProfileButton from '../components/profilePage/ProfileButtons';
-import ProductsTable from '../components/profilePage/manageProducts/Table';
-import OrderedTrips from "../components/profilePage/orderedTrips/OrderedTrips"
-import ProductOrders from "../components/profilePage/productOrders/ProductOrders";
+const ProductsTable = dynamic(() => import('../components/profilePage/manageProducts/Table'), { ssr: false });
+const OrderedTrips = dynamic(() => import("../components/profilePage/orderedTrips/OrderedTrips"), { ssr: false })
+const ProductOrders = dynamic(() => import("../components/profilePage/productOrders/ProductOrders"), { ssr: false });
 import useRouterRefresh from '../lib/customHook/useRouterRefresh';
 import { BiPurchaseTagAlt } from "react-icons/bi"
 import { GiSurferVan } from "react-icons/gi"
@@ -29,6 +30,7 @@ import Link from "next/link"
 import { useRouter } from 'next/router';
 import prisma from '../lib/prisma';
 import { getSession } from 'next-auth/react';
+import UserAppShell from '../components/profilePage/appShell/UserAppShell';
 
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
@@ -112,33 +114,10 @@ export default function AppShellDemo(props) {
   const router = useRouter()
 
   const [showComponent, setShowComponent] = useState("profileInfo")
-  const theme = useMantineTheme();
-  const [opened, setOpened] = useState(false);
   const [userSeen, setUserSeen] = useState(true)
   const [ownerSeen, setOwnerSeen] = useState(true)
-  const [checked, setChecked] = useState(props.user.host)
-  const [loadingUserHost, setLoadingUserHost] = useState(false)
 
   const refresh = useRouterRefresh()
-
-  const switchOnChange = async (event) => {
-    setChecked(event)
-    try {
-      setLoadingUserHost(true)
-      const body = { checked: event }
-      await fetch("/api/user/update-host", {
-        method: "PUT",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      })
-    } catch (error) {
-      console.log(error)
-    } finally {
-      refresh()
-        .then(() => setLoadingUserHost(false))
-        .then(() => setShowComponent("profileInfo"))
-    }
-  }
 
   const showTable = () => {
     refresh()
@@ -146,7 +125,6 @@ export default function AppShellDemo(props) {
   }
 
   const navigateProfilePage = async (component: string) => {
-    setOpened(false)
     setShowComponent(component)
 
     if (component === "orderedTrips") {
@@ -172,8 +150,6 @@ export default function AppShellDemo(props) {
 
   const { data: session } = useSession()
 
-  console.log(checked)
-
   if (!session) {
     return <h1>you need to be logged in to access the profile page...</h1>
   }
@@ -193,17 +169,11 @@ export default function AppShellDemo(props) {
   console.log(props.user)
 
   return (
-    <AppShell
-      styles={{
-        main: {
-          background: theme.colors.gray[0],
-        },
-      }}
-      navbarOffsetBreakpoint="sm"
-      asideOffsetBreakpoint="sm"
-      fixed
+    <UserAppShell
+      inbox={false}
+      userHostStatus={props.user.host}
       navbar={
-        <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
+        <>
           <Navbar.Section grow>
             {profileButtonsData.map((buttonData, i) => {
               if (!props.user.host && !buttonData.host) {
@@ -238,50 +208,7 @@ export default function AppShellDemo(props) {
               userData={session.user.email}
             />
           </Navbar.Section>
-        </Navbar>
-      }
-      header={
-        <Header height={70} p="md">
-          <div className='flex justify-between items-center h-full'>
-            <div>
-              <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                <Burger
-                  opened={opened}
-                  onClick={() => setOpened((o) => !o)}
-                  size="sm"
-                  color={theme.colors.gray[6]}
-                  mr="xl"
-                />
-              </MediaQuery>
-              <Text
-                h4
-                css={{
-                  textGradient: "112deg, #06B7DB -63.59%, #FF4ECD -20.3%, #0072F5 70.46%"
-                }}
-              >
-                <Link href="/">
-                  <a>
-                    Home
-                  </a>
-                </Link>
-              </Text>
-            </div>
-            <div>
-              {loadingUserHost ?
-                <Loading />
-                :
-                <>
-                  <Switch
-                    color="grape"
-                    label={`Switch to ${props.user.host ? "user" : "host"}`}
-                    checked={checked}
-                    onChange={(event) => switchOnChange(event.currentTarget.checked)}
-                  />
-                </>
-              }
-            </div>
-          </div>
-        </Header>
+        </>
       }
     >
       {showComponent === "profileInfo" && <ProfileInfo />}
@@ -290,6 +217,6 @@ export default function AppShellDemo(props) {
       {showComponent === "userProducts" && <UserProducts userProduct={props.userProducts} />}
       {showComponent === "manageProducts" && <ProductsTable products={props.userProducts} />}
       {showComponent === "productOrders" && <ProductOrders productOrders={props.productOrders} />}
-    </AppShell>
+    </UserAppShell>
   );
 }

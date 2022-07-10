@@ -15,6 +15,7 @@ import { getSession } from "next-auth/react";
 import prisma from "../../lib/prisma";
 import { User } from "../../components/profilePage/UserNavbar";
 import GoBackButton from "../../components/utils/GoBackBtn"
+import UserAppShell from "../../components/profilePage/appShell/UserAppShell";
 
 const ChatComponent = dynamic(() => import('../../components/chat/ChatComponent'), { ssr: false })
 
@@ -42,45 +43,22 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 export default function UserHost(props) {
 
-    const theme = useMantineTheme();
-
-    const [opened, setOpened] = useState(false)
     const [openChat, setOpenChat] = useState(props.userChannels[0].chatChannel)
-    const [oppositeUserData, setOppositeUserData] = useState()
-    const [hoverMessage, setHoverMessage] = useState("")
-
-    const backGroundColor = (id, chatChannel) => {
-        if (id === hoverMessage) {
-            return theme.colors.gray[1]
-        }
-        if (chatChannel === openChat) {
-            return theme.colors.gray[1]
-        }
-    }
 
     const chatChannelOnclick = (userChannel) => {
         setOpenChat(userChannel.chatChannel)
-        setOppositeUserData(userChannel.product.author)
     }
 
     return (
-        <AppShell
-            styles={{
-                main: {
-                background: theme.colors.gray[0],
-                },
-            }}
-            navbarOffsetBreakpoint="sm"
-            asideOffsetBreakpoint="sm"
-            fixed
+        <UserAppShell
+            userHostStatus={null}
+            inbox
             navbar={
-                <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
+                <>
                     {props.userChannels.map(userChannel => (
                         <div 
                             key={userChannel.id} 
                             onClick={() => chatChannelOnclick(userChannel)} 
-                            onMouseEnter={() => setHoverMessage(userChannel.id)}
-                            onMouseLeave={() => setHoverMessage("")}
                             className={`cursor-pointer mt-[5%] hover:bg-[#f1f3f5] ${userChannel.chatChannel === openChat && "bg-[#f1f3f5]"} p-[5%] rounded-[5px]`}>
 
                             <User 
@@ -90,35 +68,10 @@ export default function UserHost(props) {
                             />
                         </div>
                     ))}
-                </Navbar>
+                </>
             }
-            header={
-                <Header height={70} p="md">
-                    <div className="flex justify-between items-center h-full">
-            <div>
-              <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                <Burger
-                  opened={opened}
-                  onClick={() => setOpened((open) => !open)}
-                  size="sm"
-                  color={theme.colors.gray[6]}
-                  mr="xl"
-                />
-              </MediaQuery>
-              <Text
-                h4
-                css={{
-                  textGradient: "112deg, #06B7DB -63.59%, #FF4ECD -20.3%, #0072F5 70.46%"
-                }}
-              >
-                <GoBackButton />
-              </Text>
-            </div>
-            </div>
-            </Header>
-        }
         >
             <ChatComponent channelName={openChat} />
-        </AppShell>
+        </UserAppShell>
     )
 }
