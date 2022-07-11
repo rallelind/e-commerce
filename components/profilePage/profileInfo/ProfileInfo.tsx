@@ -89,7 +89,7 @@ const ProfileInfo = () => {
                     className='h-[125px] w-[125px] z-0'
                     bordered 
                     color="gradient" 
-                    src={session.user.image} 
+                    src={session?.user.image} 
                     onClick={handleClick}
                     pointer
                 />
@@ -108,7 +108,7 @@ const ProfileInfo = () => {
                     Email:
                 </Text>
                 <Text>
-                    {session.user.email}
+                    {session?.user.email}
                 </Text>
                 <Spacer y={1} />
                     <Text
@@ -122,7 +122,7 @@ const ProfileInfo = () => {
                     <div className='flex justify-between'>
                         <div>
                             <Text>
-                                {newName === false ? session.user.name : <Input onChange={(e) => setUpdateName(e.target.value)} />}
+                                {newName === false ? session?.user.name : <Input onChange={(e) => setUpdateName(e.target.value)} />}
                             </Text>
                         </div>
                         <div>

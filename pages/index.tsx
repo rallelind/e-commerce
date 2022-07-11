@@ -7,11 +7,20 @@ import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 const ProductCard = dynamic(() => import('../components/utils/ProductCard'), { ssr: false })
 import Layout from '../components/utils/Layout';
+import prisma from '../lib/prisma'
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
-  const res = await fetch(`${process.env.ENVIRONMENT}/api/product/feed`)
-  const feed = await res.json()
+  const feed = await prisma.post.findMany({
+    where: { 
+      published: true,
+    },
+    include: {
+      author: {
+        select: { name: true, email: true },
+      },
+    },
+  });
 
   return { props: { feed } }
 }
@@ -20,20 +29,19 @@ type Props = {
   feed: PostProps[]
 }
 
-const ShowProduct: React.FC<Props> = (props) => {
+const ShowProduct: React.FC<Props> = ({ feed }) => {
+
   const router = useRouter()
 
   const session = useSession()
 
-  console.log(props.feed)
-
   return (
     <Layout>
       <Grid.Container gap={4}>
-          {props.feed.map((post) => (
+          {feed.map((post) => (
             post.author.email !== session?.data?.user?.email && 
               <ProductCard 
-                onClick={() => router.push(`/product-page/${post.id}`)}
+                onClick={() => router.push({pathname: `/product-page/${post.id}`})}
                 hoverable={false}
                 clickable
                 key={post.id} 

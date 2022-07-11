@@ -10,8 +10,10 @@ import { useState } from "react";
 import GoBackBtn from "../../utils/GoBackBtn";
 import HomeLink from "./HomeLink";
 import SwitchUserRole from "./SwitchUserRole";
+import ProfileNavbar from "./ProfileNavbar";
+import { useSession } from "next-auth/react";
 
-const UserAppShell = ({ children, inbox, navbar, userHostStatus }) => {
+const UserAppShell = ({ children, inbox, navbar }) => {
 
   const theme = useMantineTheme();
 
@@ -20,6 +22,12 @@ const UserAppShell = ({ children, inbox, navbar, userHostStatus }) => {
   const burgerOnclick = () => {
     setOpened(!opened)
   }
+
+  const session = useSession()
+
+  if (!session) {
+    return <h1>you need to be logged in to access the profile page...</h1>
+}
 
   return (
     <AppShell
@@ -33,7 +41,7 @@ const UserAppShell = ({ children, inbox, navbar, userHostStatus }) => {
       fixed
       navbar={
         <Navbar onClick={burgerOnclick} p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
-          {navbar}
+          {inbox ? navbar : <ProfileNavbar userHost={false} />}
         </Navbar>
       }
       header={
@@ -52,7 +60,7 @@ const UserAppShell = ({ children, inbox, navbar, userHostStatus }) => {
                 {inbox ? <GoBackBtn /> : <HomeLink />}
             </div>
             {!inbox && (
-              <SwitchUserRole userHostStatus={userHostStatus} />
+              <SwitchUserRole userHostStatus={true} />
             )}
           </div>
         </Header>

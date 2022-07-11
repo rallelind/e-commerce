@@ -11,15 +11,15 @@ interface MainLinkProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function ProfileButton({ icon, userSeen, ownerSeen, color, label, onClick }: MainLinkProps) {
+export default function ProfileButton({ buttonData }) {
 
   return (
     <ConditionalWrapper
-      condition={userSeen === false || ownerSeen === false}
+      condition={buttonData.userSeen === false || buttonData.ownerSeen === false}
       wrapper={children => <Indicator color="grape" className='mr-[5%]' label="NEW" size={16}>{children}</Indicator>}
     >
         <UnstyledButton
-            onClick={onClick}
+            onClick={buttonData.onClick}
             sx={(theme) => ({
             display: 'block',
             width: '100%',
@@ -34,11 +34,11 @@ export default function ProfileButton({ icon, userSeen, ownerSeen, color, label,
           })}
         >
           <Group>
-            <ThemeIcon size={30} color={color} variant="light">
-              {icon}
+            <ThemeIcon size={30} color={buttonData.color} variant="light">
+              {buttonData.icon}
             </ThemeIcon>
 
-            <Text size="sm">{label}</Text>
+            <Text size="sm">{buttonData.label}</Text>
           </Group>
         </UnstyledButton>
       </ConditionalWrapper>

@@ -14,15 +14,8 @@ export default async function productOrders(req, res) {
             },
             select: {
               ownerSeen: true,
-              startDate: true,
-              endDate: true,
-              user: {
-                select: { image: true, name: true }
-              },
-              product: {
-                select: { image: true, title: true, id: true }
-              }
             }
+          
           })
 
           res.json(productOrders)

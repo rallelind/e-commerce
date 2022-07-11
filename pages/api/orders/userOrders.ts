@@ -11,13 +11,7 @@ export default async function userOrders(req, res) {
             user: { email: session?.user?.email }
             },
             select: {
-            userSeen: true,
-            startDate: true,
-            endDate: true,
-            accepted: true,
-            product: {
-                select: { image: true }
-            }
+                userSeen: true,
             }
         })
 

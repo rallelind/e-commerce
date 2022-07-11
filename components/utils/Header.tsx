@@ -71,7 +71,7 @@ const Header: React.FC = () => {
         right = (
             <ul>
                 <li>
-                    <Link href="/profile">
+                    <Link href="/profile/user-information">
                         <a data-active={isActive('/profile')}>
                             <Avatar src={session.user.image} size="xl" color="gradient" bordered />
                         </a>

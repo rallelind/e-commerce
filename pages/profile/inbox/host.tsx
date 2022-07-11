@@ -1,22 +1,38 @@
 import { useState } from "react";
 import dynamic from "next/dynamic"
 import { GetServerSideProps } from "next";
-import { User } from "../../components/profilePage/UserNavbar";
-import UserAppShell from "../../components/profilePage/appShell/UserAppShell";
+import { User } from "../../../components/profilePage/UserNavbar";
+import UserAppShell from "../../../components/profilePage/appShell/UserAppShell";
+import prisma from "../../../lib/prisma";
+import { getSession } from "next-auth/react";
 
-const ChatComponent = dynamic(() => import('../../components/chat/ChatComponent'), { ssr: false })
+const ChatComponent = dynamic(() => import('../../../components/chat/ChatComponent'), { ssr: false })
 
 export const getServerSideProps: GetServerSideProps = async({req}) => {
 
-    const hostChannelsRes = await fetch(`${process.env.ENVIRONMENT}/api/chatChannel/hostChannels`) 
-    const hostChannels = hostChannelsRes.json()
+    const session = await getSession({ req })
+
+    const hostChannels = await prisma.order.findMany({
+        where: {
+            product: { author: { email: session?.user?.email } }
+        },
+        select: {
+            chatChannel: true,
+            accepted: true,
+            id: true,
+            user: {
+                select: { image: true, name: true }
+            }
+            
+        }
+    })
 
     return { props: { hostChannels } }
 }
 
-export default function HostInbox(props) {
+export default function HostInbox({ hostChannels }) {
 
-    const [openChat, setOpenChat] = useState(props.hostChannels[0].chatChannel)
+    const [openChat, setOpenChat] = useState(hostChannels[0].chatChannel)
 
     const chatChannelOnclick = (hostChannel) => {
         setOpenChat(hostChannel.chatChannel)
@@ -24,11 +40,10 @@ export default function HostInbox(props) {
 
     return (
         <UserAppShell 
-            userHostStatus={null}
             inbox
             navbar={
                 <>
-                    {props.hostChannels.map((hostChannel) => (
+                    {hostChannels.map((hostChannel) => (
                         <div 
                             onClick={() => chatChannelOnclick(hostChannel)} 
                             key={hostChannel.id}

@@ -1,22 +1,39 @@
 import { useState } from "react";
 import dynamic from "next/dynamic"
 import { GetServerSideProps } from "next";
-import { User } from "../../components/profilePage/UserNavbar";
-import UserAppShell from "../../components/profilePage/appShell/UserAppShell";
+import { User } from "../../../components/profilePage/UserNavbar";
+import UserAppShell from "../../../components/profilePage/appShell/UserAppShell";
+import { getSession } from "next-auth/react";
+import prisma from "../../../lib/prisma";
 
-const ChatComponent = dynamic(() => import('../../components/chat/ChatComponent'), { ssr: false })
+const ChatComponent = dynamic(() => import('../../../components/chat/ChatComponent'), { ssr: false })
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
-    const userChannelsRes = await fetch(`${process.env.ENVIRONMANT}/api/chatChannel/userChannels`)
-    const userChannels = await userChannelsRes.json()
+    const session = await getSession({ req })
+
+    const userChannels = await prisma.order.findMany({
+        where: { user: { email: session?.user?.email } },
+        select: {
+            chatChannel: true,
+            id: true,
+            accepted: true,
+            product: { 
+                select: {
+                    author: {
+                        select: { image: true, name: true, }
+                    }
+                }
+             }
+        }
+    })
 
     return { props: { userChannels } }
 }
 
-export default function UserHost(props) {
+export default function UserHost({ userChannels }) {
 
-    const [openChat, setOpenChat] = useState(props.userChannels[0].chatChannel)
+    const [openChat, setOpenChat] = useState(userChannels[0].chatChannel)
 
     const chatChannelOnclick = (userChannel) => {
         setOpenChat(userChannel.chatChannel)
@@ -24,11 +41,10 @@ export default function UserHost(props) {
 
     return (
         <UserAppShell
-            userHostStatus={null}
             inbox
             navbar={
                 <>
-                    {props.userChannels.map(userChannel => (
+                    {userChannels.map(userChannel => (
                         <div 
                             key={userChannel.id} 
                             onClick={() => chatChannelOnclick(userChannel)} 

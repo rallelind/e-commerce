@@ -12,7 +12,7 @@ import { FcCalendar } from "react-icons/fc"
 import UploadTimeline from "./Timeline"
 
 
-const UploadProduct: React.FC<{ showTable: () => void, stripeConnect: boolean }> = ({ showTable, stripeConnect }) => {
+const UploadProduct: React.FC<{ stripeConnect: boolean }> = ({ stripeConnect }) => {
 
     const [active, setActive] = useState(0)
     const [title, setTitle] = useState("")
@@ -102,7 +102,7 @@ const UploadProduct: React.FC<{ showTable: () => void, stripeConnect: boolean }>
                     error: <b>Could not upload.</b>,
                 }
             )
-            .then(showTable)
+            .then(() => router.push({pathname: `/profile/manage-products`}, undefined, { shallow: true }))
         }
     }
 
