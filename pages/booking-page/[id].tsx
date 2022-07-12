@@ -10,12 +10,18 @@ import { AiOutlineGithub } from "react-icons/ai"
 import wavesStyles from "../../styles/Waves.module.css"
 import GoBackBtn from "../../components/utils/GoBackBtn";
 import StripePayment from "../../components/stripe/StripePayment";
+import prisma from "../../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     
-    const postRes = await fetch(`${process.env.ENVIRONMENT}/api/product/product-details/booking-details/${String(params?.id)}`)
-    const post = postRes.json()
-
+    const post = await prisma.post.findUnique({
+        where: { 
+              id: String(params?.id), 
+          },
+          select: { 
+              image: true, price: true, title: true, id: true, authorId: true,
+          },
+      });
     return { props: post }
   }
 

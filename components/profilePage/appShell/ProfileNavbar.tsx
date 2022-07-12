@@ -21,54 +21,62 @@ const ProfileNavbar = ({ userHost }) => {
   const [productOrders, setProductOrders] = useState([])
   const [userOrders, setUserOrders] = useState([])
 
-  /*const fetchUserOrder = async () => {
-    try {
-        let userOrders = await fetch("/api/orders/userOrders")
-        setUserOrders(await userOrders.json())
-    } catch(error) {
-        console.log(error)
-    }
-  }
-
-  const fetchProductOrders = async () => {
-    try {
-        let productOrders = await fetch("/api/orders/productOrders")
-        setProductOrders(await productOrders.json())
-    } catch(error) {
-        console.log(error)
-    }
-  }
+  console.log(userSeen)
 
   useEffect(() => {
+
+      const fetchUserOrders = async () => {
+        await fetch("/api/orders/userOrders")
+          .then((res) => res.json())
+          .then((data) => setUserOrders(data))
+      }
+
+      fetchUserOrders()
+
+      const fetchProductOrders = async () => {
+        await fetch("/api/orders/productOrders")
+          .then((res) => res.json())
+          .then((data) => setProductOrders(data)) 
+      }
+
+      const checkUserSeen = () => {
+        return userOrders.map((userOrder) => {
+          if (userOrder.userSeen === false) {
+            setUserSeen(false)
+          } else {
+            setUserSeen(true)
+          }
+        })
+      }
     
-    fetchUserOrder()
+      const checkOwnerSeen = () => {
+        return productOrders.map((productOrder) => {
+          if (productOrder.ownerSeen === false) {
+            setOwnerSeen(false)
+          } else {
+            setOwnerSeen(true)
+          }
+        })
+      }
 
-    fetchProductOrders()
+      fetchProductOrders()
 
-    productOrders.map((productOrder) => {
-        if (productOrder.ownerSeen === false) {
-          setOwnerSeen(false)
-        } else {
-          setOwnerSeen(true)
-        }
-      })
-  
-    userOrders.map((userOrder) => {
-        if (userOrder.userSeen === false) {
-          setUserSeen(false)
-        } else {
-          setUserSeen(true)
-        }
-      })
 
-  }, [productOrders, userOrders])*/
+      checkOwnerSeen()
+    
+
+
+    checkUserSeen()
+    
+
+  }, [])
 
   const router = useRouter()
 
   const navigateProfilePage = async (url, userOrder, productOrder) => {
     router.push({pathname: `/profile/${url}`}, undefined, { shallow: true })
 
-    /*if (userOrder) {
+    if (userOrder) {
         try {
           await fetch("/api/orders/hasSeen/userSeen")
         } catch (error) {
@@ -86,7 +94,7 @@ const ProfileNavbar = ({ userHost }) => {
         } finally {
           setOwnerSeen(true)
         }
-      }*/
+      }
   }
 
   const profileButtonsData = [

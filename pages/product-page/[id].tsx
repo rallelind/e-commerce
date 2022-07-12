@@ -7,11 +7,20 @@ import Layout from "../../components/utils/Layout"
 const ProductInfo = dynamic(() => import("../../components/productPage/ProductInfo"), { ssr: false })
 const BookingSystem = dynamic(() => import("../../components/productPage/BookingSection"), { ssr: false })
 import { useRouter } from "next/router"
+import prisma from "../../lib/prisma"
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
-    const postRes = await fetch(`${process.env.ENVIRONMENT}/api/product/product-details/${String(params?.id)}`)
-    const post = postRes.json()
+    const post = await prisma.post.findUnique({
+      where: {
+          id: String(params?.id),
+      },
+      include: {
+          author: {
+              select: { name: true, email: true, image: true },
+          },
+      },
+  })
 
     return {
       props: post,
