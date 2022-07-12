@@ -23,7 +23,7 @@ const ProfileNavbar = ({ userHost }) => {
 
   console.log(userSeen)
 
-  useEffect(() => {
+  /*useEffect(() => {
 
       const fetchUserOrders = async () => {
         await fetch("/api/orders/userOrders")
@@ -69,7 +69,7 @@ const ProfileNavbar = ({ userHost }) => {
     checkUserSeen()
     
 
-  }, [])
+  }, [])*/
 
   const router = useRouter()
 
