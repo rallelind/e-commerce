@@ -25,7 +25,7 @@ export default function SignIn({ providers }) {
             <Spacer y={1} />
             <Container className={loginStyles.center}>
               {Object.values(providers).map((provider: any) => (
-                <div key={provider.name} onClick={() => signIn(provider.id, { redirect: true, callbackUrl: "/profile" })} style={{ marginBottom: "3%" }}>
+                <div key={provider.name} onClick={() => signIn(provider.id, { redirect: true, callbackUrl: "/profile/user-information" })} style={{ marginBottom: "3%" }}>
                   {provider.name === "Google" && <GoogleLogin />}
                   {provider.name === "GitHub" && <GithubLogin />}
                 </div>

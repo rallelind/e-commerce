@@ -9,8 +9,13 @@ const BookingSystem = dynamic(() => import("../../components/productPage/Booking
 import { useRouter } from "next/router"
 import prisma from "../../lib/prisma"
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-
+export const getServerSideProps: GetServerSideProps = async ({ params, res }) => {
+  
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
+  
     const post = await prisma.post.findUnique({
       where: {
           id: String(params?.id),

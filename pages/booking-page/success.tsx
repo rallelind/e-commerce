@@ -13,7 +13,7 @@ const SuccessPage = () => {
     const router = useRouter()
 
     const goToProfile = () => {
-        router.push("/profile")
+        router.push("/profile/user-products")
     }
 
     return (
