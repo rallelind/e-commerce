@@ -72,7 +72,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, m
                         disableOutsideEvents={true}
                         minDate={new Date(minDate) > new Date() ? new Date(minDate) : new Date()}
                         maxDate={new Date(maxDate)}
-                        excludeDate={(date) => bookedDates.some((dates) => date.getTime() === new Date(dates).getTime())}
+                        excludeDate={(date) => bookedDates.some((dates) => (date.getDate() === new Date(dates).getDate()) && (date.getMonth() === new Date(dates).getMonth()) && (date.getFullYear() === new Date(dates).getFullYear()))}
                     />
                 </Container>
             </Container>
