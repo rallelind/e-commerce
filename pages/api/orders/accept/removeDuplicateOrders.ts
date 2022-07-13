@@ -1,7 +1,7 @@
 import prisma from "../../../../lib/prisma";
 import { getSession } from "next-auth/react";
 
-export default async function (req, res) {
+export default async function acceptOrder(req, res) {
 
     const { startDate, endDate, productId } = req.body
 

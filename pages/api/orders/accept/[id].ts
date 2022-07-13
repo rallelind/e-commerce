@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
     }
 
-    await getDatesInRange(new Date(startDate), new Date(endDate))
+    getDatesInRange(new Date(startDate), new Date(endDate))
 
     console.log(datesToExclude)
 
