@@ -1,11 +1,16 @@
-import ProductOrders from "../../components/profilePage/productOrders/ProductOrders";
+const ProductOrders = dynamic(() => import("../../components/profilePage/productOrders/ProductOrders"), {ssr: false});
 import UserAppShell from "../../components/profilePage/appShell/UserAppShell";
 import prisma from "../../lib/prisma";
 import { getSession } from "next-auth/react";
+import dynamic from "next/dynamic";
 
-export const getServerSideProps = async ({ req }) => {
+export const getServerSideProps = async ({ req, res }) => {
+    res.setHeader(
+      'Cache-Control',
+      'public, s-maxage=10, stale-while-revalidate=59'
+    )
 
-    const session = await getSession({ req })
+    const session = await getSession({ req, res })
 
     const productOrders = await prisma.order.findMany({
         where: {

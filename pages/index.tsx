@@ -9,7 +9,12 @@ const ProductCard = dynamic(() => import('../components/utils/ProductCard'), { s
 import Layout from '../components/utils/Layout';
 import prisma from '../lib/prisma'
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
 
   const feed = await prisma.post.findMany({
     where: { 

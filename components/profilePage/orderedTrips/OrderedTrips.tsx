@@ -1,4 +1,4 @@
-import { Grid } from "@nextui-org/react"
+import { Grid, Loading } from "@nextui-org/react"
 import OrderedTripsCards from "./OrderedTripsCard"
 
 const OrderedTrips = ({ userOrders }) => {
@@ -20,6 +20,7 @@ const OrderedTrips = ({ userOrders }) => {
             ))}
         </Grid.Container>
     )
+
 }
 
 export default OrderedTrips
