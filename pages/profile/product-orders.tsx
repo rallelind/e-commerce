@@ -10,7 +10,7 @@ export const getServerSideProps = async ({ req, res }) => {
       'public, s-maxage=10, stale-while-revalidate=59'
     )
 
-    const session = await getSession({ req, res })
+    const session = await getSession({ req })
 
     const productOrders = await prisma.order.findMany({
         where: {
