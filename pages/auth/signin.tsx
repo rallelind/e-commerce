@@ -44,7 +44,12 @@ export default function SignIn({ providers }) {
   )
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps({context, res}) {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
+
   const providers = await getProviders()
   return {
     props: { providers },
