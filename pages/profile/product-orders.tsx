@@ -18,6 +18,7 @@ export const getServerSideProps = async ({ req, res }) => {
           accepted: false,
         },
         select: {
+          id: true,
           ownerSeen: true,
           startDate: true,
           endDate: true,

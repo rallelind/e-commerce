@@ -27,21 +27,23 @@ const ProductOrdersCards = ({ userName, userImage, startDate, endDate, productTi
     const acceptOrder = async (id) => {
 
         const body = { startDate, endDate, productId }
-
-        await fetch(`/api/orders/accept/${id}`, {
-            method: "PUT",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body),
-        })
-        .then(async () => {
+        try {
+            await fetch(`/api/orders/accept/${id}`, {
+                method: "PUT",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            })
+        } catch(error) {
+            console.log(error)
+        } finally {
             await fetch("/api/orders/accept/removeDuplicateOrders", {
                 method: "DELETE",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
             })
-        })
-        .then(refresh)
-        .then(() => setAcceptOrderModal(false))
+            .then(refresh)
+            .then(() => setAcceptOrderModal(false))
+        }
     }
 
     return (
