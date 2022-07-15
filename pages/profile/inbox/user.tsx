@@ -10,18 +10,22 @@ const ChatComponent = dynamic(() => import('../../../components/chat/ChatCompone
 
 export default function UserHost() {
 
-    const [openChat, setOpenChat] = useState()
-
-    const chatChannelOnclick = (userChannel) => {
-        setOpenChat(userChannel.chatChannel)
-    }
 
     const fetchUserOrders = async () => {
         const res = await fetch("/api/orders/chats/orderChannels")
         return res.json()
     }
 
-    const { data, isLoading } = useQuery("user-orders", fetchUserOrders)
+    const { data, isLoading, isSuccess } = useQuery("user-orders", fetchUserOrders)
+
+    const [openChat, setOpenChat] = useState(isSuccess && data[0].chatChannel)
+
+    const chatChannelOnclick = (userChannel) => {
+        setOpenChat(userChannel.chatChannel)
+    }
+
+
+    console.log(data)
 
 
     return (
