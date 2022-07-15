@@ -1,31 +1,19 @@
 import UserProducts from "../../components/profilePage/userProducts/UserProducts";
 import UserAppShell from "../../components/profilePage/appShell/UserAppShell";
-import prisma from "../../lib/prisma";
-import { getSession } from "next-auth/react";
+import { useQuery } from "react-query";
 
-export const getServerSideProps = async ({ req }) => {
+export default function UserProduct() {
 
-    const session = await getSession({ req })
+    const fetchUserProducts = async () => {
+        const res = await fetch("/api/user/user-products")
+        return res.json()
+    }
 
-    const userProducts= await prisma.post.findMany({
-        where: {
-            author: { email: session?.user.email }
-        },
-        include: {
-            author: {
-                select: { name: true }
-            },
-        },
-    });
-
-    return { props: { userProducts } }
-}
-
-export default function UserProduct({ userProducts }) {
+    const { data, isLoading } = useQuery("user-orders", fetchUserProducts)
 
     return (
         <UserAppShell inbox={false} navbar={null}>
-            <UserProducts userProduct={userProducts} />
+            <UserProducts userProduct={data} isLoading={isLoading} />
         </UserAppShell>
     )
 }

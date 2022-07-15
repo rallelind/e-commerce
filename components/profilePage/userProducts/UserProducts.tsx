@@ -3,7 +3,11 @@ import { Grid, Loading, Card } from "@nextui-org/react";
 import ProductCard from '../../utils/ProductCard'
 import { TiDelete } from "react-icons/ti"
 
-const UserProducts: React.FC<{ userProduct: [] }> = ({ userProduct }) => {
+const UserProducts: React.FC<{ userProduct: [], isLoading: boolean }> = ({ userProduct, isLoading }) => {
+
+    if(isLoading) {
+        return <Loading />
+    }
 
     if (userProduct.length === 0) return <h1>You have 0 products uploaded</h1> 
 

@@ -1,48 +1,20 @@
-const ProductOrders = dynamic(() => import("../../components/profilePage/productOrders/ProductOrders"), {ssr: false});
 import UserAppShell from "../../components/profilePage/appShell/UserAppShell";
-import prisma from "../../lib/prisma";
-import { getSession } from "next-auth/react";
 import dynamic from "next/dynamic";
+import { useQuery } from "react-query";
+const ProductOrders = dynamic(() => import("../../components/profilePage/productOrders/ProductOrders"), {ssr: false});
 
-export const getServerSideProps = async ({ req, res }) => {
-    res.setHeader(
-      'Cache-Control',
-      'public, s-maxage=10, stale-while-revalidate=59'
-    )
+export default function ProductOrder() {
 
-    const session = await getSession({ req })
+  const fetchUserOrders = async () => {
+    const res = await fetch("/api/orders/productOrders")
+    return res.json()
+  }
 
-    const productOrders = await prisma.order.findMany({
-        where: {
-          product: { author: { email: session?.user?.email } },
-          accepted: false,
-        },
-        select: {
-          id: true,
-          ownerSeen: true,
-          startDate: true,
-          endDate: true,
-          user: {
-            select: { image: true, name: true }
-          },
-          product: {
-            select: { image: true, title: true, id: true }
-          }
-        }
-      })
-    
-    return { 
-        props: { 
-            productOrders: JSON.parse(JSON.stringify(productOrders)) 
-        } 
-    }
-}
-
-export default function ProductOrder({ productOrders }) {
+  const { data, isLoading } = useQuery("user-orders", fetchUserOrders)
 
     return (
         <UserAppShell inbox={false} navbar={null}>
-            {productOrders.length >= 1 ? <ProductOrders productOrders={productOrders} /> : <h1>You have no orders</h1>}
+            <ProductOrders productOrders={data} isLoading={isLoading} />
         </UserAppShell>
     )
 }

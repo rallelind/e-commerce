@@ -1,7 +1,12 @@
 import { Grid } from "@nextui-org/react";
 import ProductOrdersCards from "./ProductOrdersCards";
+import { Loading } from "@nextui-org/react";
 
-const ProductOrders = ({ productOrders }) => {
+const ProductOrders = ({ productOrders, isLoading }) => {
+
+    if (isLoading) {
+        return <Loading />
+    }
 
     if (productOrders.length === 0) {
         return <h1>You have 0 orders on your products</h1>

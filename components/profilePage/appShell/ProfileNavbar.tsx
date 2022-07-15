@@ -72,7 +72,7 @@ const ProfileNavbar = ({ userHost }) => {
   const router = useRouter()
 
   const navigateProfilePage = async (url, userOrder, productOrder) => {
-    router.push({pathname: `/profile/${url}`}, undefined, { shallow: true })
+    router.push({pathname: `/profile/${url}`})
 
     if (userOrder) {
         try {
@@ -101,6 +101,7 @@ const ProfileNavbar = ({ userHost }) => {
       color: "grape",
       onClick: () => navigateProfilePage("user-information", false, false),
       icon: <CgProfile size={25} />,
+      host: null
     },
     {
       label: "Upload Product",
@@ -158,6 +159,7 @@ const ProfileNavbar = ({ userHost }) => {
       color: "red",
       onClick: () => signOut({ redirect: true, callbackUrl: "/" }),
       icon: <FiLogOut size={25} />,
+      host: null
     },
   ];
 
