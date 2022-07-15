@@ -1,11 +1,9 @@
 import { useState } from "react";
 import dynamic from "next/dynamic"
-import { GetServerSideProps } from "next";
 import { User } from "../../../components/profilePage/UserNavbar";
 import UserAppShell from "../../../components/profilePage/appShell/UserAppShell";
-import { getSession } from "next-auth/react";
-import prisma from "../../../lib/prisma";
 import { useQuery } from "react-query";
+import { Loading } from "@nextui-org/react";
 
 const ChatComponent = dynamic(() => import('../../../components/chat/ChatComponent'), { ssr: false })
 
@@ -19,11 +17,11 @@ export default function UserHost() {
     }
 
     const fetchUserOrders = async () => {
-        const res = await fetch("/api/orders/chats/hostChannels")
+        const res = await fetch("/api/orders/chats/orderChannels")
         return res.json()
     }
 
-    const { data, status } = useQuery("user-orders", fetchUserOrders)
+    const { data, isLoading } = useQuery("user-orders", fetchUserOrders)
 
 
     return (
@@ -31,7 +29,8 @@ export default function UserHost() {
             inbox
             navbar={
                 <>
-                    {data.map(userChannel => (
+                    {isLoading ? <Loading /> : 
+                    data.map(userChannel => (
                         <div 
                             key={userChannel.id} 
                             onClick={() => chatChannelOnclick(userChannel)} 
