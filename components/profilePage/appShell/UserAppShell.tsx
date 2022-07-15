@@ -18,8 +18,7 @@ const UserAppShell = ({ children, inbox, navbar }) => {
   const theme = useMantineTheme();
 
   const [opened, setOpened] = useState(false)
-  const [userStatus, setUserStatus] = useState(null)
-  console.log(userStatus)
+  const [userStatus, setUserStatus] = useState()
 
   const burgerOnclick = () => {
     setOpened(!opened)

@@ -8,12 +8,18 @@ export default async function userOrders(req, res) {
     try {
         const userOrders = await prisma.order.findMany({
             where: {
-            user: { email: session?.user?.email }
+              user: { email: session?.user?.email },
             },
             select: {
-                userSeen: true,
-            }
-        })
+              userSeen: true,
+              startDate: true,
+              endDate: true,
+              accepted: true,
+              product: {
+                select: { image: true },
+              },
+            },
+          });
 
         res.json(userOrders)
 

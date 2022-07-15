@@ -5,46 +5,33 @@ import { User } from "../../../components/profilePage/UserNavbar";
 import UserAppShell from "../../../components/profilePage/appShell/UserAppShell";
 import { getSession } from "next-auth/react";
 import prisma from "../../../lib/prisma";
+import { useQuery } from "react-query";
 
 const ChatComponent = dynamic(() => import('../../../components/chat/ChatComponent'), { ssr: false })
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
-    const session = await getSession({ req })
+export default function UserHost() {
 
-    const userChannels = await prisma.order.findMany({
-        where: { user: { email: session?.user?.email } },
-        select: {
-            chatChannel: true,
-            id: true,
-            accepted: true,
-            product: { 
-                select: {
-                    author: {
-                        select: { image: true, name: true, }
-                    }
-                }
-             }
-        }
-    })
-
-    return { props: { userChannels } }
-}
-
-export default function UserHost({ userChannels }) {
-
-    const [openChat, setOpenChat] = useState(userChannels[0].chatChannel)
+    const [openChat, setOpenChat] = useState()
 
     const chatChannelOnclick = (userChannel) => {
         setOpenChat(userChannel.chatChannel)
     }
+
+    const fetchUserOrders = async () => {
+        const res = await fetch("/api/orders/chats/hostChannels")
+        return res.json()
+    }
+
+    const { data, status } = useQuery("user-orders", fetchUserOrders)
+
 
     return (
         <UserAppShell
             inbox
             navbar={
                 <>
-                    {userChannels.map(userChannel => (
+                    {data.map(userChannel => (
                         <div 
                             key={userChannel.id} 
                             onClick={() => chatChannelOnclick(userChannel)} 

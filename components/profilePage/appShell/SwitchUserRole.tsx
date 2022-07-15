@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react"
 import { Loading } from "@nextui-org/react"
 import { Switch } from "@mantine/core"
+import { useRouter } from "next/router"
 import useRouterRefresh from "../../../lib/customHook/useRouterRefresh"
 
 const SwitchUserRole = ({ switchStatus, hostStatus }) => {
 
     const [loadingUserHost, setLoadingUserHost] = useState(false)
     const [checked, setChecked] = useState(hostStatus)
-
-    const refresh = useRouterRefresh()
 
     const switchOnChange = async (event) => {
         setChecked(event)

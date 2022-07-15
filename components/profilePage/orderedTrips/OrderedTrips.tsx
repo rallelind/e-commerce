@@ -1,7 +1,15 @@
 import { Grid, Loading } from "@nextui-org/react"
 import OrderedTripsCards from "./OrderedTripsCard"
 
-const OrderedTrips = ({ userOrders }) => {
+const OrderedTrips = ({ userOrders, status }) => {
+
+    if (status === "loading") {
+        return (
+          <div className="flex justify-center items-center h-full">
+            <Loading />
+          </div>
+        )
+    }
 
     if (userOrders.length === 0) {
         return <h1>You have 0 orders</h1>
