@@ -21,8 +21,6 @@ const ProfileNavbar = ({ userHost }) => {
   const [productOrders, setProductOrders] = useState([])
   const [userOrders, setUserOrders] = useState([])
 
-  console.log(userSeen)
-
   /*useEffect(() => {
 
       const fetchUserOrders = async () => {

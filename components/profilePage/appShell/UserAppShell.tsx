@@ -6,7 +6,7 @@ import {
   useMantineTheme,
   Navbar
 } from "@mantine/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GoBackBtn from "../../utils/GoBackBtn";
 import HomeLink from "./HomeLink";
 import SwitchUserRole from "./SwitchUserRole";
@@ -18,10 +18,22 @@ const UserAppShell = ({ children, inbox, navbar }) => {
   const theme = useMantineTheme();
 
   const [opened, setOpened] = useState(false)
+  const [userStatus, setUserStatus] = useState(null)
+  console.log(userStatus)
 
   const burgerOnclick = () => {
     setOpened(!opened)
   }
+
+  const fetchUserHostStatus = async () => {
+    await fetch("/api/user/userDetails") 
+      .then(res => res.json())
+      .then(data => setUserStatus(data.host))
+  }
+
+  useEffect(() => {
+    fetchUserHostStatus()
+  }, [])
 
   const session = useSession()
 
@@ -41,7 +53,7 @@ const UserAppShell = ({ children, inbox, navbar }) => {
       fixed
       navbar={
         <Navbar onClick={burgerOnclick} p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
-          {inbox ? navbar : <ProfileNavbar userHost={false} />}
+          {inbox ? navbar : <ProfileNavbar userHost={userStatus} />}
         </Navbar>
       }
       header={
@@ -60,7 +72,7 @@ const UserAppShell = ({ children, inbox, navbar }) => {
                 {inbox ? <GoBackBtn /> : <HomeLink />}
             </div>
             {!inbox && (
-              <SwitchUserRole userHostStatus={true} />
+              <SwitchUserRole hostStatus={userStatus} switchStatus={fetchUserHostStatus} />
             )}
           </div>
         </Header>
