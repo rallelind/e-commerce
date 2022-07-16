@@ -6,7 +6,13 @@ import { TiDelete } from "react-icons/ti"
 const UserProducts: React.FC<{ userProduct: [], isLoading: boolean }> = ({ userProduct, isLoading }) => {
 
     if(isLoading) {
-        return <Loading />
+        return (
+            <div className="flex justify-center items-center h-full">
+                <Loading color="secondary" textColor="secondary">
+                    Loading your products
+                </Loading>
+            </div>
+        )
     }
 
     if (userProduct.length === 0) return <h1>You have 0 products uploaded</h1> 

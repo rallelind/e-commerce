@@ -11,11 +11,11 @@ export default function ManageProducts({ userProducts }) {
         return res.json()
     }
 
-    const { data, isLoading } = useQuery("user-orders", fetchUserProducts)
+    const { data, isLoading, isSuccess } = useQuery("user-orders", fetchUserProducts)
 
     return (
         <UserAppShell inbox={false} navbar={null}>
-            {isLoading ? <Loading /> : <ProductsTable products={data} />}
+            {<ProductsTable products={isSuccess && data} isLoading={isLoading} />}
         </UserAppShell>
     )
 }

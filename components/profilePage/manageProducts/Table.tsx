@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Table, Row, Col, Tooltip, User, Text } from "@nextui-org/react";
+import { Table, Row, Col, Tooltip, User, Text, Loading } from "@nextui-org/react";
 import { StyledBadge } from "./StyledBadge";
 import { IconButton } from "./IconButton";
 import { AiTwotoneDelete, AiFillEdit } from "react-icons/ai"
 import DeleteModal from "./DeleteModal";
 import UpdateModal from "./UpdateModal";
 
-const ProductsTable: React.FC<{ products: any }> = ({ products }) => {
+const ProductsTable: React.FC<{ products: any, isLoading: boolean }> = ({ products, isLoading }) => {
 
         const [visibleDeleteModal, setVisibleDeleteModal] = useState(false)
         const [visibleUpdateModal, setVisibleUpdateModal] = useState(false)
@@ -79,6 +79,16 @@ const ProductsTable: React.FC<{ products: any }> = ({ products }) => {
                 return cellValue;
             }
           };
+
+          if(isLoading) {
+            return (
+              <div className="flex justify-center items-center h-full">
+                <Loading color="secondary" textColor="secondary">
+                  Loading your products
+                </Loading>
+              </div>
+            )
+          }
 
           return (
             <>

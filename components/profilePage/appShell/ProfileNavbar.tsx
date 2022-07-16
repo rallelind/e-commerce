@@ -22,9 +22,11 @@ const ProfileNavbar = () => {
   const [productOrders, setProductOrders] = useState([])
   const [userOrders, setUserOrders] = useState([])
 
-  console.log()
 
   const userStatus = typeof window !== "undefined" && window.sessionStorage.getItem("userStatus")
+
+  console.log(userStatus)
+
 
   /*useEffect(() => {
 

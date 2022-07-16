@@ -6,7 +6,9 @@ const OrderedTrips = ({ userOrders, status }) => {
     if (status === "loading") {
         return (
           <div className="flex justify-center items-center h-full">
-            <Loading />
+                <Loading color="secondary" textColor="secondary">
+                  Loading your orders
+                </Loading>
           </div>
         )
     }

@@ -5,7 +5,13 @@ import { Loading } from "@nextui-org/react";
 const ProductOrders = ({ productOrders, isLoading }) => {
 
     if (isLoading) {
-        return <Loading />
+        return (
+            <div className="flex justify-center items-center h-full">
+                <Loading color="secondary" textColor="secondary">
+                    Loading your product orders
+                </Loading>
+            </div>
+        )
     }
 
     if (productOrders.length === 0) {
