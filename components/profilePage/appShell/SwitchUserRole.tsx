@@ -4,26 +4,39 @@ import { Switch } from "@mantine/core"
 import { useRouter } from "next/router"
 import useRouterRefresh from "../../../lib/customHook/useRouterRefresh"
 
-const SwitchUserRole = ({ setHostStatus, hostStatus }) => {
+const SwitchUserRole = () => {
 
-    const [loadingUserHost, setLoadingUserHost] = useState(false)
+  const [hostStatus, setHostStatus] = useState(false)
 
+  const userStatus = typeof window !== "undefined" && window.sessionStorage.getItem("userStatus")
+
+  useEffect(() => {
+      if(userStatus === "user" || userStatus === null) {
+        setHostStatus(false)
+      } else {
+        setHostStatus(true)
+      }
+  }, [userStatus])
+
+
+  const switchOnChange = async (event) => {
+    setHostStatus(event)
+    if(event === true) {
+      window.sessionStorage.setItem("userStatus", "host")
+    } else {
+      window.sessionStorage.setItem("userStatus", "user")
+    }
+  }
 
     return (
-        <div>
-        {loadingUserHost ?
-          <Loading />
-          :
           <>
             <Switch
               color="grape"
               label={`Switch to ${hostStatus ? "user" : "host"}`}
               checked={hostStatus}
-              onChange={setHostStatus}
+              onChange={(event) => setHostStatus(event.currentTarget.checked)}
             />
           </>
-        }
-      </div>
     )
 }
 

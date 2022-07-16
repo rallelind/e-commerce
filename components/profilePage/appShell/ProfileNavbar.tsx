@@ -12,7 +12,7 @@ import { AiOutlineShop, AiFillEdit, AiOutlineMessage } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
 
-const ProfileNavbar = ({ userHost }) => {
+const ProfileNavbar = () => {
     
   const { data: session } = useSession();
   const { query } = useRouter()
