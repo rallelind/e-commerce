@@ -5,16 +5,16 @@ const ProductOrders = dynamic(() => import("../../components/profilePage/product
 
 export default function ProductOrder() {
 
-  const fetchUserOrders = async () => {
+  const fetchProductOrders = async () => {
     const res = await fetch("/api/orders/productOrders")
     return res.json()
   }
 
-  const { data, isLoading } = useQuery("user-orders", fetchUserOrders)
+  const { data, isLoading, isSuccess } = useQuery("product-orders", fetchProductOrders)
 
     return (
         <UserAppShell inbox={false} navbar={null}>
-            <ProductOrders productOrders={data} isLoading={isLoading} />
+            <ProductOrders productOrders={isSuccess && data} isLoading={isLoading} />
         </UserAppShell>
     )
 }

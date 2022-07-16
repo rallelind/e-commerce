@@ -15,11 +15,16 @@ import { signOut } from "next-auth/react";
 const ProfileNavbar = ({ userHost }) => {
     
   const { data: session } = useSession();
+  const { query } = useRouter()
 
   const [ownerSeen, setOwnerSeen] = useState(true)
   const [userSeen, setUserSeen] = useState(true)
   const [productOrders, setProductOrders] = useState([])
   const [userOrders, setUserOrders] = useState([])
+
+  console.log()
+
+  const userStatus = typeof window !== "undefined" && window.sessionStorage.getItem("userStatus")
 
   /*useEffect(() => {
 
@@ -167,7 +172,7 @@ const ProfileNavbar = ({ userHost }) => {
     <>
       <Navbar.Section grow>
         {profileButtonsData.map((buttonData, i) => {
-          if (!userHost && !buttonData.host) {
+          if ((userStatus === null || userStatus === "user") && !buttonData.host) {
             return (
               <ProfileButton
                 key={i}
@@ -175,7 +180,7 @@ const ProfileNavbar = ({ userHost }) => {
               />
             );
           }
-          if ((userHost && buttonData.host) || buttonData.host === null) {
+          if ((userStatus === "host" && buttonData.host) || buttonData.host === null) {
             return (
               <ProfileButton
                 key={i}

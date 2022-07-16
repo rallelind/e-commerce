@@ -18,21 +18,34 @@ const UserAppShell = ({ children, inbox, navbar }) => {
   const theme = useMantineTheme();
 
   const [opened, setOpened] = useState(false)
-  const [userStatus, setUserStatus] = useState()
 
   const burgerOnclick = () => {
     setOpened(!opened)
   }
 
-  const fetchUserHostStatus = async () => {
-    await fetch("/api/user/userDetails") 
-      .then(res => res.json())
-      .then(data => setUserStatus(data.host))
-  }
+  const [hostStatus, setHostStatus] = useState(false)
+
+  const userStatus = typeof window !== "undefined" && window.sessionStorage.getItem("userStatus")
 
   useEffect(() => {
-    fetchUserHostStatus()
-  }, [])
+      if(userStatus === "user" || userStatus === null) {
+        setHostStatus(false)
+      } else {
+        setHostStatus(true)
+      }
+  }, [userStatus])
+
+
+  const switchOnChange = async (event) => {
+    setHostStatus(event)
+    if(event === true) {
+      window.sessionStorage.setItem("userStatus", "host")
+    } else {
+      window.sessionStorage.setItem("userStatus", "user")
+    }
+  }
+
+
 
   const session = useSession()
 
@@ -52,7 +65,7 @@ const UserAppShell = ({ children, inbox, navbar }) => {
       fixed
       navbar={
         <Navbar onClick={burgerOnclick} p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 220, lg: 300 }}>
-          {inbox ? navbar : <ProfileNavbar userHost={userStatus} />}
+          {inbox ? navbar : <ProfileNavbar userHost={hostStatus} />}
         </Navbar>
       }
       header={
@@ -71,7 +84,7 @@ const UserAppShell = ({ children, inbox, navbar }) => {
                 {inbox ? <GoBackBtn /> : <HomeLink />}
             </div>
             {!inbox && (
-              <SwitchUserRole hostStatus={userStatus} switchStatus={fetchUserHostStatus} />
+              <SwitchUserRole hostStatus={hostStatus} setHostStatus={(event) => switchOnChange(event.currentTarget.checked)} />
             )}
           </div>
         </Header>
