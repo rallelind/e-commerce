@@ -60,7 +60,11 @@ const ShowProduct = ({ feed }) => {
 
   const featuresChecked = (postFeaturesArray) => {
     if(features.length > 0) {
-      return postFeaturesArray.some(postFeatures => features.indexOf(postFeatures) >= 0)
+      if(postFeaturesArray.length > features.length) {
+        return postFeaturesArray.some(postFeatures => features.indexOf(postFeatures) >= 0)
+      } else {
+        return false
+      }
     } else {
       return true
     }
