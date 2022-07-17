@@ -3,13 +3,15 @@ import { GiSurferVan } from "react-icons/gi"
 
 const ChatMessage = ({ message }) => {
 
+    console.log(message.createdAt.toDate())
+
     return (
         <div className="w-full mt-[2%]">
         <div className="flex w-full">
             <Avatar css={{ zIndex: "1" }} src={message.img} />
             <div>
                 <div className="flex items-center">
-                    <Text className="ml-[20px] w-full font-semibold" h4>
+                    <Text className="ml-[20px] w-full font-semibold">
                         {message.name} 
                         <span className="ml-[10px] font-light text-sm">
                             {message.timeSent}

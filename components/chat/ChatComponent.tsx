@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from "react"
-import { Input } from "@nextui-org/react"
+import { Input, Text } from "@nextui-org/react"
 import { useSession } from "next-auth/react"
 import { GiSurferVan } from "react-icons/gi"
 import ChatMessage from "./ChatMessage"
+import OnlyMessageComponent from "./OnlyMessageComponent"
 
 import firebase from 'firebase/compat/app'; 
 import { collection, query, where, getFirestore, orderBy, limit, addDoc, Timestamp } from 'firebase/firestore';
@@ -61,10 +62,28 @@ const ChatComponent = ({ channelName }) => {
         setMessageText("")
     }
 
+    const firsMessageDate = sortedArray && sortedArray.length > 0 && sortedArray[0].createdAt.toDate().toDateString()
+
+    //find index of first time 
+
     return (
         <div className="flex justify-center">
             <div className="overflow-y-scroll w-3/4 mb-[10%]">
-                {sortedArray && sortedArray.map((msg, index) => <ChatMessage message={msg} key={index} />)}
+                <div className="flex justify-center">
+                    <Text b color="grey" size={13}>{firsMessageDate}</Text>
+                </div>
+                {sortedArray && sortedArray.map((msg, index) => (
+                    <>
+                        {sortedArray[index+1] !== undefined && (sortedArray[index].createdAt.toDate().toDateString() !== sortedArray[index+1].createdAt.toDate().toDateString()) && (
+                            <div className="flex justify-center">
+                                <Text b color="grey" size={13}>{sortedArray[index+1].createdAt.toDate().toDateString()}</Text>
+                            </div>
+                            )
+                        }
+                        
+                        <ChatMessage message={msg} key={index} />
+                    </>
+                ))}
             </div>
             
             <div className="absolute bottom-[30px]">
