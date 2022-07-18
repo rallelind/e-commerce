@@ -47,7 +47,7 @@ const ImageSlider = (props) => {
             <Slider {...settings}>
                 {props.images.map((image, i) => ( 
                     <Card.Image
-                        showSkeleton
+                        
                         key={i}
                         src={image} 
                         alt="productImage" 

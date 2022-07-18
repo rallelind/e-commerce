@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Grid } from '@nextui-org/react'
 import { useSession } from 'next-auth/react'
-import { PostProps } from '../components/utils/ProductCard'
-import { GetServerSideProps } from "next"
 import { useRouter } from 'next/router'
 import { Chips, Chip } from '@mantine/core'
 import { GiGasStove, GiKitchenTap, GiWaterGallon } from "react-icons/gi"
@@ -12,33 +10,55 @@ import { BiFridge, BiWifi } from "react-icons/bi"
 import dynamic from 'next/dynamic'
 const ProductCard = dynamic(() => import('../components/utils/ProductCard'), { ssr: false })
 import Layout from '../components/utils/Layout';
-import prisma from '../lib/prisma'
+import { useInView }  from "react-intersection-observer"
+import { useInfiniteQuery } from 'react-query'
+import LoadingProductSkeleton from '../components/skeleton/LoadingProductSkeleton'
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+const ShowProduct = () => {
 
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  )
+  const { ref, inView } = useInView()
 
-  const feed = await prisma.post.findMany({
-    where: { 
-      published: true,
-    },
-    include: {
-      author: {
-        select: { name: true, email: true },
+  const router = useRouter()
+
+  const session = useSession()
+
+  const [features, setFeatures] = useState([])
+  const [initialLoad, setInitialLoad] = useState(false)
+
+  const productRef = useRef(false)
+  
+
+  const { isLoading, isError, data, error, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useInfiniteQuery(
+      'posts',
+      async ({ pageParam = '' }) => {
+        const res = await fetch('/api/product/feed?cursor=' + pageParam, {
+          method: "GET"
+        })
+        return res.json()
       },
-    },
-  });
+      {
+        getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+      }
+    )
 
-  return { props: { feed } }
-}
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage()
+    }
+  }, [inView, fetchNextPage, hasNextPage])
+
+  useEffect(() => {
+    setInterval(() => {
+      setInitialLoad(true);
+    }, 5000);
+  }, [])
+
+  console.log(inView)
 
 
-const ShowProduct = ({ feed }) => {
-
-  console.log(feed)
+  if (isError) return <div>Error! {JSON.stringify(error)}</div>
+  
 
   const featuresData = [
     { value: "waterSystem", label: "Water system", icon: <GiKitchenTap size={20} /> },
@@ -50,13 +70,6 @@ const ShowProduct = ({ feed }) => {
     { value: "waterTanks", label: "Water tanks", icon: <GiWaterGallon size={20} /> },
   ]
 
-  const router = useRouter()
-
-  const session = useSession()
-
-  const [features, setFeatures] = useState([])
-
-  console.log(features)
 
   const featuresChecked = (postFeaturesArray) => {
     if(features.length > 0) {
@@ -70,7 +83,9 @@ const ShowProduct = ({ feed }) => {
     }
   } 
 
+
   return (
+    <>
     <Layout>
       <div className='mb-[2%] w-full flex justify-center'>
         <Chips color="grape" size='md' radius="lg" variant='filled' value={features} onChange={setFeatures} multiple>
@@ -79,21 +94,42 @@ const ShowProduct = ({ feed }) => {
           ))}
         </Chips>
       </div>
+      {isLoading ? <div>loading</div> :
+      <>
       <Grid.Container gap={4}>
-          {feed.map((post) => (
-            post.author.email !== session?.data?.user?.email && featuresChecked(post.features) &&
-              <ProductCard 
-                onClick={() => router.push({pathname: `/product-page/${post.id}`})}
-                hoverable={false}
-                clickable
-                key={post.id} 
-                post={post} 
-                xs={12}
-                sm={3}
-                />
-          ))}
+          {data && data.pages.map((page) => {
+            console.log(page.posts)
+            return (
+              <React.Fragment key={page.nextId ?? 'lastPage'}>
+                {page.posts.map((post, index) => {                
+
+                  if(post.author.email !== session?.data?.user?.email && featuresChecked(post.features)) {
+                return (
+                <ProductCard 
+                  onClick={() => router.push({pathname: `/product-page/${post.id}`})}
+                  hoverable={false}
+                  clickable
+                  key={post.id} 
+                  post={post} 
+                  xs={12}
+                  sm={3}
+                  />
+                )
+              }
+                
+                })}
+              </React.Fragment>
+              )
+          })}
+      
       </Grid.Container>
-    </Layout>
+      
+      {isFetchingNextPage && <LoadingProductSkeleton />}
+      {initialLoad && <span ref={ref} style={{ visibility: "hidden" }}>intersection observer marker</span>}
+        </>
+      }
+      </Layout>
+    </>
   )
 }
 
