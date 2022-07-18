@@ -5,56 +5,56 @@ const LoadingProductSkeleton = () => {
     return (
         <Grid.Container gap={4}>
             <Grid xs={12} sm={3}>
-                <Skeleton>
+                <Skeleton radius="lg">
                     <Card className="h-[340px]">
 
                     </Card>
                 </Skeleton>
             </Grid>
             <Grid xs={12} sm={3}>
-                <Skeleton>
+                <Skeleton radius="lg">
                     <Card className="h-[340px]">
 
                     </Card>
                 </Skeleton>
             </Grid>
             <Grid xs={12} sm={3}>
-                <Skeleton>
+                <Skeleton radius="lg">
                     <Card className="h-[340px]">
 
                     </Card>
                 </Skeleton>
             </Grid>
             <Grid xs={12} sm={3}>
-                <Skeleton>
+                <Skeleton radius="lg">
                     <Card className="h-[340px]">
 
                     </Card>
                 </Skeleton>
             </Grid>
             <Grid xs={12} sm={3}>
-                <Skeleton>
+                <Skeleton radius="lg">
                     <Card className="h-[340px]">
 
                     </Card>
                 </Skeleton>
             </Grid>
             <Grid xs={12} sm={3}>
-                <Skeleton>
+                <Skeleton radius="lg">
                     <Card className="h-[340px]">
 
                     </Card>
                 </Skeleton>
             </Grid>
             <Grid xs={12} sm={3}>
-                <Skeleton>
+                <Skeleton radius="lg">
                     <Card className="h-[340px]">
 
                     </Card>
                 </Skeleton>
             </Grid>
             <Grid xs={12} sm={3}>
-                <Skeleton>
+                <Skeleton radius="lg">
                     <Card className="h-[340px]">
 
                     </Card>

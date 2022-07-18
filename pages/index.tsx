@@ -94,7 +94,7 @@ const ShowProduct = () => {
           ))}
         </Chips>
       </div>
-      {isLoading ? <div>loading</div> :
+      {isLoading ? <LoadingProductSkeleton /> :
       <>
       <Grid.Container gap={4}>
           {data && data.pages.map((page) => {
