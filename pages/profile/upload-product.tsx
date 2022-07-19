@@ -1,27 +1,20 @@
 import UserAppShell from "../../components/profilePage/appShell/UserAppShell";
 import UploadProduct from "../../components/profilePage/uploadProduct/UploadProduct";
-import prisma from "../../lib/prisma";
-import { getSession } from "next-auth/react";
+import { useQuery } from "react-query";
+import { Loading } from "@nextui-org/react";
 
-export const getServerSideProps = async ({ req }) => {
+export default function UploadProducts() {
 
-    const session = await getSession({ req })
-
-    const user = await prisma.user.findUnique({
-        where: { email: session?.user?.email },
-        select: { stripeConnect: true }
-    })
-
-    return {
-        props: { user }
+    const fetchUserData = async () => {
+        const res = await fetch("/api/user/userDetails")
+        return res.json()
     }
-}
 
-export default function UploadProducts({ user }) {
+    const { isLoading, data } = useQuery("user-stripe", fetchUserData)
 
     return (
         <UserAppShell inbox={false} navbar={null}>
-            <UploadProduct stripeConnect={user.stripeConnect} />
+            {isLoading ? <Loading color="secondary" textColor="secondary" className="flex justify-center items-center h-full">Loading user information</Loading> : <UploadProduct stripeConnect={data.stripeConnect} />}
         </UserAppShell>
     )
 }
