@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { signOut, useSession } from 'next-auth/react'
 import stylesHeader from "../../styles/Header.module.css"
 import { Text, Avatar, Button, User } from '@nextui-org/react'
+import { DateRangePicker } from '@mantine/dates';
+import { FcCalendar } from "react-icons/fc"
 
 const Header: React.FC = () => {
 
@@ -12,6 +14,11 @@ const Header: React.FC = () => {
       router.pathname === pathname;
 
     const { data: session, status } = useSession();
+
+    const [dates, setDates] = useState<[Date | null, Date | null]>([
+        new Date(),
+        new Date(),
+      ]);
 
     let left = (
         <ul>
@@ -99,6 +106,21 @@ const Header: React.FC = () => {
     return (
         <nav className={stylesHeader.nav}>
             {left}
+            <ul className='flex justify-center'>
+                <li>
+                <DateRangePicker
+                                    placeholder="Event date"
+                                    required
+                                    allowLevelChange={false}
+                                    icon={<FcCalendar size={30} />}
+                                    minDate={new Date()}
+                                    disableOutsideEvents
+                                    value={dates}
+                                    onChange={setDates}
+                                    className="w-[255px]"
+                                />
+                </li>
+            </ul>
             {right}
         </nav>
     )

@@ -87,7 +87,7 @@ const ShowProduct = () => {
   return (
     <>
     <Layout>
-      <div className='mb-[2%] w-full flex justify-center'>
+      <div className='mb-[2%] w-full flex justify-center z-10'>
         <Chips color="grape" size='md' radius="lg" variant='filled' value={features} onChange={setFeatures} multiple>
           {featuresData.map((featureData, index) => (
               <Chip key={index} checked={false} value={featureData.value}>{featureData.label}</Chip>

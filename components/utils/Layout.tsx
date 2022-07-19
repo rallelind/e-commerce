@@ -1,5 +1,6 @@
 import Header from "./Header"
 import React, { ReactNode } from "react"
+import { Divider } from "@nextui-org/react"
 
 type Props = {
     children: ReactNode;
@@ -8,7 +9,7 @@ type Props = {
 const Layout: React.FC<Props> = ({children}) => {
     return (
         <>
-            <div>
+            <div  className="mt-[1%]">
                 <Header />
                 <main>
                     {children}
