@@ -1,4 +1,4 @@
-import { Dropzone } from "@mantine/dropzone"
+import { Dropzone, MIME_TYPES } from '@mantine/dropzone'
 import { Group, Text } from "@mantine/core"
 import { FcAddImage } from "react-icons/fc"
 
@@ -7,6 +7,7 @@ const ImageDropzone = (props) => {
     return (
         <div style={{ marginTop: "5%" }}>
             <Dropzone
+                accept={[MIME_TYPES.png, MIME_TYPES.jpeg]}
                 onDrop={props.onDrop}
             >
                 {() =>
