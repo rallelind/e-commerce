@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { signOut, useSession } from 'next-auth/react'
 import stylesHeader from "../../styles/Header.module.css"
-import { Text, Avatar, Button } from '@nextui-org/react'
+import { Text, Avatar, Button, User } from '@nextui-org/react'
 
 const Header: React.FC = () => {
 
@@ -60,8 +60,17 @@ const Header: React.FC = () => {
             <ul>
                 <li>
                     <Link href="/auth/signin">
-                        <a data-active={isActive('/signup')}>Log in</a>
+                        <a data-active={isActive('/signup')}>
+                            <User 
+                                src="https://mpng.subpng.com/20181110/srt/kisspng-computer-icons-login-scalable-vector-graphics-emai-5be7376911c6b4.4735764415418796570728.jpg"
+                                name="Sign in"
+                                bordered
+                                color="gradient"
+                                size='lg'
+                            />
+                        </a>
                     </Link>
+
                 </li>
             </ul>
         )
