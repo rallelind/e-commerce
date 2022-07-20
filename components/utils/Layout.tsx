@@ -6,11 +6,11 @@ type Props = {
     children: ReactNode;
   };
 
-const Layout: React.FC<Props> = ({children}) => {
+const Layout = ({children, dates, setDates}) => {
     return (
         <>
             <div  className="mt-[1%]">
-                <Header />
+                <Header dates={dates} setDates={setDates} />
                 <main>
                     {children}
                 </main>

@@ -7,18 +7,13 @@ import { Text, Avatar, Button, User } from '@nextui-org/react'
 import { DateRangePicker } from '@mantine/dates';
 import { FcCalendar } from "react-icons/fc"
 
-const Header: React.FC = () => {
+const Header = ({ dates, setDates }) => {
 
     const router = useRouter();
     const isActive: (pathname: string) => boolean = (pathname) =>
       router.pathname === pathname;
 
     const { data: session, status } = useSession();
-
-    const [dates, setDates] = useState<[Date | null, Date | null]>([
-        new Date(),
-        new Date(),
-      ]);
 
     let left = (
         <ul>
@@ -102,7 +97,6 @@ const Header: React.FC = () => {
     }
 
 
-
     return (
         <nav className={stylesHeader.nav}>
             {left}
@@ -117,7 +111,7 @@ const Header: React.FC = () => {
                                     disableOutsideEvents
                                     value={dates}
                                     onChange={setDates}
-                                    className="w-[255px]"
+                                    className="w-[260px]"
                                 />
                 </li>
             </ul>

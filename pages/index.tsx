@@ -25,9 +25,10 @@ const ShowProduct = () => {
   const [features, setFeatures] = useState([])
   const [initialLoad, setInitialLoad] = useState(false)
 
+  const [dates, setDates] = useState([]);
+
   const productRef = useRef(false)
   
-
   const { isLoading, isError, data, error, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteQuery(
       'posts',
@@ -53,8 +54,6 @@ const ShowProduct = () => {
       setInitialLoad(true);
     }, 5000);
   }, [])
-
-  console.log(inView)
 
 
   if (isError) return <div>Error! {JSON.stringify(error)}</div>
@@ -83,10 +82,22 @@ const ShowProduct = () => {
     }
   } 
 
+  const datesChosen = (postDates) => {
+    if (dates[0] === null || dates[0] && dates[1] === null) {
+      if((dates[0] <= postDates[1] && dates[0] >= postDates[0]) && (dates[1] <= postDates[1] && dates[1] >= postDates[0])) {
+        return true
+      } else {
+        return false
+      }
+    } else {
+      return true
+    }
+  }
+
 
   return (
     <>
-    <Layout>
+    <Layout dates={dates} setDates={setDates}>
       <div className='mb-[2%] w-full flex justify-center z-10'>
         <Chips color="grape" size='md' radius="lg" variant='filled' value={features} onChange={setFeatures} multiple>
           {featuresData.map((featureData, index) => (
@@ -98,12 +109,12 @@ const ShowProduct = () => {
       <>
       <Grid.Container gap={4}>
           {data && data.pages.map((page) => {
-            console.log(page.posts)
+            
             return (
               <React.Fragment key={page.nextId ?? 'lastPage'}>
                 {page.posts.map((post, index) => {                
 
-                  if(post.author.email !== session?.data?.user?.email && featuresChecked(post.features)) {
+              if(post.author.email !== session?.data?.user?.email && featuresChecked(post.features)) {
                 return (
                 <ProductCard 
                   onClick={() => router.push({pathname: `/product-page/${post.id}`})}
