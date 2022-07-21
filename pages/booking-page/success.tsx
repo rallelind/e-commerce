@@ -18,7 +18,7 @@ const SuccessPage = () => {
 
     return (
         <div>
-            <Header />
+            <Header dates={null} setDates={null} />
                 <div>
                     <SuccessCheckmark />
                 </div>
