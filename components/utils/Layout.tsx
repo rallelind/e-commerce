@@ -8,7 +8,7 @@ type Props = {
     setDates: any;
   };
 
-const Layout: React.FC<Props> = ({children, dates, setDates}) => {
+const Layout = ({children, dates, setDates}) => {
     return (
         <>
             <div  className="mt-[1%]">
