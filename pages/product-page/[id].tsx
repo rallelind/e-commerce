@@ -57,7 +57,7 @@ export default function ProductPage(props) {
     }
     
     return (
-        <Layout>
+        <Layout dates={null} setDates={null}>
           <ImageDisplay 
             image={props.image}
           />
