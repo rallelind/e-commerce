@@ -4,9 +4,11 @@ import { Divider } from "@nextui-org/react"
 
 type Props = {
     children: ReactNode;
+    dates: any;
+    setDates: any;
   };
 
-const Layout = ({children, dates, setDates}) => {
+const Layout: React.FC<Props> = ({children, dates, setDates}) => {
     return (
         <>
             <div  className="mt-[1%]">
