@@ -83,8 +83,9 @@ const ShowProduct = () => {
   } 
 
   const datesChosen = (postDates) => {
-    if (dates[0] === null || dates[0] && dates[1] === null) {
-      if((dates[0] <= postDates[1] && dates[0] >= postDates[0]) && (dates[1] <= postDates[1] && dates[1] >= postDates[0])) {
+    console.log(postDates)
+    if ((dates[0] !== null && dates[1] !== null) && dates.length === 2) {
+      if((dates[0] <= new Date(postDates[1]) && dates[0] >= new Date(postDates[0])) && (dates[1] <=  new Date(postDates[1]) && dates[1] >= new Date(postDates[0]))) {
         return true
       } else {
         return false
@@ -93,6 +94,8 @@ const ShowProduct = () => {
       return true
     }
   }
+
+  console.log(dates)
 
 
   return (
@@ -114,7 +117,7 @@ const ShowProduct = () => {
               <React.Fragment key={page.nextId ?? 'lastPage'}>
                 {page.posts.map((post, index) => {                
 
-              if(post.author.email !== session?.data?.user?.email && featuresChecked(post.features)) {
+              if(post.author.email !== session?.data?.user?.email && featuresChecked(post.features) && datesChosen(post.dates)) {
                 return (
                 <ProductCard 
                   onClick={() => router.push({pathname: `/product-page/${post.id}`})}
