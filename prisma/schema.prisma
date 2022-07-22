@@ -17,6 +17,7 @@ model Post {
   image       String[]
   price       Int
   dates       String[]
+  startDate   DateTime @db.Date
   features    String[]
   published   Boolean  @default(true)
   author      User?    @relation(fields: [authorId], references: [id])

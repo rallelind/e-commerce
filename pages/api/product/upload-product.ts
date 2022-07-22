@@ -13,6 +13,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
             image: images,
             price: prices,
             dates: dates,
+            startDate: new Date(dates[0]).toISOString(),
             features: features,
             author: { connect: { email: session?.user?.email } },
         },

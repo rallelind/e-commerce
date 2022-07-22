@@ -56,7 +56,7 @@ const UploadProduct: React.FC<{ stripeConnect: boolean }> = ({ stripeConnect }) 
 
         try {
             const body = { title, prices, images, description, dates, features }
-            await fetch(`api/product/upload-product`, {
+            await fetch(`/api/product/upload-product`, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),

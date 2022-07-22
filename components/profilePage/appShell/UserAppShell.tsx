@@ -70,7 +70,7 @@ const UserAppShell = ({ children, inbox, navbar }) => {
       header={
         <Header height={70} p="md">
           <div className="flex justify-between items-center h-full">
-            <div>
+            <div className="flex">
               <MediaQuery largerThan="sm" styles={{ display: "none" }}>
                 <Burger
                   opened={opened}
