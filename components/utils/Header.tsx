@@ -100,21 +100,23 @@ const Header = ({ dates, setDates }) => {
     return (
         <nav className={stylesHeader.nav}>
             {left}
-            <ul className='flex justify-center'>
-                <li>
-                <DateRangePicker
-                                    placeholder="Event date"
-                                    required
-                                    allowLevelChange={false}
-                                    icon={<FcCalendar size={30} />}
-                                    minDate={new Date()}
-                                    disableOutsideEvents
-                                    value={dates}
-                                    onChange={setDates}
-                                    className="w-[260px]"
-                                />
-                </li>
-            </ul>
+            {router.pathname === "/" && (
+                <ul className='flex justify-center'>
+                    <li>
+                    <DateRangePicker
+                                        placeholder="Event date"
+                                        required
+                                        allowLevelChange={false}
+                                        icon={<FcCalendar size={30} />}
+                                        minDate={new Date()}
+                                        disableOutsideEvents
+                                        value={dates}
+                                        onChange={setDates}
+                                        className="w-[260px]"
+                                    />
+                    </li>
+                </ul>
+            )}
             {right}
         </nav>
     )
