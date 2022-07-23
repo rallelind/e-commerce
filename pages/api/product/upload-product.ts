@@ -14,6 +14,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
             price: prices,
             dates: dates,
             startDate: new Date(dates[0]).toISOString(),
+            endDate: new Date(dates[1]).toISOString(),
             features: features,
             author: { connect: { email: session?.user?.email } },
         },

@@ -18,6 +18,7 @@ model Post {
   price       Int
   dates       String[]
   startDate   DateTime @db.Date
+  endDate     DateTime @db.Date
   features    String[]
   published   Boolean  @default(true)
   author      User?    @relation(fields: [authorId], references: [id])

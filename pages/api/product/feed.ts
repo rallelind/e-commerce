@@ -11,7 +11,7 @@ export default async function feed (req, res) {
 
     const posts = await prisma.post.findMany({
       where: {
-        startDate: {
+        endDate: {
           gte: new Date()   
         },
       },
