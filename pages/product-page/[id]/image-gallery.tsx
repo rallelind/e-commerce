@@ -37,33 +37,61 @@ export default function ImageGallery(props) {
 
     console.log(props)
 
-    const image = [1,2,3,4,5,6,7,8,9,10]
+    const image = [
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
+    ]
 
     return (
-        <div className={`grid grid-cols-3 grid-rows-${props.image.length} gap-4`}>
-            {image.map((img, i) => {
+        <div className="flex justify-center">
+            <div className={`grid-cols-3 p-20 space-y-2 lg:space-y-0 lg:grid lg:gap-3 lg:grid-rows-3 w-[80%]`}>
+                {props.image.map((img, i) => {
+                    console.log(img)
 
-                if(i % 5 === 0) {
-                    return (
-                        <div className="row-span-4" key={i} style={{ backgroundColor: "red" }}>
-                            <h1>hi</h1>
-                        </div>
-                    )
-                } else if (i % 8 === 0) {
-                    return (
-                        <div className="row-span-4">
-                            <h1>yoyo</h1>
-                        </div>
-                    )
-                
-                } else {
-                    return (
-                        <div className="row-span-2 col-span-1" key={i} style={{ backgroundColor: "green" }}>
-                            <h1>yo</h1>
-                        </div>
-                    )
-                }
-            })}
+                    if(i % 6 === 0) {
+                        return (
+                            <div className="w-full col-start-1 col-span-2 row-span-2">
+                                <img src={img} />
+                            </div>
+                        )
+                    
+                    } else {
+                        return (
+                            <div className="w-full">
+                                <img src={img} />
+                            </div>
+                        )
+                    }
+                })}
+            </div>
         </div>
     )
 }
