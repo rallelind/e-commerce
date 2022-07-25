@@ -1,5 +1,5 @@
 import prisma from "../../../lib/prisma"
-
+import Image from "next/image"
 
 export const getStaticProps = async ({ params }) => {
 
@@ -37,9 +37,33 @@ export default function ImageGallery(props) {
 
     console.log(props)
 
+    const image = [1,2,3,4,5,6,7,8,9,10]
+
     return (
-        <div>
-            <h1>hello world</h1>
+        <div className={`grid grid-cols-3 grid-rows-${props.image.length} gap-4`}>
+            {image.map((img, i) => {
+
+                if(i % 5 === 0) {
+                    return (
+                        <div className="row-span-4" key={i} style={{ backgroundColor: "red" }}>
+                            <h1>hi</h1>
+                        </div>
+                    )
+                } else if (i % 8 === 0) {
+                    return (
+                        <div className="row-span-4">
+                            <h1>yoyo</h1>
+                        </div>
+                    )
+                
+                } else {
+                    return (
+                        <div className="row-span-2 col-span-1" key={i} style={{ backgroundColor: "green" }}>
+                            <h1>yo</h1>
+                        </div>
+                    )
+                }
+            })}
         </div>
     )
 }
