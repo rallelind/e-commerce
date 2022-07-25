@@ -12,7 +12,7 @@ export default async function feed (req, res) {
     const posts = await prisma.post.findMany({
       where: {
         endDate: {
-          gte: new Date()   
+          lte: new Date()   
         },
       },
       include: {
