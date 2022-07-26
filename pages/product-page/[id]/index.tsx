@@ -60,6 +60,7 @@ export default function ProductPage(props) {
         <Layout dates={null} setDates={null}>
           <ImageDisplay 
             image={props.image}
+            productId={props.id}
           />
           <Grid.Container justify="center" gap={4}>
               <ProductInfo 

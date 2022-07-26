@@ -4,6 +4,7 @@
     --row-height: 250px;
     width: 90%;
     margin-left: 5%;
+    position: relative;
     
     box-sizing: border-box;
     padding: var(--gap);
