@@ -22,6 +22,8 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
 
     const bookingBreakPoint = useMediaQuery(920)
 
+    console.log(value)
+
     return (
         <>
         {!bookingBreakPoint ? (
@@ -120,7 +122,7 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
                 </Text>
             </div>
             <div className="mr-[5px]">
-                <Button size="sm" color="gradient">{value ? "Check Availability" : "Details"}</Button>
+                <Button size="sm" color="gradient">{value[0] === null || value[0] && value[1] === null ? "Check Availability" : "Details"}</Button>
             </div>
         </div>
         }
