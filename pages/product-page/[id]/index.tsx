@@ -36,6 +36,7 @@ export default function ProductPage(props) {
 
     const [dates, setDates] = useState<[Date | null, Date | null]>([null, null])
 
+
     const amountOfDays = () => {
       if(dates[0] === null || dates[1] === null) {
         return

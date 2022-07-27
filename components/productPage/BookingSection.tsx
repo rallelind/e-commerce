@@ -2,6 +2,7 @@ import React, { MouseEventHandler, useRef } from "react"
 import { Grid, Card, Container, Text, Divider, Spacer, Button } from "@nextui-org/react"
 import { DatePicker, DateRangePicker } from "@mantine/dates"
 import { FcCalendar } from "react-icons/fc"
+import { useMediaQuery } from "../../lib/customHook/useMediaQuery"
 
 type BookingProps = {
     serviceCost: number;
@@ -19,93 +20,97 @@ type BookingProps = {
 
 const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCost, price, value, onChange, onClick, bookedDates, minDate, maxDate, height }) => {
 
-    console.log(bookedDates)
+    const bookingBreakPoint = useMediaQuery(920)
 
     return (
-        <Grid xs={4}>
-            <div className={`h-[${height}] top-0 sticky w-full`}>
-            <Card bordered>
-                <Card.Body>
-                    <Spacer y={0.5} />
-                    <Container>
-                        <Text
-                            h3
-                        >{price} <span>DKK / night</span></Text>
-                    </Container>
-                    <Spacer y={0.5} />
-                    <Container>
-                        <DateRangePicker
-                            placeholder="Event date"
-                            label="Pick date"
-                            allowLevelChange={false}
-                            icon={<FcCalendar size={30} />}
-                            disableOutsideEvents
-                            value={value}
-                            onChange={onChange}
-                            minDate={new Date(minDate) > new Date() ? new Date(minDate) : new Date()}
-                            maxDate={new Date(maxDate)}
-                            excludeDate={(date) => bookedDates.some((dates) => date.getDate() === new Date(dates).getDate())}
-                        />
-                    </Container>
-                    <Spacer y={1} />
-                    {value[0] === null || value[0] && value[1] === null ? <></> :
-                        <>
-                            <Container className="flex justify-center">
-                                <Button 
-                                    rounded 
-                                    color="gradient" 
-                                    className="w-full"
-                                    onClick={onClick}
-                                    >
-                                    Checkout</Button>
-                            </Container>
-                            <Spacer y={1} />
-                            <Container className="flex justify-between">
-                                <div>
-                                    <Text>
-                                        Cost of rent
-                                    </Text>
-                                </div>
-                                <div>
-                                    <Text>
-                                        {rentCost}
-                                    </Text>
-                                </div>
-                            </Container>
-                            <Spacer y={0.5} />
-                            <Container className="flex justify-between">
-                                <div>
-                                    <Text>
-                                        Service cost
-                                    </Text>
-                                </div>
-                                <div>
-                                    <Text>
-                                        {serviceCost}
-                                    </Text>
-                                </div>
-                            </Container>
-                            <Spacer y={0.5} />
-                            <Divider />
-                            <Spacer y={0.5} />
-                            <Container className="flex justify-between">
-                                <div>
-                                    <Text>
-                                        Total cost
-                                    </Text>
-                                </div>
-                                <div>
-                                    <Text>
-                                        {totalCost}
-                                    </Text>
-                                </div>
-                            </Container>
-                        </>
-                    }
-                </Card.Body>
-            </Card>
-            </div>
-        </Grid>
+        <>
+        {!bookingBreakPoint && (
+            <Grid xs={4}>
+                <div className={`h-[${height}] top-0 sticky w-full`}>
+                <Card bordered>
+                    <Card.Body>
+                        <Spacer y={0.5} />
+                        <Container>
+                            <Text
+                                h3
+                            >{price} <span>DKK / night</span></Text>
+                        </Container>
+                        <Spacer y={0.5} />
+                        <Container>
+                            <DateRangePicker
+                                placeholder="Event date"
+                                label="Pick date"
+                                allowLevelChange={false}
+                                icon={<FcCalendar size={30} />}
+                                disableOutsideEvents
+                                value={value}
+                                onChange={onChange}
+                                minDate={new Date(minDate) > new Date() ? new Date(minDate) : new Date()}
+                                maxDate={new Date(maxDate)}
+                                excludeDate={(date) => bookedDates.some((dates) => date.getDate() === new Date(dates).getDate())}
+                            />
+                        </Container>
+                        <Spacer y={1} />
+                        {value[0] === null || value[0] && value[1] === null ? <></> :
+                            <>
+                                <Container className="flex justify-center">
+                                    <Button 
+                                        rounded 
+                                        color="gradient" 
+                                        className="w-full"
+                                        onClick={onClick}
+                                        >
+                                        Checkout</Button>
+                                </Container>
+                                <Spacer y={1} />
+                                <Container className="flex justify-between">
+                                    <div>
+                                        <Text>
+                                            Cost of rent
+                                        </Text>
+                                    </div>
+                                    <div>
+                                        <Text>
+                                            {rentCost}
+                                        </Text>
+                                    </div>
+                                </Container>
+                                <Spacer y={0.5} />
+                                <Container className="flex justify-between">
+                                    <div>
+                                        <Text>
+                                            Service cost
+                                        </Text>
+                                    </div>
+                                    <div>
+                                        <Text>
+                                            {serviceCost}
+                                        </Text>
+                                    </div>
+                                </Container>
+                                <Spacer y={0.5} />
+                                <Divider />
+                                <Spacer y={0.5} />
+                                <Container className="flex justify-between">
+                                    <div>
+                                        <Text>
+                                            Total cost
+                                        </Text>
+                                    </div>
+                                    <div>
+                                        <Text>
+                                            {totalCost}
+                                        </Text>
+                                    </div>
+                                </Container>
+                            </>
+                        }
+                    </Card.Body>
+                </Card>
+                </div>
+            </Grid>
+        )}
+    </>
     )
 }
 

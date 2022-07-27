@@ -1,4 +1,5 @@
 import prisma from "../../../lib/prisma"
+import GoBackBtn from "../../../components/utils/GoBackBtn"
 import Image from "next/image"
 
 export const getStaticProps = async ({ params }) => {
@@ -35,46 +36,15 @@ export const getStaticPaths = async () => {
 
 export default function ImageGallery(props) {
 
-    console.log(props)
-
-    const image = [
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-        "https://res.cloudinary.com/dav4jgueu/image/upload/v1658666412/profile-image-uploads/toy4yfl6cspszgt2kph3.jpg",
-    ]
 
     return (
+        <>
+            <div className="top-[30px] left-[30px] fixed">
+                <GoBackBtn />
+            </div>
         <div className="flex justify-center">
-            <div className={`grid-cols-3 p-20 space-y-2 lg:space-y-0 lg:grid lg:gap-3 lg:grid-rows-3 w-[80%]`}>
+            <div className={`grid-cols-3 p-20 space-y-2 lg:space-y-0 lg:grid lg:gap-3 lg:grid-rows-3 w-[85%]`}>
                 {props.image.map((img, i) => {
-                    console.log(img)
 
                     if(i % 6 === 0) {
                         return (
@@ -93,5 +63,6 @@ export default function ImageGallery(props) {
                 })}
             </div>
         </div>
+    </>
     )
 }

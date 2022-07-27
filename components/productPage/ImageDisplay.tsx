@@ -17,7 +17,8 @@ const ImageDisplay = ({ image, productId }) => {
             <img src={image[3]} />
             
                 <img src={image[4]} />
-                <div onClick={() => router.push(`/product-page/${productId}/image-gallery`)} className="top-[30px] right-[30px] bg-white absolute flex items-center p-2 rounded-xl border-solid border-2 cursor-pointer">
+                {image.length > 5 && (
+                 <div onClick={() => router.push(`/product-page/${productId}/image-gallery`)} className="bottom-[30px] right-[30px] bg-white absolute flex items-center p-2 rounded-xl border-solid border-2 cursor-pointer">
                     <Text
                         h5
                         css={{
@@ -28,6 +29,7 @@ const ImageDisplay = ({ image, productId }) => {
                     </Text>
                     <BsGrid3X2Gap size={30} />
                 </div>
+                )}
         </div>
         </>
     )

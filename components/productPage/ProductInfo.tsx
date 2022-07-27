@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { Grid, Avatar, Container, Text, Divider, Spacer } from "@nextui-org/react"
 import { RangeCalendar } from '@mantine/dates';
 import FeaturesCards from "./FeaturesCards";
+import { useMediaQuery } from "../../lib/customHook/useMediaQuery"
+
 
 type ProductInfoProps = {
     onChange: (value: [Date, Date]) => void;
@@ -19,8 +21,11 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, m
 
     console.log(bookedDates)
 
+    const showTwoMonths = useMediaQuery(1024)
+    const bookingBreakPoint = useMediaQuery(920)
+
     return (
-        <Grid xs={7}>
+        <Grid xs={!bookingBreakPoint ? 7 : 12}>
             <Container>
                 <Container className="flex justify-between">
                     <div>
@@ -65,7 +70,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, m
                 <Spacer y={0.5} />
                 <Container className="flex justify-center">
                     <RangeCalendar 
-                        amountOfMonths={2} 
+                        amountOfMonths={!showTwoMonths ? 2 : 1} 
                         value={value}
                         onChange={onChange}
                         fullWidth
