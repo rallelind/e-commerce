@@ -24,7 +24,7 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
 
     return (
         <>
-        {!bookingBreakPoint && (
+        {!bookingBreakPoint ? (
             <Grid xs={4}>
                 <div className={`h-[${height}] top-0 sticky w-full`}>
                 <Card bordered>
@@ -109,7 +109,21 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
                 </Card>
                 </div>
             </Grid>
-        )}
+        )
+        :
+        <div className="flex items-center justify-between bottom-0 fixed h-[50px] w-full bg-white border-t-2 border-r-0 border-b-0 border-l-0 border-solid z-[100000]">
+            <div className="ml-[10px]">
+                <Text
+                    h5
+                >
+                    {price} <span>DKK / night</span>
+                </Text>
+            </div>
+            <div className="mr-[5px]">
+                <Button size="xs" color="gradient">{value ? "Check Availability" : "Details"}</Button>
+            </div>
+        </div>
+        }
     </>
     )
 }

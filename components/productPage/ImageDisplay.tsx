@@ -18,11 +18,11 @@ const ImageDisplay = ({ image, productId }) => {
             
                 <img src={image[4]} />
                 {image.length > 5 && (
-                 <div onClick={() => router.push(`/product-page/${productId}/image-gallery`)} className="bottom-[30px] right-[30px] bg-white absolute flex items-center p-2 rounded-xl border-solid border-2 cursor-pointer">
+                 <div onClick={() => router.push(`/product-page/${productId}/image-gallery`)} className="bottom-[30px] right-[25px] bg-white absolute flex items-center p-2 rounded-xl border-solid border-2 cursor-pointer">
                     <Text
                         h5
                         css={{
-                            marginRight: "10px",
+                            marginRight: "5px",
                         }}
                     >
                         View more
