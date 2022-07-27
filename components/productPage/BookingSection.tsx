@@ -111,7 +111,7 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
             </Grid>
         )
         :
-        <div className="flex items-center justify-between bottom-0 fixed h-[50px] w-full bg-white border-t-2 border-r-0 border-b-0 border-l-0 border-solid z-[100000]">
+        <div className="flex items-center justify-between bottom-0 fixed h-[60px] w-full bg-white border-t-2 border-r-0 border-b-0 border-l-0 border-solid z-[100000]">
             <div className="ml-[10px]">
                 <Text
                     h5
@@ -120,7 +120,7 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
                 </Text>
             </div>
             <div className="mr-[5px]">
-                <Button size="xs" color="gradient">{value ? "Check Availability" : "Details"}</Button>
+                <Button size="sm" color="gradient">{value ? "Check Availability" : "Details"}</Button>
             </div>
         </div>
         }
