@@ -119,7 +119,7 @@ export default function ProductPage(props) {
               size={30}
             />
             <div className="mt-10">
-                <div className="flex justify-center mb-2">
+                <div className="flex justify-center mb-1">
                   <Text h5>
                     Please pick the dates you want to go explore
                   </Text>
