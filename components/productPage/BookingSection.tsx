@@ -15,10 +15,11 @@ type BookingProps = {
     maxDate: string;
     bookedDates: string[];
     height: string;
-    onClick: MouseEventHandler
+    onClick: MouseEventHandler,
+    smallScreenBtn: MouseEventHandler,
 }
 
-const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCost, price, value, onChange, onClick, bookedDates, minDate, maxDate, height }) => {
+const BookingSystem: React.FC<BookingProps> = ({ smallScreenBtn, serviceCost, totalCost, rentCost, price, value, onChange, onClick, bookedDates, minDate, maxDate, height }) => {
 
     const bookingBreakPoint = useMediaQuery(920)
 
@@ -56,8 +57,7 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
                         {value[0] === null || value[0] && value[1] === null ? <></> :
                             <>
                                 <Container className="flex justify-center">
-                                    <Button 
-                                        rounded 
+                                    <Button  
                                         color="gradient" 
                                         className="w-full"
                                         onClick={onClick}
@@ -113,18 +113,21 @@ const BookingSystem: React.FC<BookingProps> = ({ serviceCost, totalCost, rentCos
             </Grid>
         )
         :
-        <div className="flex items-center justify-between bottom-0 fixed h-[60px] w-full bg-white border-t-2 border-r-0 border-b-0 border-l-0 border-solid z-[100000]">
-            <div className="ml-[10px]">
-                <Text
-                    h5
-                >
-                    {price} <span>DKK / night</span>
-                </Text>
+        <>
+            <div className="flex items-center justify-between bottom-0 fixed h-[60px] w-full bg-white border-t-2 border-r-0 border-b-0 border-l-0 border-solid z-[100000]">
+                <div className="ml-[10px]">
+                    <Text
+                        h5
+                    >
+                        {price} <span>DKK / night</span>
+                    </Text>
+                </div>
+                <div className="mr-[5px]">
+                    <Button onClick={smallScreenBtn} size="sm" color="gradient">{value[0] === null || value[0] && value[1] === null ? "Check Availability" : "Details"}</Button>
+                </div>
             </div>
-            <div className="mr-[5px]">
-                <Button size="sm" color="gradient">{value[0] === null || value[0] && value[1] === null ? "Check Availability" : "Details"}</Button>
-            </div>
-        </div>
+
+        </>
         }
     </>
     )
