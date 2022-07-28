@@ -112,13 +112,13 @@ export default function ProductPage(props) {
           </Grid.Container>
         </Layout>
       ) : (
-        <div className="h-full w-full bg-white overflow-y-scroll">
+        <div className="h-full w-full bg-white">
             <AiOutlineCloseCircle
-              className="left-[20px] top-[-50px] absolute"
+              className="left-[10px] top-[-30px] absolute"
               onClick={() => setBookingSectionSmallScreen(false)}
               size={30}
             />
-            <div className="mt-20">
+            <div className="mt-10">
                 <div className="flex justify-center mb-2">
                   <Text h5>
                     Please pick the dates you want to go explore
