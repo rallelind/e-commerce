@@ -118,8 +118,8 @@ export default function ProductPage(props) {
               onClick={() => setBookingSectionSmallScreen(false)}
               size={30}
             />
-            <div className="mt-10">
-                <div className="flex justify-center mb-0">
+            <div className="mt-10 overflow-y-scroll">
+                <div className="flex justify-center">
                   <Text h5>
                     Please pick the dates you want to go explore
                   </Text>
@@ -146,7 +146,7 @@ export default function ProductPage(props) {
               </div>
               <Spacer y={1} />
                         {datesChosen ? <></> :
-                            <div>
+                            <div className="mb-20">
                                 <Spacer y={1} />
                                 <Container className="flex justify-between">
                                     <div>
