@@ -101,7 +101,7 @@ const ShowProduct = () => {
   return (
     <>
     <Layout dates={dates} setDates={setDates}>
-      <div className='mb-[2%] w-full flex justify-center z-10'>
+      <div className='mb-[2%] w-full flex justify-center z-10 p-5'>
         <Chips color="grape" size='md' radius="lg" variant='filled' value={features} onChange={setFeatures} multiple>
           {featuresData.map((featureData, index) => (
               <Chip key={index} checked={false} value={featureData.value}>{featureData.label}</Chip>

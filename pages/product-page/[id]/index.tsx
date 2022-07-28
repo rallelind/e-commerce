@@ -112,7 +112,7 @@ export default function ProductPage(props) {
           </Grid.Container>
         </Layout>
       ) : (
-        <div className="h-full w-full bg-white">
+        <div className="h-full w-full bg-white overflow-y-scroll">
             <AiOutlineCloseCircle
               className="left-[20px] top-[-50px] absolute"
               onClick={() => setBookingSectionSmallScreen(false)}
