@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import { AppShell } from "@mantine/core";
 import { Text, Container, Divider, Spacer, Button } from "@nextui-org/react";
 import SideSection from "../../components/bookingPage/SideSection";
+import HeaderSection from "../../components/bookingPage/HeaderSection"
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { FcGoogle, FcCalendar } from "react-icons/fc"
@@ -11,6 +12,7 @@ import wavesStyles from "../../styles/Waves.module.css"
 import GoBackBtn from "../../components/utils/GoBackBtn";
 import StripePayment from "../../components/stripe/StripePayment";
 import prisma from "../../lib/prisma";
+import { useMediaQuery } from "../../lib/customHook/useMediaQuery";
 
 export const getServerSideProps: GetServerSideProps = async ({ params, res }) => {
 
@@ -42,13 +44,22 @@ export default function BookingPage(props) {
     const serviceCost = priceForStay * 0.1
 
     return (
-        <div className={wavesStyles.svgContainer}>
+        <div>
             <AppShell
+                asideOffsetBreakpoint="md"
                 aside={
                     <SideSection 
                         images={props.image}
                         price={props.price}
                         title={props.title}
+                        numberOfNights={numberOfNights}
+                        priceForStay={priceForStay}
+                        serviceCost={serviceCost}
+                    />
+                }
+                header={
+                    <HeaderSection 
+                        productInfo={props}
                         numberOfNights={numberOfNights}
                         priceForStay={priceForStay}
                         serviceCost={serviceCost}
