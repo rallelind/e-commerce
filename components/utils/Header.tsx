@@ -6,12 +6,15 @@ import stylesHeader from "../../styles/Header.module.css"
 import { Text, Avatar, Button, User } from '@nextui-org/react'
 import { DateRangePicker } from '@mantine/dates';
 import { FcCalendar } from "react-icons/fc"
+import { useMediaQuery } from '../../lib/customHook/useMediaQuery'
 
 const Header = ({ dates, setDates }) => {
 
     const router = useRouter();
     const isActive: (pathname: string) => boolean = (pathname) =>
       router.pathname === pathname;
+
+    const isMd = useMediaQuery(570)
 
     const { data: session, status } = useSession();
 
@@ -101,19 +104,19 @@ const Header = ({ dates, setDates }) => {
         <nav className={stylesHeader.nav}>
             {left}
             {router.pathname === "/" && (
-                <ul className='flex justify-center'>
+                <ul className={`flex justify-center ${isMd && "bottom-0 fixed w-full"}`}>
                     <li>
-                    <DateRangePicker
-                                        placeholder="Event date"
-                                        required
-                                        allowLevelChange={false}
-                                        icon={<FcCalendar size={30} />}
-                                        minDate={new Date()}
-                                        disableOutsideEvents
-                                        value={dates}
-                                        onChange={setDates}
-                                        className="w-[260px]"
-                                    />
+                        <DateRangePicker
+                            placeholder="Filter by dates"
+                            required
+                            allowLevelChange={false}
+                            icon={<FcCalendar size={30} />}
+                            minDate={new Date()}
+                            disableOutsideEvents
+                            value={dates}
+                            onChange={setDates}
+                            className="w-[260px]"
+                        />
                     </li>
                 </ul>
             )}
