@@ -19,7 +19,7 @@ export default function HostInbox() {
 
     console.log(data)
 
-    const [openChat, setOpenChat] = useState(isSuccess && data[0].chatChannel)
+    const [openChat, setOpenChat] = useState((isSuccess && data.length > 0) && data[0].chatChannel)
 
     const chatChannelOnclick = (hostChannel) => {
         setOpenChat(hostChannel.chatChannel)

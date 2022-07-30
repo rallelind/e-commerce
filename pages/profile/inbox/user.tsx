@@ -18,7 +18,7 @@ export default function UserHost() {
 
     const { data, isLoading, isSuccess } = useQuery("user-orders", fetchUserOrders)
 
-    const [openChat, setOpenChat] = useState(isSuccess && data[0].chatChannel)
+    const [openChat, setOpenChat] = useState((isSuccess && data.length > 0) && data[0].chatChannel)
 
     const chatChannelOnclick = (userChannel) => {
         setOpenChat(userChannel.chatChannel)
