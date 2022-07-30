@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { GetServerSideProps } from "next";
-import { AppShell } from "@mantine/core";
+import { AppShell, MediaQuery } from "@mantine/core";
 import { Text, Container, Divider, Spacer, Button } from "@nextui-org/react";
 import SideSection from "../../components/bookingPage/SideSection";
 import HeaderSection from "../../components/bookingPage/HeaderSection"
@@ -67,19 +67,19 @@ export default function BookingPage(props) {
                 }
             >
                 <Container justify="center" className="w-[90%] mt-[10%]">
-                    <div className="flex">
-                        <div className="mr-[1%]">
-                            <GoBackBtn />
+                        <div className="flex items-center">
+                            <div className="mr-[1%]">
+                                    <GoBackBtn />
+                            </div>
+                            <Text 
+                                h3
+                                css={{
+                                    textGradient: "112deg, #06B7DB -63.59%, #FF4ECD -20.3%, #0072F5 70.46%",
+                                }}    
+                            >
+                                Request to book this van
+                            </Text>
                         </div>
-                        <Text 
-                            h2
-                            css={{
-                                textGradient: "112deg, #06B7DB -63.59%, #FF4ECD -20.3%, #0072F5 70.46%",
-                            }}    
-                        >
-                             Request to book this van
-                        </Text>
-                    </div>
                     <Spacer y={1} />
                     <Container className="flex justify-between">
                         <div>

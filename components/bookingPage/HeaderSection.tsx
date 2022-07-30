@@ -9,7 +9,7 @@ const HeaderSection = ({
 }) => {
   return (
     <MediaQuery largerThan="md" styles={{ display: "none" }}>
-      <Header height="100%">
+      <Header height="100%" className="w-[80%] m-auto">
         <div className="flex items-center m-5">
           <img
             src={productInfo.image[0]}
