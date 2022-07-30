@@ -27,10 +27,10 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, m
     return (
         <Grid xs={!bookingBreakPoint ? 7 : 12}>
             <Container>
-                <Container className="flex justify-between">
+                <Container className="flex justify-between items-center">
                     <div>
                         <Text
-                            h2
+                            h3
                             css={{
                                 textGradient: "112deg, #06B7DB -63.59%, #FF4ECD -20.3%, #0072F5 70.46%",
                             }}
