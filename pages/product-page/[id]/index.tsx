@@ -27,10 +27,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
   res,
 }) => {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
 
   const post = await prisma.post.findUnique({
     where: {

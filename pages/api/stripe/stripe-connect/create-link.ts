@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     const accountLink = await stripe.accountLinks.create({
         account: account.id,
         refresh_url: `${process.env.STRIPE_CONNECT_URL}/api/stripe/stripe-connect/onboard-refresh`,
-        return_url: `${process.env.STRIPE_CONNECT_URL}/profile`,
+        return_url: `${process.env.STRIPE_CONNECT_URL}/profile/upload-product`,
         type: "account_onboarding",
     })
 
