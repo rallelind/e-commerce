@@ -45,7 +45,12 @@ export const getServerSideProps: GetServerSideProps = async ({
 };
 
 export default function ProductPage(props) {
-  const [dates, setDates] = useState<[Date | null, Date | null]>([null, null]);
+
+  const { query } = useRouter()
+
+  const searchedDates = query.datesChosen.map(date => new Date(date))
+
+  const [dates, setDates] = useState<[Date | null, Date | null]>(searchedDates ? searchedDates : [null, null]);
   const [bookingSectionSmallScreen, setBookingSectionSmallScreen] =
     useState(false);
 

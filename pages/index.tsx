@@ -82,10 +82,20 @@ const ShowProduct = () => {
     }
   } 
 
-  const datesChosen = (postDates) => {
-    console.log(postDates)
+  const datesChosen = (postDates, bookedDates) => {
+    const formattedBookedDates = bookedDates.map(date => new Date(date))
+        
+    console.log(formattedBookedDates)
+
+    const checkIfDatesChosenIncludesBookedDates = dates.every(date => {
+      return formattedBookedDates.includes(date)
+    })
+
+    console.log(checkIfDatesChosenIncludesBookedDates)
+
+    console.log(dates[0])
     if ((dates[0] !== null && dates[1] !== null) && dates.length === 2) {
-      if((dates[0] <= new Date(postDates[1]) && dates[0] >= new Date(postDates[0])) && (dates[1] <=  new Date(postDates[1]) && dates[1] >= new Date(postDates[0]))) {
+      if((dates[0] <= new Date(postDates[1]) && dates[0] >= new Date(postDates[0])) && (dates[1] <=  new Date(postDates[1]) && dates[1] >= new Date(postDates[0])) && (!checkIfDatesChosenIncludesBookedDates)) {
         return true
       } else {
         return false
@@ -95,7 +105,15 @@ const ShowProduct = () => {
     }
   }
 
-  console.log(dates)
+  const productOnClick = (postId) => {
+
+    let datesChosen = dates.length === 2 && dates.map(date => String(date))
+
+    router.push({
+      pathname: `/product-page/${postId}`,
+      query: { datesChosen },
+    })
+  }
 
 
   return (
@@ -117,10 +135,10 @@ const ShowProduct = () => {
               <React.Fragment key={page.nextId ?? 'lastPage'}>
                 {page.posts.map((post, index) => {                
 
-              if(post.author.email !== session?.data?.user?.email && featuresChecked(post.features) && datesChosen(post.dates)) {
+              if(post.author.email !== session?.data?.user?.email && featuresChecked(post.features) && datesChosen(post.dates, post.bookedDates)) {
                 return (
                 <ProductCard 
-                  onClick={() => router.push({pathname: `/product-page/${post.id}`})}
+                  onClick={() => productOnClick(post.id)}
                   hoverable={false}
                   clickable
                   key={post.id} 
