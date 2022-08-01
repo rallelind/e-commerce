@@ -26,8 +26,6 @@ const ShowProduct = () => {
   const [initialLoad, setInitialLoad] = useState(false)
 
   const [dates, setDates] = useState([]);
-
-  const productRef = useRef(false)
   
   const { isLoading, isError, data, error, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteQuery(
@@ -82,20 +80,27 @@ const ShowProduct = () => {
     }
   } 
 
-  const datesChosen = (postDates, bookedDates) => {
-    const formattedBookedDates = bookedDates.map(date => new Date(date))
-        
-    console.log(formattedBookedDates)
+  const checkIfDatesChosenIsBooked = (bookedDates) => {
 
-    const checkIfDatesChosenIncludesBookedDates = dates.every(date => {
-      return formattedBookedDates.includes(date)
-    })
-
-    console.log(checkIfDatesChosenIncludesBookedDates)
-
-    console.log(dates[0])
+    
     if ((dates[0] !== null && dates[1] !== null) && dates.length === 2) {
-      if((dates[0] <= new Date(postDates[1]) && dates[0] >= new Date(postDates[0])) && (dates[1] <=  new Date(postDates[1]) && dates[1] >= new Date(postDates[0])) && (!checkIfDatesChosenIncludesBookedDates)) {
+
+      if((dates[1] >= new Date(bookedDates[0])) && (dates[0] <= new Date(bookedDates[bookedDates.length - 1]))) {
+        console.log("booked")
+        return true
+      } else {
+        console.log("not booked")
+        return false
+      }
+    } else {
+      return false
+    }
+  }
+
+  const datesChosen = (postDates) => {
+
+    if ((dates[0] !== null && dates[1] !== null) && dates.length === 2) {
+      if((dates[0] <= new Date(postDates[1]) && dates[0] >= new Date(postDates[0])) && (dates[1] <=  new Date(postDates[1]) && dates[1] >= new Date(postDates[0]))) {
         return true
       } else {
         return false
@@ -107,7 +112,7 @@ const ShowProduct = () => {
 
   const productOnClick = (postId) => {
 
-    let datesChosen = dates.length === 2 && dates.map(date => String(date))
+    let datesChosen: string[] = dates.length === 2 && dates.map(date => String(date))
 
     router.push({
       pathname: `/product-page/${postId}`,
@@ -134,8 +139,8 @@ const ShowProduct = () => {
             return (
               <React.Fragment key={page.nextId ?? 'lastPage'}>
                 {page.posts.map((post, index) => {                
-
-              if(post.author.email !== session?.data?.user?.email && featuresChecked(post.features) && datesChosen(post.dates, post.bookedDates)) {
+              console.log(checkIfDatesChosenIsBooked(post.bookedDates))
+              if(post.author.email !== session?.data?.user?.email && (featuresChecked(post.features) && datesChosen(post.dates) && !checkIfDatesChosenIsBooked(post.bookedDates))) {
                 return (
                 <ProductCard 
                   onClick={() => productOnClick(post.id)}
