@@ -10,11 +10,6 @@ export default async function feed (req, res) {
     const cursorObj = cursor === '' ? undefined : { id: cursor as string }
 
     const posts = await prisma.post.findMany({
-      where: {
-        endDate: {
-          lte: new Date()   
-        },
-      },
       include: {
         author: {
           select: { name: true, email: true }
