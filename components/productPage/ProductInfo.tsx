@@ -97,7 +97,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, m
                         maxDate={new Date(maxDate)}
                         minDate={minDateOrToday}
                         excludeDate={(date) => (bookedDates.some((dates) => (date.getDate() === new Date(dates).getDate()) && (date.getMonth() === new Date(dates).getMonth()) && (date.getFullYear() === new Date(dates).getFullYear())))}
-                    />
+                        />
                 </Container>
             </Container>
         </Grid>
