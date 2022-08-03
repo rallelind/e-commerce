@@ -150,7 +150,6 @@ const UpdateModal: React.FC<UpdateModal> = ({ productToUpdate, open, onClose }) 
                     icon={<FcCalendar size={30} />}
                     disableOutsideEvents
                     value={dates}
-                    minDate={new Date()}
                     onChange={setDates}
                 />
                 <Spacer y={0.5} />

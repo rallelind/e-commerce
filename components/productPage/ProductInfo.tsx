@@ -31,8 +31,8 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, m
         if(minAndMaxDateSameMonth) {
             return 1
         }
-        if(!showTwoMonths) {
-            return 2
+        if(showTwoMonths) {
+            return 1
         } 
 
         return 2
