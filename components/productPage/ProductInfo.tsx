@@ -20,6 +20,23 @@ type ProductInfoProps = {
 const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, minDate, maxDate, features, value, onChange, bookedDates }) => {
 
     console.log(bookedDates)
+    console.log(maxDate)
+
+    const minDateOrToday = new Date(minDate) > new Date() ? new Date(minDate) : new Date()
+
+    const minAndMaxDateSameMonth = minDateOrToday.getMonth() === new Date(maxDate).getMonth()
+    console.log(minAndMaxDateSameMonth)
+
+    const amountOfMonthsShown = () => {
+        if(minAndMaxDateSameMonth) {
+            return 1
+        }
+        if(!showTwoMonths) {
+            return 2
+        } 
+
+        return 2
+    }
 
     const showTwoMonths = useMediaQuery(1024)
     const bookingBreakPoint = useMediaQuery(920)
@@ -70,15 +87,15 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, m
                 <Spacer y={0.5} />
                 <Container className="flex justify-center">
                     <RangeCalendar 
-                        amountOfMonths={!showTwoMonths ? 2 : 1} 
+                        amountOfMonths={amountOfMonthsShown()} 
                         value={value}
                         onChange={onChange}
                         fullWidth
                         hideOutsideDates={false}
                         allowLevelChange={false}
                         disableOutsideEvents={true}
-                        minDate={new Date(minDate) > new Date() ? new Date(minDate) : new Date()}
                         maxDate={new Date(maxDate)}
+                        minDate={minDateOrToday}
                         excludeDate={(date) => (bookedDates.some((dates) => (date.getDate() === new Date(dates).getDate()) && (date.getMonth() === new Date(dates).getMonth()) && (date.getFullYear() === new Date(dates).getFullYear())))}
                     />
                 </Container>

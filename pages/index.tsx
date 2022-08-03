@@ -110,9 +110,9 @@ const ShowProduct = () => {
     }
   }
 
-  const productOnClick = (postId) => {
+  const productOnClick = (postId: string) => {
 
-    let datesChosen: string[] = dates.length === 2 && dates.map(date => String(date))
+    let datesChosen: string[] = dates.map(date => String(date))
 
     router.push({
       pathname: `/product-page/${postId}`,

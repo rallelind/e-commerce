@@ -50,8 +50,8 @@ const BookingSystem: React.FC<BookingProps> = ({ smallScreenBtn, serviceCost, to
                                 onChange={onChange}
                                 minDate={new Date(minDate) > new Date() ? new Date(minDate) : new Date()}
                                 maxDate={new Date(maxDate)}
-                                excludeDate={(date) => bookedDates.some((dates) => date.getDate() === new Date(dates).getDate())}
-                            />
+                                excludeDate={(date) => (bookedDates.some((dates) => (date.getDate() === new Date(dates).getDate()) && (date.getMonth() === new Date(dates).getMonth()) && (date.getFullYear() === new Date(dates).getFullYear())))}
+                                />
                         </Container>
                         <Spacer y={1} />
                         {value[0] === null || value[0] && value[1] === null ? <></> :

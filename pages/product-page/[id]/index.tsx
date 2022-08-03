@@ -48,9 +48,10 @@ export default function ProductPage(props) {
 
   const { query } = useRouter()
 
-  const searchedDates = query.datesChosen.map(date => new Date(date))
+  const chosenDates = query.datesChosen && [new Date(query.datesChosen[0]), new Date(query.datesChosen[1])]
 
-  const [dates, setDates] = useState<[Date | null, Date | null]>(searchedDates ? searchedDates : [null, null]);
+  const [dates, setDates] = useState<[Date | null, Date | null]>([null, null]);
+
   const [bookingSectionSmallScreen, setBookingSectionSmallScreen] =
     useState(false);
 
@@ -138,11 +139,7 @@ export default function ProductPage(props) {
                       : new Date()
                   }
                   maxDate={new Date(props.dates[1])}
-                  excludeDate={(date) =>
-                    props.bookedDates.some(
-                      (dates) => date.getDate() === new Date(dates).getDate()
-                    )
-                  }
+
                 />
               </div>
               <Spacer y={1} />
