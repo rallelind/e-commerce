@@ -33,7 +33,6 @@ export default async function handler(req, res) {
     switch(event.type) {
         case 'account.updated':
             const account = event.data.object;
-            console.log(event.data.object.charges_enabled)
             if (account.charges_enabled) {
                 try {
                     await prisma.user.update({
@@ -59,7 +58,6 @@ export default async function handler(req, res) {
                         stripePaymentIntentId: paymentIntent.payment_intent,
                     }
                 })
-                console.log(paymentIntent)
             } catch(error) {
                 console.log(error)
             }

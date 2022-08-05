@@ -25,8 +25,6 @@ const ProfileNavbar = () => {
 
   const userStatus = typeof window !== "undefined" && window.sessionStorage.getItem("userStatus")
 
-  console.log(userStatus)
-
 
   /*useEffect(() => {
 

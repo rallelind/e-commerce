@@ -19,13 +19,9 @@ type ProductInfoProps = {
 
 const ProductInfo: React.FC<ProductInfoProps> = ({ title, description, avatar, minDate, maxDate, features, value, onChange, bookedDates }) => {
 
-    console.log(bookedDates)
-    console.log(maxDate)
-
     const minDateOrToday = new Date(minDate) > new Date() ? new Date(minDate) : new Date()
 
     const minAndMaxDateSameMonth = minDateOrToday.getMonth() === new Date(maxDate).getMonth()
-    console.log(minAndMaxDateSameMonth)
 
     const amountOfMonthsShown = () => {
         if(minAndMaxDateSameMonth) {

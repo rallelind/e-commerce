@@ -24,10 +24,6 @@ export default function UserHost() {
         setOpenChat(userChannel.chatChannel)
     }
 
-
-    console.log(data)
-
-
     return (
         <UserAppShell
             inbox

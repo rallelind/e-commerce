@@ -15,7 +15,6 @@ export default async function(req, res) {
                     host: checked
                 }
             })
-            console.log(checked)
             res.json(updateUserHost)
         } catch(error) {
             console.log(error)

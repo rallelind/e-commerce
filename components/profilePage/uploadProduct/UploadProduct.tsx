@@ -135,8 +135,6 @@ const UploadProduct: React.FC<{ stripeConnect: boolean }> = ({ stripeConnect }) 
         await fetch("")
     }
 
-    console.log(dates)
-
     if (!stripeConnect) {
         return (
             <form method="POST" action="/api/stripe/stripe-connect/create-link">

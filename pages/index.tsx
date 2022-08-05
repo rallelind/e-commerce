@@ -86,10 +86,8 @@ const ShowProduct = () => {
     if ((dates[0] !== null && dates[1] !== null) && dates.length === 2) {
 
       if((dates[1] >= new Date(bookedDates[0])) && (dates[0] <= new Date(bookedDates[bookedDates.length - 1]))) {
-        console.log("booked")
         return true
       } else {
-        console.log("not booked")
         return false
       }
     } else {
@@ -139,7 +137,6 @@ const ShowProduct = () => {
             return (
               <React.Fragment key={page.nextId ?? 'lastPage'}>
                 {page.posts.map((post, index) => {                
-              console.log(checkIfDatesChosenIsBooked(post.bookedDates))
               if(post.author.email !== session?.data?.user?.email && (featuresChecked(post.features) && datesChosen(post.dates) && !checkIfDatesChosenIsBooked(post.bookedDates))) {
                 return (
                 <ProductCard 

@@ -3,8 +3,6 @@ import { GiSurferVan } from "react-icons/gi"
 
 const ChatMessage = ({ message }) => {
 
-    console.log(message.createdAt.toDate())
-
     return (
         <div className="w-full mt-[2%]">
         <div className="flex w-full">

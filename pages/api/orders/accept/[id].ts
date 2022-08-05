@@ -23,11 +23,7 @@ export default async function handler(req, res) {
 
     }
 
-    console.log(datesToExclude)
-
     getDatesInRange(new Date(startDate), new Date(endDate))
-
-    console.log(datesToExclude)
 
     if(req.method === "PUT" && session) {
         const acceptOrder = await prisma.order.update({

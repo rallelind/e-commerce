@@ -18,7 +18,6 @@ const ProfileInfo = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
             })
-            console.log(body)
         } catch (error) {
             console.log(error)
         } finally {

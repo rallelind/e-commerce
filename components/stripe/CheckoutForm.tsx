@@ -28,8 +28,6 @@ export default function CheckoutForm() {
       return;
     }
 
-    console.log(stripe.retrievePaymentIntent(clientSecret))
-
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
 
       switch (paymentIntent.status) {
@@ -59,7 +57,6 @@ export default function CheckoutForm() {
     }
 
     setIsLoading(true);
-    console.log(process.env.NEXT_PUBLIC_STRIPE_RETURN_URL)
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {

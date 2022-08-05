@@ -48,7 +48,13 @@ export default function ProductPage(props) {
 
   const { query } = useRouter()
 
-  const [dates, setDates] = useState<[Date | null, Date | null]>(query.datesChosen ? [new Date(query.datesChosen[0]), new Date(query.datesChosen[1])] : [null, null]);
+  const chosenDates = query.datesChosen
+
+  const queryDatesChosen = chosenDates !== undefined && chosenDates.length === 2 && (chosenDates[0] !== "null" && chosenDates[1] !== "null")
+
+  console.log(chosenDates)
+
+  const [dates, setDates] = useState<[Date | null, Date | null]>(queryDatesChosen ? [new Date(query.datesChosen[0]), new Date(query.datesChosen[1])] : [null, null]);
 
   const [bookingSectionSmallScreen, setBookingSectionSmallScreen] =
     useState(false);

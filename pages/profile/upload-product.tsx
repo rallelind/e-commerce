@@ -12,8 +12,6 @@ export default function UploadProducts() {
 
     const { isLoading, data } = useQuery("user-stripe", fetchUserData)
 
-    console.log(data)
-
     return (
         <UserAppShell inbox={false} navbar={null}>
             {isLoading ? <Loading color="secondary" textColor="secondary" className="flex justify-center items-center h-full">Loading user information</Loading> : <UploadProduct stripeConnect={data.stripeConnect} />}

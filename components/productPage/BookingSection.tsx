@@ -23,8 +23,6 @@ const BookingSystem: React.FC<BookingProps> = ({ smallScreenBtn, serviceCost, to
 
     const bookingBreakPoint = useMediaQuery(920)
 
-    console.log(value)
-
     return (
         <>
         {!bookingBreakPoint ? (

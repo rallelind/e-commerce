@@ -44,8 +44,6 @@ export default async function handler(req, res) {
             } 
             const payment_intent = await stripe.paymentIntents.create(params);
 
-            console.log(payment_intent)
-
             res.status(200).json(payment_intent)
 
         } catch(error) {

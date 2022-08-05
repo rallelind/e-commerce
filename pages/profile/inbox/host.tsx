@@ -17,8 +17,6 @@ export default function HostInbox() {
 
     const { data, isLoading, isSuccess } = useQuery("product-orders", fetchProductOrders)
 
-    console.log(data)
-
     const [openChat, setOpenChat] = useState((isSuccess && data.length > 0) && data[0].chatChannel)
 
     const chatChannelOnclick = (hostChannel) => {

@@ -11,7 +11,6 @@ export default function SignIn({ providers }) {
   const matches = useMediaQuery("(min-width: 1200px)")
   const sm = useMediaQuery("(min-width: 500px)")
 
-  console.log(providers)
   return (
     <div>
         <Card shadow={sm ? true : false} className={loginStyles.container}>
