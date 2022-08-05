@@ -11,6 +11,9 @@ export default async function productOrders(req, res) {
           where: {
             product: { author: { email: session?.user?.email } },
             accepted: false,
+            startDate: {
+              gt: new Date(),
+            }
           },
           select: {
             id: true,
@@ -21,7 +24,7 @@ export default async function productOrders(req, res) {
               select: { image: true, name: true }
             },
             product: {
-              select: { image: true, title: true, id: true }
+              select: { image: true, title: true, id: true, bookedDates: true, dates: true }
             }
           }
         })

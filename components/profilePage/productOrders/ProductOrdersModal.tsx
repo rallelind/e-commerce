@@ -19,7 +19,7 @@ const ProductOrdersModal: React.FC<Modal> = ({ open, onClose, onClick, headline,
         >
             <Modal.Body>
                 <Text>
-                    <Text h4>
+                    <Text>
                         {headline}
                     </Text>
                 </Text>

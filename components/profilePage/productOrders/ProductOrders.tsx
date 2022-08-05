@@ -20,16 +20,10 @@ const ProductOrders = ({ productOrders, isLoading }) => {
 
     return (
         <Grid.Container gap={4}>
-            {productOrders.map((productOrder, i) => (
+            {productOrders.map((productOrder) => (
                 <ProductOrdersCards
-                    key={i}
-                    userName={productOrder.user.name}
-                    userImage={productOrder.user.image}
-                    startDate={productOrder.startDate}
-                    endDate={productOrder.endDate}
-                    productTitle={productOrder.product.title}
-                    productId={productOrder.product.id}
-                    orderId={productOrder.id}
+                    key={productOrder.id}
+                    productOrder={productOrder}
                 />
             ))}
         </Grid.Container>

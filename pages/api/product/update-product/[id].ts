@@ -15,6 +15,8 @@ export default async function handle(req, res) {
                 price: prices,
                 dates: dates,
                 features: features,
+                startDate: new Date(dates[0]).toISOString(),
+                endDate: new Date(dates[1]).toISOString(),
             }
         })
         res.json(updateProduct)
